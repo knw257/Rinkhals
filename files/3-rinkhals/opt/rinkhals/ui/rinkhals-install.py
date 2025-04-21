@@ -105,6 +105,10 @@ else:
     TOUCH_CALIBRATION_MAX_Y = 25
 
 
+class Diagnostic:
+    test = 1
+
+
 class Program:
     display = None
     last_screen_check = 0

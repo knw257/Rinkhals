@@ -13,6 +13,9 @@ import subprocess
 
 import paho.mqtt.client as paho
 
+#import importlib  
+#foobar = importlib.import_module("foo-bar")
+
 import lvgl as lv
 
 
