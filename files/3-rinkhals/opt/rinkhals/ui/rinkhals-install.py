@@ -99,14 +99,15 @@ if KOBRA_MODEL_CODE == 'KS1':
     TOUCH_CALIBRATION_MIN_Y = 480
     TOUCH_CALIBRATION_MAX_Y = 0
 else:
-    TOUCH_CALIBRATION_MIN_X = 235
-    TOUCH_CALIBRATION_MAX_X = 25
-    TOUCH_CALIBRATION_MIN_Y = 460
+    TOUCH_CALIBRATION_MIN_X = 25
+    TOUCH_CALIBRATION_MAX_X = 460
+    TOUCH_CALIBRATION_MIN_Y = 235
     TOUCH_CALIBRATION_MAX_Y = 25
 
 
 class Program:
     display = None
+    last_screen_check = 0
 
     def __init__(self):
         lv.init()
@@ -121,14 +122,24 @@ class Program:
             lv.linux_fbdev_set_file(self.display, '/dev/fb0')
 
             if SCREEN_ROTATION == 0: self.display.set_rotation(lv.DISPLAY_ROTATION._0)
-            elif SCREEN_ROTATION == 90: self.display.set_rotation(lv.DISPLAY_ROTATION._90)
+            elif SCREEN_ROTATION == 90: self.display.set_rotation(lv.DISPLAY_ROTATION._270)
             elif SCREEN_ROTATION == 180: self.display.set_rotation(lv.DISPLAY_ROTATION._180)
-            elif SCREEN_ROTATION == 270 or SCREEN_ROTATION == -90: self.display.set_rotation(lv.DISPLAY_ROTATION._270)
+            elif SCREEN_ROTATION == 270 or SCREEN_ROTATION == -90: self.display.set_rotation(lv.DISPLAY_ROTATION._90)
 
             touch = lv.evdev_create(lv.INDEV_TYPE.POINTER, '/dev/input/event0')
             touch.set_display(self.display)
-
+            
+            lv.evdev_grab_device(touch)
             lv.evdev_set_calibration(touch, TOUCH_CALIBRATION_MIN_X, TOUCH_CALIBRATION_MIN_Y, TOUCH_CALIBRATION_MAX_X, TOUCH_CALIBRATION_MAX_Y)
+
+            def screen_sleep_cb(e):
+                if time.time() - self.last_screen_check > 5:
+                    self.last_screen_check = time.time()
+                    brightness = shell('cat /sys/class/backlight/backlight/brightness')
+                    if brightness == '0':
+                        os.system('echo 255 > /sys/class/backlight/backlight/brightness')
+
+            touch.add_event_cb(screen_sleep_cb, lv.EVENT_CODE.CLICKED, None)
 
         if KOBRA_MODEL_CODE == 'KS1':
             self.display.set_dpi(180)
@@ -142,18 +153,17 @@ class Program:
         self.layout()
 
     def layout(self):
+        colors = [
+            lvr.COLOR_BACKGROUND,
+            lv.color_mix(lvr.COLOR_BACKGROUND, lvr.COLOR_PRIMARY, 224)
+        ]
+
+        gradient = lv.grad_dsc()
+        gradient.init_stops(colors, None, None, len(colors))
+        gradient.linear_init(lv.pct(0), lv.pct(0), lv.pct(100), lv.pct(50), lv.GRAD_EXTEND.PAD)
 
         self.screen_welcome = lvr.screen()
         if self.screen_welcome:
-            colors = [
-                lvr.COLOR_BACKGROUND,
-                lv.color_mix(lvr.COLOR_BACKGROUND, lvr.COLOR_PRIMARY, 224)
-            ]
-
-            gradient = lv.grad_dsc()
-            gradient.init_stops(colors, None, None, len(colors))
-            gradient.linear_init(lv.pct(0), lv.pct(0), lv.pct(100), lv.pct(50), lv.GRAD_EXTEND.PAD)
-
             self.screen_welcome.set_style_bg_grad(gradient, lv.STATE_DEFAULT)
             self.screen_welcome.set_style_bg_opa(lv.OPA_COVER, lv.STATE_DEFAULT)
 
@@ -161,234 +171,118 @@ class Program:
             self.screen_welcome.set_flex_align(lv.FLEX_ALIGN.CENTER, lv.FLEX_ALIGN.CENTER, lv.FLEX_ALIGN.CENTER)
             self.screen_welcome.set_style_pad_row(lv.dpx(25), lv.STATE_DEFAULT)
 
-            rinkhals_icon = lvr.image(self.screen_welcome)
-            rinkhals_icon.set_src(SCRIPT_PATH + '/icon.png')
-            lvr.scale_image(rinkhals_icon, lv.dpx(100))
-
-            def anim_cb(o, value):
-                rinkhals_icon.set_style_opa(value * 255 // 100, lv.STATE_DEFAULT)
-                rinkhals_icon.set_style_margin_top(-lv.dpx(int((100 - value) * 1.6)), lv.STATE_DEFAULT)
-
-            anim = lv.anim()
-            anim.set_exec_cb(anim_cb)
-            anim.set_duration(750)
-            anim.set_values(0, 100)
-            anim.set_path_cb(lv.anim_path_ease_out)
+            image_rinkhals = lvr.image(self.screen_welcome)
+            image_rinkhals.set_src(SCRIPT_PATH + '/icon.png')
+            lvr.scale_image(image_rinkhals, lv.dpx(100))
+            
+            label_title = lvr.title(self.screen_welcome)
+            label_title.set_text('Rinkhals Installer')
 
             button_start = lvr.button(self.screen_welcome)
             button_start.set_width(lv.dpx(200))
-            button_start.add_event_cb(lambda e: anim.start(), lv.EVENT_CODE.CLICKED, None)
+            button_start.set_style_margin_top(lv.dpx(20), lv.STATE_DEFAULT)
+            button_start.add_event_cb(lambda e: self.show_screen(self.screen_main), lv.EVENT_CODE.CLICKED, None)
             button_start_label = lvr.label(button_start)
             button_start_label.set_text('Continue')
             button_start_label.center()
 
+            def anim_1_cb(o, value, image_rinkhals=image_rinkhals, label_title=label_title):
+                image_rinkhals.set_style_opa(value * 255 // 100, lv.STATE_DEFAULT)
+                image_rinkhals.set_style_margin_top(-lv.dpx(int((100 - value) * 1.6)), lv.STATE_DEFAULT)
+                label_title.set_style_opa(value * 255 // 100, lv.STATE_DEFAULT)
+
+            def anim_2_cb(o, value, button_start=button_start):
+                button_start.set_style_opa(value * 255 // 100, lv.STATE_DEFAULT)
+
+            anim_1 = lv.anim()
+            anim_1.set_exec_cb(anim_1_cb)
+            anim_1.set_delay(500)
+            anim_1.set_duration(750)
+            anim_1.set_values(0, 100)
+            anim_1.set_path_cb(lv.anim_path_ease_out)
+            
+            anim_2 = lv.anim()
+            anim_2.set_exec_cb(anim_2_cb)
+            anim_2.set_delay(500 + 750)
+            anim_2.set_duration(750)
+            anim_2.set_values(0, 100)
+            anim_2.set_path_cb(lv.anim_path_ease_out)
+
         self.screen_main = lvr.screen()
         if self.screen_main:
-            pass
+            self.screen_main.set_style_bg_grad(gradient, lv.STATE_DEFAULT)
+            self.screen_main.set_style_bg_opa(lv.OPA_COVER, lv.STATE_DEFAULT)
+            self.screen_main.set_flex_flow(lv.FLEX_FLOW.COLUMN)
+            self.screen_main.set_flex_align(lv.FLEX_ALIGN.START, lv.FLEX_ALIGN.CENTER, lv.FLEX_ALIGN.CENTER)
 
-        lv.screen_load(self.screen_welcome)
-        anim.start()
+            image_rinkhals = lvr.image(self.screen_main)
+            image_rinkhals.set_src(SCRIPT_PATH + '/icon.png')
+            lvr.scale_image(image_rinkhals, lv.dpx(64))
 
-        return
+            label_title = lvr.title(self.screen_main)
+            label_title.set_text('Rinkhals Installer')
+            label_title.align(lv.ALIGN.TOP_LEFT, lv.dpx(84), lv.dpx(0))
 
+            label_version = lvr.subtitle(self.screen_main)
+            label_version.set_text('dev')
+            label_version.align(lv.ALIGN.TOP_LEFT, lv.dpx(84), lv.dpx(40))
 
-        self.screen_container = lvr.screen()
-        self.screen_container.set_style_pad_all(0, lv.STATE_DEFAULT)
+            panel_tags = lvr.panel(self.screen_main)
+            panel_tags.set_width(lv.pct(100))
+            panel_tags.set_align(lv.ALIGN.BOTTOM_MID)
+            panel_tags.set_style_bg_opa(lv.OPA_TRANSP, lv.STATE_DEFAULT)
+            panel_tags.set_style_pad_all(0, lv.STATE_DEFAULT)
+            panel_tags.set_flex_flow(lv.FLEX_FLOW.COLUMN)
+            panel_tags.set_flex_align(lv.FLEX_ALIGN.START, lv.FLEX_ALIGN.CENTER, lv.FLEX_ALIGN.CENTER)
 
-        if SCREEN_WIDTH > SCREEN_HEIGHT:
-            self.screen_composition = self.screen_container
-            self.screen_container = lvr.panel(self.screen_composition)
-
-        self.screen_rinkhals = lvr.panel(self.screen_container)
-        if self.screen_rinkhals:
-            self.screen_rinkhals.set_flex_flow(lv.FLEX_FLOW.COLUMN)
-            self.screen_rinkhals.set_flex_align(lv.FLEX_ALIGN.CENTER, lv.FLEX_ALIGN.CENTER, lv.FLEX_ALIGN.CENTER)
-            self.screen_rinkhals.set_style_pad_row(-lv.dpx(3), lv.STATE_DEFAULT)
-
-            rinkhals_icon = lvr.image(self.screen_rinkhals)
-            rinkhals_icon.set_src(SCRIPT_PATH + '/icon.png')
-            lvr.scale_image(rinkhals_icon, lv.dpx(90))
-
-            label_rinkhals = lvr.title(self.screen_rinkhals)
-            label_rinkhals.set_text('Rinkhals')
-            label_rinkhals.set_style_pad_top(lv.dpx(20), lv.STATE_DEFAULT)
-            label_rinkhals.set_style_pad_bottom(lv.dpx(10), lv.STATE_DEFAULT)
+            tag_test_1 = lvr.tag(panel_tags)
+            tag_test_1.set_icon('')
+            tag_test_1.set_text('Configuration error')
+            tag_test_1.set_color(lv.color_make(160, 0, 0))
             
-            self.screen_rinkhals.label_firmware = lvr.subtitle(self.screen_rinkhals)
-            self.screen_rinkhals.label_firmware.set_text('Firmware:')
+            tag_test_2 = lvr.tag(panel_tags)
+            tag_test_2.set_icon('')
+            tag_test_2.set_text('Everything is awesome!')
+            tag_test_2.set_color(lv.color_make(0, 160, 0))
 
-            self.screen_rinkhals.label_version = lvr.subtitle(self.screen_rinkhals)
-            self.screen_rinkhals.label_version.set_text('Version:')
-            
-            self.screen_rinkhals.label_root = lvr.subtitle(self.screen_rinkhals)
-            self.screen_rinkhals.label_root.set_text('Root: ?')
-            
-            self.screen_rinkhals.label_home = lvr.subtitle(self.screen_rinkhals)
-            self.screen_rinkhals.label_home.set_text('Home: ?')
-            
-            self.screen_rinkhals.label_disk = lvr.subtitle(self.screen_rinkhals)
-            self.screen_rinkhals.label_disk.set_text('Disk usage: ?')
 
-            button_exit = lvr.button_icon(self.screen_rinkhals)
-            button_exit.add_flag(lv.OBJ_FLAG.IGNORE_LAYOUT)
-            button_exit.align(lv.ALIGN.TOP_LEFT, -lvr.GLOBAL_PADDING, -lvr.GLOBAL_PADDING)
-            button_exit.add_event_cb(lambda e: self.quit(), lv.EVENT_CODE.CLICKED, None)
-            button_exit_label = lvr.label(button_exit)
-            button_exit_label.center()
-            button_exit_label.set_text('')
+            button_install = lvr.button(self.screen_main)
+            button_install.set_width(lv.pct(100))
+            button_install_label = lv.label(button_install)
+            button_install_label.set_text('Install / Update')
+            button_install_label.center()
 
-        self.layer_dialog = lvr.panel(lv.layer_top())
-        if self.layer_dialog:
-            self.layer_dialog.set_size(lv.pct(100), lv.pct(100))
-            self.layer_dialog.set_style_bg_color(lv.color_black(), lv.STATE_DEFAULT)
-            self.layer_dialog.set_style_bg_opa(160, lv.STATE_DEFAULT)
-            self.layer_dialog.add_flag(lv.OBJ_FLAG.HIDDEN)
+            button_tools = lvr.button(self.screen_main)
+            button_tools.set_width(lv.pct(100))
+            button_tools_label = lv.label(button_tools)
+            button_tools_label.set_text('Tools')
+            button_tools_label.center()
 
-            panel_dialog = lvr.panel(self.layer_dialog)
-            panel_dialog.set_width(lv.dpx(320))
-            panel_dialog.set_style_radius(8, lv.STATE_DEFAULT)
-            panel_dialog.set_style_pad_all(lv.dpx(20), lv.STATE_DEFAULT)
-            panel_dialog.set_flex_flow(lv.FLEX_FLOW.COLUMN)
-            panel_dialog.set_flex_align(lv.FLEX_ALIGN.START, lv.FLEX_ALIGN.CENTER, lv.FLEX_ALIGN.CENTER)
+            button_diagnostics = lvr.button(self.screen_main)
+            button_diagnostics.set_width(lv.pct(100))
+            button_diagnostics_label = lv.label(button_diagnostics)
+            button_diagnostics_label.set_text('Diagnostics')
+            button_diagnostics_label.center()
 
-            panel_dialog.center()
-            
-            self.layer_dialog.message = lvr.label(panel_dialog)
-            self.layer_dialog.message.set_style_pad_bottom(lv.dpx(15), lv.STATE_DEFAULT)
-            self.layer_dialog.message.set_style_text_align(lv.TEXT_ALIGN.CENTER, lv.STATE_DEFAULT)
-            self.layer_dialog.message.set_text('Hello World!')
+        lv.screen_load(self.screen_main)
 
-            self.layer_dialog.qrcode = lv.qrcode(panel_dialog)
-            self.layer_dialog.qrcode.set_size(lv.dpx(224))
-            self.layer_dialog.qrcode.update('https://github.com/jbatonnet/Rinkhals')
-
-            self.layer_dialog.button_action = lvr.button(panel_dialog)
-            self.layer_dialog.button_action.set_style_min_width(lv.dpx(160), lv.STATE_DEFAULT)
-            self.layer_dialog.button_action_label = lvr.label(self.layer_dialog.button_action)
-            self.layer_dialog.button_action_label.set_text('Action')
-            self.layer_dialog.button_action_label.center()
-
-            def action_callback(e):
-                self.layer_dialog.add_flag(lv.OBJ_FLAG.HIDDEN)
-
-                if self.layer_dialog.callback_action:
-                    self.layer_dialog.callback_action()
-
-            self.layer_dialog.button_action.add_event_cb(action_callback, lv.EVENT_CODE.CLICKED, None)
-            self.layer_dialog.add_event_cb(lambda e: self.layer_dialog.add_flag(lv.OBJ_FLAG.HIDDEN), lv.EVENT_CODE.CLICKED, None)
-
-        if SCREEN_WIDTH > SCREEN_HEIGHT:
-            self.screen_rinkhals.set_parent(self.screen_composition)
-            self.screen_rinkhals.set_align(lv.ALIGN.LEFT_MID)
-            self.screen_rinkhals.set_width(lv.pct(50))
-            self.screen_rinkhals.set_height(lv.pct(100))
-
-            self.screen_container.set_style_bg_color(lv.color_make(64, 0, 0), lv.STATE_DEFAULT)
-            self.screen_container.set_style_pad_all(0, lv.STATE_DEFAULT)
-            self.screen_container.set_align(lv.ALIGN.RIGHT_MID)
-            self.screen_container.set_width(lv.pct(50))
-            self.screen_container.set_height(lv.pct(100))
-
-            lv.screen_load(self.screen_composition)
-        else:
-            self.screen_rinkhals.set_align(lv.ALIGN.TOP_MID)
-            self.screen_rinkhals.set_width(lv.pct(100))
-            self.screen_rinkhals.set_height(lv.pct(50))
-
-            self.screen_main.set_align(lv.ALIGN.BOTTOM_MID)
-            self.screen_main.set_width(lv.pct(100))
-            self.screen_main.set_height(lv.pct(50))
-            
-            screen_composition = lvr.panel(self.screen_container)
-            screen_composition.set_style_pad_all(0, lv.STATE_DEFAULT)
-            screen_composition.set_size(lv.pct(100), lv.pct(100))
-
-            self.screen_rinkhals.set_parent(screen_composition)
-            self.screen_main.set_parent(screen_composition)
-
-            self.screen_main = screen_composition
-            lv.screen_load(self.screen_container)
-
-        self.show_screen(self.screen_main)
+        anim_1.start()
+        anim_2.start()
 
     def show_screen(self, screen):
-        screen.move_foreground()
-
-        if screen == self.screen_main: self.layout_main()
-
-    def layout_main(self):
-        pass
-
-    def show_text_dialog(self, text, action='OK', action_color=None, callback=None):
-        self.layer_dialog.callback_action = callback
-
-        self.layer_dialog.message.set_text(text)
-        self.layer_dialog.message.remove_flag(lv.OBJ_FLAG.HIDDEN)
-        self.layer_dialog.qrcode.add_flag(lv.OBJ_FLAG.HIDDEN)
-        self.layer_dialog.button_action_label.set_text(action)
-        self.layer_dialog.button_action_label.set_style_text_color(action_color if action_color else lvr.COLOR_TEXT, lv.STATE_DEFAULT)
-
-        self.layer_dialog.remove_flag(lv.OBJ_FLAG.HIDDEN)
-    def show_qr_dialog(self, content, text=None):
-        if text:
-            self.layer_dialog.message.set_text(text)
-            self.layer_dialog.message.remove_flag(lv.OBJ_FLAG.HIDDEN)
+        parent = screen.get_parent()
+        if parent:
+            screen.move_foreground()
         else:
-            self.layer_dialog.message.add_flag(lv.OBJ_FLAG.HIDDEN)
-        self.layer_dialog.qrcode.remove_flag(lv.OBJ_FLAG.HIDDEN)
-        self.layer_dialog.qrcode.update(content)
-        self.layer_dialog.button_action_label.set_text('OK')
-        self.layer_dialog.button_action_label.set_style_text_color(lvr.COLOR_TEXT, lv.STATE_DEFAULT)
+            lv.screen_load(screen)
 
-        self.layer_dialog.remove_flag(lv.OBJ_FLAG.HIDDEN)
+        #if screen == self.screen_main: self.layout_main()
 
-    def reboot_printer(self, e=None):
-        logging.info('Rebooting printer...')
-
-        if not USING_SIMULATOR:
-            self.clear()
-            os.system('sync && reboot')
-        else:
-            self.quit()
-    def restart_rinkhals(self, e=None):
-        logging.info('Restarting Rinkhals...')
-
-        if not USING_SIMULATOR:
-            self.clear()
-            os.system(RINKHALS_ROOT + '/start.sh')
-
-        self.quit()
-    def stop_rinkhals(self, e=None):
-        logging.info('Stopping Rinkhals...')
-
-        if not USING_SIMULATOR:
-            self.clear()
-            os.system(RINKHALS_ROOT + '/stop.sh')
-
-        self.quit()
-    def disable_rinkhals(self, e=None):
-        logging.info('Disabling Rinkhals...')
-
-        if not USING_SIMULATOR:
-            self.clear()
-            with open('/useremain/rinkhals/.disable-rinkhals', 'wb'):
-                pass
-            os.system('reboot')
-
-        self.quit()
-
-    def clear(self):
-        if not USING_SIMULATOR:
-            os.system(f'dd if=/dev/zero of=/dev/fb0 bs={self.screen.width * 4} count={self.screen.height}')
     def run(self):
         while True:
             lv.tick_inc(16)
             lv.timer_handler()
             time.sleep(0.016)
-    def quit(self):
-        logging.info('Exiting Rinkhals UI...')
-        time.sleep(0.25)
-        os.kill(os.getpid(), 9)
 
 
 if __name__ == "__main__":

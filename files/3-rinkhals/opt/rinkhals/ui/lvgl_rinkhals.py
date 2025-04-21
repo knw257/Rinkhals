@@ -25,6 +25,7 @@ font_text = lv.tiny_ttf_create_file(SCRIPT_PATH + '/AlibabaSans-Regular.ttf', in
 font_title = lv.tiny_ttf_create_file(SCRIPT_PATH + '/AlibabaSans-Regular.ttf', int(lv.dpx(22)))
 font_subtitle = lv.tiny_ttf_create_file(SCRIPT_PATH + '/AlibabaSans-Regular.ttf', int(lv.dpx(16)))
 font_icon = lv.tiny_ttf_create_file(SCRIPT_PATH + '/MaterialIcons-Regular.ttf', int(lv.dpx(32)))
+font_icon_small = lv.tiny_ttf_create_file(SCRIPT_PATH + '/MaterialIcons-Regular.ttf', int(lv.dpx(20)))
 
 # Shared styles
 style_debug = lv.style()
@@ -113,6 +114,21 @@ if style_checkbox:
     style_checkbox.set_min_width(0)
     style_checkbox.set_text_font(font_icon)
     style_checkbox.set_radius(lv.dpx(8))
+
+style_tag = lv.style()
+if style_tag:
+    style_tag.set_text_font(font_subtitle)
+    style_tag.set_text_color(COLOR_TEXT)
+    style_tag.set_bg_opa(lv.OPA_COVER)
+    style_tag.set_pad_ver(lv.dpx(5))
+    style_tag.set_pad_left(lv.dpx(5))
+    style_tag.set_pad_right(lv.dpx(15))
+    style_tag.set_radius(lv.dpx(25))
+    style_tag.set_width(lv.SIZE_CONTENT)
+    style_tag.set_height(lv.SIZE_CONTENT)
+    style_tag.set_border_width(0)
+    style_tag.set_text_color(COLOR_BACKGROUND)
+    pass
 
 
 # Styled objects
@@ -223,6 +239,38 @@ def flex_container(parent, flow = lv.FLEX_FLOW.COLUMN, align = lv.FLEX_ALIGN.STA
         result.set_style_pad_top(GLOBAL_PADDING, lv.STATE.DEFAULT)
         result.set_style_pad_bottom(GLOBAL_PADDING, lv.STATE.DEFAULT)
         result.set_style_pad_column(GLOBAL_PADDING, lv.STATE.DEFAULT)
+
+    return result
+
+def tag(parent):
+    result = lv.obj(parent)
+    result.set_flex_flow(lv.FLEX_FLOW.ROW)
+    result.set_flex_align(lv.FLEX_ALIGN.START, lv.FLEX_ALIGN.CENTER, lv.FLEX_ALIGN.CENTER)
+    result.add_style(style_tag, lv.STATE_DEFAULT)
+    result.add_style(style_debug, lv.STATE_DEFAULT)
+
+    result_icon = label(result)
+    result_icon.set_style_text_font(font_icon_small, lv.STATE_DEFAULT)
+    result_icon.set_align(lv.ALIGN.LEFT_MID)
+    result_icon.set_style_bg_opa(lv.OPA_COVER, lv.STATE_DEFAULT)
+    result_icon.set_style_pad_all(lv.dpx(8), lv.STATE_DEFAULT)
+    result_icon.set_style_radius(lv.dpx(20), lv.STATE_DEFAULT)
+    result_icon.set_style_bg_color(lv.color_white(), lv.STATE_DEFAULT)
+    
+    result_label = label(result)
+    
+    def set_icon(icon):
+        result_icon.set_text(icon)
+    def set_text(text):
+        result_label.set_text(text)
+    def set_color(color):
+        result.set_style_bg_color(lv.color_lighten(color, 144), lv.STATE_DEFAULT)
+        result_icon.set_style_text_color(lv.color_darken(color, 128), lv.STATE_DEFAULT)
+        #result_icon.set_style_bg_color(lv.color_lighten(color, 64), lv.STATE_DEFAULT)
+
+    result.set_icon = set_icon
+    result.set_text = set_text
+    result.set_color = set_color
 
     return result
 
