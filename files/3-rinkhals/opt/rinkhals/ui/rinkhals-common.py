@@ -228,7 +228,7 @@ class Helpers:
 
 
 
-class BaseApp:
+class BaseProgram:
 
 
     def __init__(self):
