@@ -81,236 +81,243 @@ else:
 
 from enum import Enum
 
-OPA_TRANSP = 0
-OPA_0 = 0
-OPA_10 = 25
-OPA_20 = 51
-OPA_30 = 76
-OPA_40 = 102
-OPA_50 = 127
-OPA_60 = 153
-OPA_70 = 178
-OPA_80 = 204
-OPA_90 = 229
-OPA_100 = 255
-OPA_COVER = 255
+class OPA(Enum):
+    TRANSP = 0
+    _0 = 0
+    _10 = 25
+    _20 = 51
+    _30 = 76
+    _40 = 102
+    _50 = 127
+    _60 = 153
+    _70 = 178
+    _80 = 204
+    _90 = 229
+    _100 = 255
+    COVER = 255
 
-TREE_WALK_PRE_ORDER = 0
-TREE_WALK_POST_ORDER = 1
+class TREE_WALK(Enum):
+    PRE_ORDER = 0
+    POST_ORDER = 1
 
-STR_SYMBOL_BULLET = 0
-STR_SYMBOL_AUDIO = 1
-STR_SYMBOL_VIDEO = 2
-STR_SYMBOL_LIST = 3
-STR_SYMBOL_OK = 4
-STR_SYMBOL_CLOSE = 5
-STR_SYMBOL_POWER = 6
-STR_SYMBOL_SETTINGS = 7
-STR_SYMBOL_HOME = 8
-STR_SYMBOL_DOWNLOAD = 9
-STR_SYMBOL_DRIVE = 10
-STR_SYMBOL_REFRESH = 11
-STR_SYMBOL_MUTE = 12
-STR_SYMBOL_VOLUME_MID = 13
-STR_SYMBOL_VOLUME_MAX = 14
-STR_SYMBOL_IMAGE = 15
-STR_SYMBOL_TINT = 16
-STR_SYMBOL_PREV = 17
-STR_SYMBOL_PLAY = 18
-STR_SYMBOL_PAUSE = 19
-STR_SYMBOL_STOP = 20
-STR_SYMBOL_NEXT = 21
-STR_SYMBOL_EJECT = 22
-STR_SYMBOL_LEFT = 23
-STR_SYMBOL_RIGHT = 24
-STR_SYMBOL_PLUS = 25
-STR_SYMBOL_MINUS = 26
-STR_SYMBOL_EYE_OPEN = 27
-STR_SYMBOL_EYE_CLOSE = 28
-STR_SYMBOL_WARNING = 29
-STR_SYMBOL_SHUFFLE = 30
-STR_SYMBOL_UP = 31
-STR_SYMBOL_DOWN = 32
-STR_SYMBOL_LOOP = 33
-STR_SYMBOL_DIRECTORY = 34
-STR_SYMBOL_UPLOAD = 35
-STR_SYMBOL_CALL = 36
-STR_SYMBOL_CUT = 37
-STR_SYMBOL_COPY = 38
-STR_SYMBOL_SAVE = 39
-STR_SYMBOL_BARS = 40
-STR_SYMBOL_ENVELOPE = 41
-STR_SYMBOL_CHARGE = 42
-STR_SYMBOL_PASTE = 43
-STR_SYMBOL_BELL = 44
-STR_SYMBOL_KEYBOARD = 45
-STR_SYMBOL_GPS = 46
-STR_SYMBOL_FILE = 47
-STR_SYMBOL_WIFI = 48
-STR_SYMBOL_BATTERY_FULL = 49
-STR_SYMBOL_BATTERY_3 = 50
-STR_SYMBOL_BATTERY_2 = 51
-STR_SYMBOL_BATTERY_1 = 52
-STR_SYMBOL_BATTERY_EMPTY = 53
-STR_SYMBOL_USB = 54
-STR_SYMBOL_BLUETOOTH = 55
-STR_SYMBOL_TRASH = 56
-STR_SYMBOL_EDIT = 57
-STR_SYMBOL_BACKSPACE = 58
-STR_SYMBOL_SD_CARD = 59
-STR_SYMBOL_NEW_LINE = 60
-STR_SYMBOL_DUMMY = 61
+class STR_SYMBOL(Enum):
+    BULLET = 0
+    AUDIO = 1
+    VIDEO = 2
+    LIST = 3
+    OK = 4
+    CLOSE = 5
+    POWER = 6
+    SETTINGS = 7
+    HOME = 8
+    DOWNLOAD = 9
+    DRIVE = 10
+    REFRESH = 11
+    MUTE = 12
+    VOLUME_MID = 13
+    VOLUME_MAX = 14
+    IMAGE = 15
+    TINT = 16
+    PREV = 17
+    PLAY = 18
+    PAUSE = 19
+    STOP = 20
+    NEXT = 21
+    EJECT = 22
+    LEFT = 23
+    RIGHT = 24
+    PLUS = 25
+    MINUS = 26
+    EYE_OPEN = 27
+    EYE_CLOSE = 28
+    WARNING = 29
+    SHUFFLE = 30
+    UP = 31
+    DOWN = 32
+    LOOP = 33
+    DIRECTORY = 34
+    UPLOAD = 35
+    CALL = 36
+    CUT = 37
+    COPY = 38
+    SAVE = 39
+    BARS = 40
+    ENVELOPE = 41
+    CHARGE = 42
+    PASTE = 43
+    BELL = 44
+    KEYBOARD = 45
+    GPS = 46
+    FILE = 47
+    WIFI = 48
+    BATTERY_FULL = 49
+    BATTERY_3 = 50
+    BATTERY_2 = 51
+    BATTERY_1 = 52
+    BATTERY_EMPTY = 53
+    USB = 54
+    BLUETOOTH = 55
+    TRASH = 56
+    EDIT = 57
+    BACKSPACE = 58
+    SD_CARD = 59
+    NEW_LINE = 60
+    DUMMY = 61
 
-STYLE_PROP_INV = 0
-STYLE_WIDTH = 1
-STYLE_HEIGHT = 2
-STYLE_LENGTH = 3
-STYLE_MIN_WIDTH = 4
-STYLE_MAX_WIDTH = 5
-STYLE_MIN_HEIGHT = 6
-STYLE_MAX_HEIGHT = 7
-STYLE_X = 8
-STYLE_Y = 9
-STYLE_ALIGN = 10
-STYLE_RADIUS = 12
-STYLE_RADIAL_OFFSET = 13
-STYLE_PAD_RADIAL = 14
-STYLE_PAD_TOP = 16
-STYLE_PAD_BOTTOM = 17
-STYLE_PAD_LEFT = 18
-STYLE_PAD_RIGHT = 19
-STYLE_PAD_ROW = 20
-STYLE_PAD_COLUMN = 21
-STYLE_LAYOUT = 22
-STYLE_MARGIN_TOP = 24
-STYLE_MARGIN_BOTTOM = 25
-STYLE_MARGIN_LEFT = 26
-STYLE_MARGIN_RIGHT = 27
-STYLE_BG_COLOR = 28
-STYLE_BG_OPA = 29
-STYLE_BG_GRAD_DIR = 32
-STYLE_BG_MAIN_STOP = 33
-STYLE_BG_GRAD_STOP = 34
-STYLE_BG_GRAD_COLOR = 35
-STYLE_BG_MAIN_OPA = 36
-STYLE_BG_GRAD_OPA = 37
-STYLE_BG_GRAD = 38
-STYLE_BASE_DIR = 39
-STYLE_BG_IMAGE_SRC = 40
-STYLE_BG_IMAGE_OPA = 41
-STYLE_BG_IMAGE_RECOLOR = 42
-STYLE_BG_IMAGE_RECOLOR_OPA = 43
-STYLE_BG_IMAGE_TILED = 44
-STYLE_CLIP_CORNER = 45
-STYLE_BORDER_WIDTH = 48
-STYLE_BORDER_COLOR = 49
-STYLE_BORDER_OPA = 50
-STYLE_BORDER_SIDE = 52
-STYLE_BORDER_POST = 53
-STYLE_OUTLINE_WIDTH = 56
-STYLE_OUTLINE_COLOR = 57
-STYLE_OUTLINE_OPA = 58
-STYLE_OUTLINE_PAD = 59
-STYLE_SHADOW_WIDTH = 60
-STYLE_SHADOW_COLOR = 61
-STYLE_SHADOW_OPA = 62
-STYLE_SHADOW_OFFSET_X = 64
-STYLE_SHADOW_OFFSET_Y = 65
-STYLE_SHADOW_SPREAD = 66
-STYLE_IMAGE_OPA = 68
-STYLE_IMAGE_RECOLOR = 69
-STYLE_IMAGE_RECOLOR_OPA = 70
-STYLE_LINE_WIDTH = 72
-STYLE_LINE_DASH_WIDTH = 73
-STYLE_LINE_DASH_GAP = 74
-STYLE_LINE_ROUNDED = 75
-STYLE_LINE_COLOR = 76
-STYLE_LINE_OPA = 77
-STYLE_ARC_WIDTH = 80
-STYLE_ARC_ROUNDED = 81
-STYLE_ARC_COLOR = 82
-STYLE_ARC_OPA = 83
-STYLE_ARC_IMAGE_SRC = 84
-STYLE_TEXT_COLOR = 88
-STYLE_TEXT_OPA = 89
-STYLE_TEXT_FONT = 90
-STYLE_TEXT_LETTER_SPACE = 91
-STYLE_TEXT_LINE_SPACE = 92
-STYLE_TEXT_DECOR = 93
-STYLE_TEXT_ALIGN = 94
-STYLE_TEXT_OUTLINE_STROKE_WIDTH = 95
-STYLE_TEXT_OUTLINE_STROKE_OPA = 96
-STYLE_TEXT_OUTLINE_STROKE_COLOR = 97
-STYLE_OPA = 98
-STYLE_OPA_LAYERED = 99
-STYLE_COLOR_FILTER_DSC = 100
-STYLE_COLOR_FILTER_OPA = 101
-STYLE_ANIM = 102
-STYLE_ANIM_DURATION = 103
-STYLE_TRANSITION = 104
-STYLE_BLEND_MODE = 105
-STYLE_TRANSFORM_WIDTH = 106
-STYLE_TRANSFORM_HEIGHT = 107
-STYLE_TRANSLATE_X = 108
-STYLE_TRANSLATE_Y = 109
-STYLE_TRANSFORM_SCALE_X = 110
-STYLE_TRANSFORM_SCALE_Y = 111
-STYLE_TRANSFORM_ROTATION = 112
-STYLE_TRANSFORM_PIVOT_X = 113
-STYLE_TRANSFORM_PIVOT_Y = 114
-STYLE_TRANSFORM_SKEW_X = 115
-STYLE_TRANSFORM_SKEW_Y = 116
-STYLE_BITMAP_MASK_SRC = 117
-STYLE_ROTARY_SENSITIVITY = 118
-STYLE_TRANSLATE_RADIAL = 119
-STYLE_RECOLOR = 120
-STYLE_RECOLOR_OPA = 121
-STYLE_FLEX_FLOW = 122
-STYLE_FLEX_MAIN_PLACE = 123
-STYLE_FLEX_CROSS_PLACE = 124
-STYLE_FLEX_TRACK_PLACE = 125
-STYLE_FLEX_GROW = 126
-STYLE_GRID_COLUMN_ALIGN = 127
-STYLE_GRID_ROW_ALIGN = 128
-STYLE_GRID_ROW_DSC_ARRAY = 129
-STYLE_GRID_COLUMN_DSC_ARRAY = 130
-STYLE_GRID_CELL_COLUMN_POS = 131
-STYLE_GRID_CELL_COLUMN_SPAN = 132
-STYLE_GRID_CELL_X_ALIGN = 133
-STYLE_GRID_CELL_ROW_POS = 134
-STYLE_GRID_CELL_ROW_SPAN = 135
-STYLE_GRID_CELL_Y_ALIGN = 136
-STYLE_LAST_BUILT_IN_PROP = 137
-STYLE_NUM_BUILT_IN_PROPS = 138
-STYLE_PROP_ANY = 255
-STYLE_PROP_CONST = 255
+class STYLE(Enum):
+    PROP_INV = 0
+    WIDTH = 1
+    HEIGHT = 2
+    LENGTH = 3
+    MIN_WIDTH = 4
+    MAX_WIDTH = 5
+    MIN_HEIGHT = 6
+    MAX_HEIGHT = 7
+    X = 8
+    Y = 9
+    ALIGN = 10
+    RADIUS = 12
+    RADIAL_OFFSET = 13
+    PAD_RADIAL = 14
+    PAD_TOP = 16
+    PAD_BOTTOM = 17
+    PAD_LEFT = 18
+    PAD_RIGHT = 19
+    PAD_ROW = 20
+    PAD_COLUMN = 21
+    LAYOUT = 22
+    MARGIN_TOP = 24
+    MARGIN_BOTTOM = 25
+    MARGIN_LEFT = 26
+    MARGIN_RIGHT = 27
+    BG_COLOR = 28
+    BG_OPA = 29
+    BG_GRAD_DIR = 32
+    BG_MAIN_STOP = 33
+    BG_GRAD_STOP = 34
+    BG_GRAD_COLOR = 35
+    BG_MAIN_OPA = 36
+    BG_GRAD_OPA = 37
+    BG_GRAD = 38
+    BASE_DIR = 39
+    BG_IMAGE_SRC = 40
+    BG_IMAGE_OPA = 41
+    BG_IMAGE_RECOLOR = 42
+    BG_IMAGE_RECOLOR_OPA = 43
+    BG_IMAGE_TILED = 44
+    CLIP_CORNER = 45
+    BORDER_WIDTH = 48
+    BORDER_COLOR = 49
+    BORDER_OPA = 50
+    BORDER_SIDE = 52
+    BORDER_POST = 53
+    OUTLINE_WIDTH = 56
+    OUTLINE_COLOR = 57
+    OUTLINE_OPA = 58
+    OUTLINE_PAD = 59
+    SHADOW_WIDTH = 60
+    SHADOW_COLOR = 61
+    SHADOW_OPA = 62
+    SHADOW_OFFSET_X = 64
+    SHADOW_OFFSET_Y = 65
+    SHADOW_SPREAD = 66
+    IMAGE_OPA = 68
+    IMAGE_RECOLOR = 69
+    IMAGE_RECOLOR_OPA = 70
+    LINE_WIDTH = 72
+    LINE_DASH_WIDTH = 73
+    LINE_DASH_GAP = 74
+    LINE_ROUNDED = 75
+    LINE_COLOR = 76
+    LINE_OPA = 77
+    ARC_WIDTH = 80
+    ARC_ROUNDED = 81
+    ARC_COLOR = 82
+    ARC_OPA = 83
+    ARC_IMAGE_SRC = 84
+    TEXT_COLOR = 88
+    TEXT_OPA = 89
+    TEXT_FONT = 90
+    TEXT_LETTER_SPACE = 91
+    TEXT_LINE_SPACE = 92
+    TEXT_DECOR = 93
+    TEXT_ALIGN = 94
+    TEXT_OUTLINE_STROKE_WIDTH = 95
+    TEXT_OUTLINE_STROKE_OPA = 96
+    TEXT_OUTLINE_STROKE_COLOR = 97
+    OPA = 98
+    OPA_LAYERED = 99
+    COLOR_FILTER_DSC = 100
+    COLOR_FILTER_OPA = 101
+    ANIM = 102
+    ANIM_DURATION = 103
+    TRANSITION = 104
+    BLEND_MODE = 105
+    TRANSFORM_WIDTH = 106
+    TRANSFORM_HEIGHT = 107
+    TRANSLATE_X = 108
+    TRANSLATE_Y = 109
+    TRANSFORM_SCALE_X = 110
+    TRANSFORM_SCALE_Y = 111
+    TRANSFORM_ROTATION = 112
+    TRANSFORM_PIVOT_X = 113
+    TRANSFORM_PIVOT_Y = 114
+    TRANSFORM_SKEW_X = 115
+    TRANSFORM_SKEW_Y = 116
+    BITMAP_MASK_SRC = 117
+    ROTARY_SENSITIVITY = 118
+    TRANSLATE_RADIAL = 119
+    RECOLOR = 120
+    RECOLOR_OPA = 121
+    FLEX_FLOW = 122
+    FLEX_MAIN_PLACE = 123
+    FLEX_CROSS_PLACE = 124
+    FLEX_TRACK_PLACE = 125
+    FLEX_GROW = 126
+    GRID_COLUMN_ALIGN = 127
+    GRID_ROW_ALIGN = 128
+    GRID_ROW_DSC_ARRAY = 129
+    GRID_COLUMN_DSC_ARRAY = 130
+    GRID_CELL_COLUMN_POS = 131
+    GRID_CELL_COLUMN_SPAN = 132
+    GRID_CELL_X_ALIGN = 133
+    GRID_CELL_ROW_POS = 134
+    GRID_CELL_ROW_SPAN = 135
+    GRID_CELL_Y_ALIGN = 136
+    LAST_BUILT_IN_PROP = 137
+    NUM_BUILT_IN_PROPS = 138
+    PROP_ANY = 255
+    PROP_CONST = 255
 
-STATE_DEFAULT = 0
-STATE_CHECKED = 1
-STATE_FOCUSED = 2
-STATE_FOCUS_KEY = 4
-STATE_EDITED = 8
-STATE_HOVERED = 16
-STATE_PRESSED = 32
-STATE_SCROLLED = 64
-STATE_DISABLED = 128
-STATE_USER_1 = 4096
-STATE_USER_2 = 8192
-STATE_USER_3 = 16384
-STATE_USER_4 = 32768
-STATE_ANY = 65535
+class STATE(Enum):
+    DEFAULT = 0
+    CHECKED = 1
+    FOCUSED = 2
+    FOCUS_KEY = 4
+    EDITED = 8
+    HOVERED = 16
+    PRESSED = 32
+    SCROLLED = 64
+    DISABLED = 128
+    USER_1 = 4096
+    USER_2 = 8192
+    USER_3 = 16384
+    USER_4 = 32768
+    ANY = 65535
 
-PART_MAIN = 0
-PART_SCROLLBAR = 65536
-PART_INDICATOR = 131072
-PART_KNOB = 196608
-PART_SELECTED = 262144
-PART_ITEMS = 327680
-PART_CURSOR = 393216
-PART_CUSTOM_FIRST = 524288
-PART_ANY = 983040
+class PART(Enum):
+    MAIN = 0
+    SCROLLBAR = 65536
+    INDICATOR = 131072
+    KNOB = 196608
+    SELECTED = 262144
+    ITEMS = 327680
+    CURSOR = 393216
+    CUSTOM_FIRST = 524288
+    ANY = 983040
 
-PART_TEXTAREA_PLACEHOLDER = 524288
+class PART(Enum):
+    TEXTAREA_PLACEHOLDER = 524288
 
 class RESULT(Enum):
     INVALID = 0
@@ -1092,17 +1099,17 @@ class obj:
     def __init__(self, parent):
         self._pointer = _lvgl.lv_obj_create(parent._pointer if parent else ffi.NULL)
     def set_flex_flow(self, flow: 'FLEX_FLOW') -> 'None':
-        return _lvgl.lv_obj_set_flex_flow(self._pointer, flow.value if flow else 0)
+        return _lvgl.lv_obj_set_flex_flow(self._pointer, flow.value if flow and isinstance(flow, Enum) else (flow or 0))
     def set_flex_align(self, main_place: 'FLEX_ALIGN', cross_place: 'FLEX_ALIGN', track_cross_place: 'FLEX_ALIGN') -> 'None':
-        return _lvgl.lv_obj_set_flex_align(self._pointer, main_place.value if main_place else 0, cross_place.value if cross_place else 0, track_cross_place.value if track_cross_place else 0)
+        return _lvgl.lv_obj_set_flex_align(self._pointer, main_place.value if main_place and isinstance(main_place, Enum) else (main_place or 0), cross_place.value if cross_place and isinstance(cross_place, Enum) else (cross_place or 0), track_cross_place.value if track_cross_place and isinstance(track_cross_place, Enum) else (track_cross_place or 0))
     def set_flex_grow(self, grow: 'int') -> 'None':
         return _lvgl.lv_obj_set_flex_grow(self._pointer, grow)
     def set_grid_dsc_array(self, col_dsc: 'int', row_dsc: 'int') -> 'None':
         return _lvgl.lv_obj_set_grid_dsc_array(self._pointer, ffi.NULL if col_dsc is None else col_dsc, ffi.NULL if row_dsc is None else row_dsc)
     def set_grid_align(self, column_align: 'GRID_ALIGN', row_align: 'GRID_ALIGN') -> 'None':
-        return _lvgl.lv_obj_set_grid_align(self._pointer, column_align.value if column_align else 0, row_align.value if row_align else 0)
+        return _lvgl.lv_obj_set_grid_align(self._pointer, column_align.value if column_align and isinstance(column_align, Enum) else (column_align or 0), row_align.value if row_align and isinstance(row_align, Enum) else (row_align or 0))
     def set_grid_cell(self, column_align: 'GRID_ALIGN', col_pos: 'int', col_span: 'int', row_align: 'GRID_ALIGN', row_pos: 'int', row_span: 'int') -> 'None':
-        return _lvgl.lv_obj_set_grid_cell(self._pointer, column_align.value if column_align else 0, col_pos, col_span, row_align.value if row_align else 0, row_pos, row_span)
+        return _lvgl.lv_obj_set_grid_cell(self._pointer, column_align.value if column_align and isinstance(column_align, Enum) else (column_align or 0), col_pos, col_span, row_align.value if row_align and isinstance(row_align, Enum) else (row_align or 0), row_pos, row_span)
     def delete(self) -> 'None':
         return _lvgl.lv_obj_delete(self._pointer)
     def clean(self) -> 'None':
@@ -1204,11 +1211,11 @@ class obj:
     def update_layout(self) -> 'None':
         return _lvgl.lv_obj_update_layout(self._pointer)
     def set_align(self, align: 'ALIGN') -> 'None':
-        return _lvgl.lv_obj_set_align(self._pointer, align.value if align else 0)
+        return _lvgl.lv_obj_set_align(self._pointer, align.value if align and isinstance(align, Enum) else (align or 0))
     def align(self, align: 'ALIGN', x_ofs: 'int', y_ofs: 'int') -> 'None':
-        return _lvgl.lv_obj_align(self._pointer, align.value if align else 0, x_ofs, y_ofs)
+        return _lvgl.lv_obj_align(self._pointer, align.value if align and isinstance(align, Enum) else (align or 0), x_ofs, y_ofs)
     def align_to(self, base: 'obj', align: 'ALIGN', x_ofs: 'int', y_ofs: 'int') -> 'None':
-        return _lvgl.lv_obj_align_to(self._pointer, base._pointer if base else ffi.NULL, align.value if align else 0, x_ofs, y_ofs)
+        return _lvgl.lv_obj_align_to(self._pointer, base._pointer if base else ffi.NULL, align.value if align and isinstance(align, Enum) else (align or 0), x_ofs, y_ofs)
     def center(self) -> 'None':
         return _lvgl.lv_obj_center(self._pointer)
     def set_transform(self, matrix: 'matrix') -> 'None':
@@ -1256,11 +1263,11 @@ class obj:
         result._pointer = _lvgl.lv_obj_get_transform(self._pointer)
         return result if result._pointer else None
     def transform_point(self, p: 'point', flags: 'OBJ_POINT_TRANSFORM_FLAG') -> 'None':
-        return _lvgl.lv_obj_transform_point(self._pointer, p._pointer if p else ffi.NULL, flags.value if flags else 0)
+        return _lvgl.lv_obj_transform_point(self._pointer, p._pointer if p else ffi.NULL, flags.value if flags and isinstance(flags, Enum) else (flags or 0))
     def transform_point_array(self, points: 'lv_point_t', count: 'size_t', flags: 'OBJ_POINT_TRANSFORM_FLAG') -> 'None':
-        return _lvgl.lv_obj_transform_point_array(self._pointer, ffi.NULL if points is None else points, count, flags.value if flags else 0)
+        return _lvgl.lv_obj_transform_point_array(self._pointer, ffi.NULL if points is None else points, count, flags.value if flags and isinstance(flags, Enum) else (flags or 0))
     def get_transformed_area(self, area: 'area', flags: 'OBJ_POINT_TRANSFORM_FLAG') -> 'None':
-        return _lvgl.lv_obj_get_transformed_area(self._pointer, area._pointer if area else ffi.NULL, flags.value if flags else 0)
+        return _lvgl.lv_obj_get_transformed_area(self._pointer, area._pointer if area else ffi.NULL, flags.value if flags and isinstance(flags, Enum) else (flags or 0))
     def invalidate_area(self, area: 'area') -> 'None':
         return _lvgl.lv_obj_invalidate_area(self._pointer, area._pointer if area else ffi.NULL)
     def invalidate(self) -> 'None':
@@ -1276,13 +1283,13 @@ class obj:
     def hit_test(self, point: 'point') -> 'bool':
         return _lvgl.lv_obj_hit_test(self._pointer, point._pointer if point else ffi.NULL)
     def set_scrollbar_mode(self, mode: 'SCROLLBAR_MODE') -> 'None':
-        return _lvgl.lv_obj_set_scrollbar_mode(self._pointer, mode.value if mode else 0)
+        return _lvgl.lv_obj_set_scrollbar_mode(self._pointer, mode.value if mode and isinstance(mode, Enum) else (mode or 0))
     def set_scroll_dir(self, dir: 'DIR') -> 'None':
-        return _lvgl.lv_obj_set_scroll_dir(self._pointer, dir.value if dir else 0)
+        return _lvgl.lv_obj_set_scroll_dir(self._pointer, dir.value if dir and isinstance(dir, Enum) else (dir or 0))
     def set_scroll_snap_x(self, align: 'SCROLL_SNAP') -> 'None':
-        return _lvgl.lv_obj_set_scroll_snap_x(self._pointer, align.value if align else 0)
+        return _lvgl.lv_obj_set_scroll_snap_x(self._pointer, align.value if align and isinstance(align, Enum) else (align or 0))
     def set_scroll_snap_y(self, align: 'SCROLL_SNAP') -> 'None':
-        return _lvgl.lv_obj_set_scroll_snap_y(self._pointer, align.value if align else 0)
+        return _lvgl.lv_obj_set_scroll_snap_y(self._pointer, align.value if align and isinstance(align, Enum) else (align or 0))
     def get_scrollbar_mode(self) -> 'lv_scrollbar_mode_t':
         return _lvgl.lv_obj_get_scrollbar_mode(self._pointer)
     def get_scroll_dir(self) -> 'lv_dir_t':
@@ -1331,290 +1338,290 @@ class obj:
         return _lvgl.lv_obj_scrollbar_invalidate(self._pointer)
     def readjust_scroll(self, anim_en: 'lv_anim_enable_t') -> 'None':
         return _lvgl.lv_obj_readjust_scroll(self._pointer, anim_en)
-    def add_style(self, style: 'style', selector: 'lv_style_selector_t') -> 'None':
-        return _lvgl.lv_obj_add_style(self._pointer, style._pointer if style else ffi.NULL, selector)
-    def replace_style(self, old_style: 'style', new_style: 'style', selector: 'lv_style_selector_t') -> 'bool':
-        return _lvgl.lv_obj_replace_style(self._pointer, old_style._pointer if old_style else ffi.NULL, new_style._pointer if new_style else ffi.NULL, selector)
-    def remove_style(self, style: 'style', selector: 'lv_style_selector_t') -> 'None':
-        return _lvgl.lv_obj_remove_style(self._pointer, style._pointer if style else ffi.NULL, selector)
+    def add_style(self, style: 'style', selector: 'STATE') -> 'None':
+        return _lvgl.lv_obj_add_style(self._pointer, style._pointer if style else ffi.NULL, selector.value if selector and isinstance(selector, Enum) else (selector or 0))
+    def replace_style(self, old_style: 'style', new_style: 'style', selector: 'STATE') -> 'bool':
+        return _lvgl.lv_obj_replace_style(self._pointer, old_style._pointer if old_style else ffi.NULL, new_style._pointer if new_style else ffi.NULL, selector.value if selector and isinstance(selector, Enum) else (selector or 0))
+    def remove_style(self, style: 'style', selector: 'STATE') -> 'None':
+        return _lvgl.lv_obj_remove_style(self._pointer, style._pointer if style else ffi.NULL, selector.value if selector and isinstance(selector, Enum) else (selector or 0))
     def remove_style_all(self) -> 'None':
         return _lvgl.lv_obj_remove_style_all(self._pointer)
     def report_style_change(self) -> 'None':
         return _lvgl.lv_obj_report_style_change(self._pointer)
-    def refresh_style(self, part: 'lv_part_t', prop: 'lv_style_prop_t') -> 'None':
-        return _lvgl.lv_obj_refresh_style(self._pointer, part, prop)
-    def get_style_prop(self, part: 'lv_part_t', prop: 'lv_style_prop_t') -> 'lv_style_value_t':
-        return _lvgl.lv_obj_get_style_prop(self._pointer, part, prop)
-    def has_style_prop(self, selector: 'lv_style_selector_t', prop: 'lv_style_prop_t') -> 'bool':
-        return _lvgl.lv_obj_has_style_prop(self._pointer, selector, prop)
-    def set_local_style_prop(self, prop: 'lv_style_prop_t', value: 'lv_style_value_t', selector: 'lv_style_selector_t') -> 'None':
-        return _lvgl.lv_obj_set_local_style_prop(self._pointer, prop, value, selector)
-    def get_local_style_prop(self, prop: 'lv_style_prop_t', value: 'lv_style_value_t', selector: 'lv_style_selector_t') -> 'lv_style_res_t':
-        return _lvgl.lv_obj_get_local_style_prop(self._pointer, prop, ffi.NULL if value is None else value, selector)
-    def remove_local_style_prop(self, prop: 'lv_style_prop_t', selector: 'lv_style_selector_t') -> 'bool':
-        return _lvgl.lv_obj_remove_local_style_prop(self._pointer, prop, selector)
-    def style_apply_color_filter(self, part: 'lv_part_t', v: 'lv_style_value_t') -> 'lv_style_value_t':
-        return _lvgl.lv_obj_style_apply_color_filter(self._pointer, part, v)
+    def refresh_style(self, part: 'PART', prop: 'lv_style_prop_t') -> 'None':
+        return _lvgl.lv_obj_refresh_style(self._pointer, part.value if part and isinstance(part, Enum) else (part or 0), prop)
+    def get_style_prop(self, part: 'PART', prop: 'lv_style_prop_t') -> 'lv_style_value_t':
+        return _lvgl.lv_obj_get_style_prop(self._pointer, part.value if part and isinstance(part, Enum) else (part or 0), prop)
+    def has_style_prop(self, selector: 'STATE', prop: 'lv_style_prop_t') -> 'bool':
+        return _lvgl.lv_obj_has_style_prop(self._pointer, selector.value if selector and isinstance(selector, Enum) else (selector or 0), prop)
+    def set_local_style_prop(self, prop: 'lv_style_prop_t', value: 'lv_style_value_t', selector: 'STATE') -> 'None':
+        return _lvgl.lv_obj_set_local_style_prop(self._pointer, prop, value, selector.value if selector and isinstance(selector, Enum) else (selector or 0))
+    def get_local_style_prop(self, prop: 'lv_style_prop_t', value: 'lv_style_value_t', selector: 'STATE') -> 'lv_style_res_t':
+        return _lvgl.lv_obj_get_local_style_prop(self._pointer, prop, ffi.NULL if value is None else value, selector.value if selector and isinstance(selector, Enum) else (selector or 0))
+    def remove_local_style_prop(self, prop: 'lv_style_prop_t', selector: 'STATE') -> 'bool':
+        return _lvgl.lv_obj_remove_local_style_prop(self._pointer, prop, selector.value if selector and isinstance(selector, Enum) else (selector or 0))
+    def style_apply_color_filter(self, part: 'PART', v: 'lv_style_value_t') -> 'lv_style_value_t':
+        return _lvgl.lv_obj_style_apply_color_filter(self._pointer, part.value if part and isinstance(part, Enum) else (part or 0), v)
     def fade_in(self, time: 'int', delay: 'int') -> 'None':
         return _lvgl.lv_obj_fade_in(self._pointer, time, delay)
     def fade_out(self, time: 'int', delay: 'int') -> 'None':
         return _lvgl.lv_obj_fade_out(self._pointer, time, delay)
-    def set_style_width(self, value: 'int', selector: 'lv_style_selector_t') -> 'None':
-        return _lvgl.lv_obj_set_style_width(self._pointer, value, selector)
-    def set_style_min_width(self, value: 'int', selector: 'lv_style_selector_t') -> 'None':
-        return _lvgl.lv_obj_set_style_min_width(self._pointer, value, selector)
-    def set_style_max_width(self, value: 'int', selector: 'lv_style_selector_t') -> 'None':
-        return _lvgl.lv_obj_set_style_max_width(self._pointer, value, selector)
-    def set_style_height(self, value: 'int', selector: 'lv_style_selector_t') -> 'None':
-        return _lvgl.lv_obj_set_style_height(self._pointer, value, selector)
-    def set_style_min_height(self, value: 'int', selector: 'lv_style_selector_t') -> 'None':
-        return _lvgl.lv_obj_set_style_min_height(self._pointer, value, selector)
-    def set_style_max_height(self, value: 'int', selector: 'lv_style_selector_t') -> 'None':
-        return _lvgl.lv_obj_set_style_max_height(self._pointer, value, selector)
-    def set_style_length(self, value: 'int', selector: 'lv_style_selector_t') -> 'None':
-        return _lvgl.lv_obj_set_style_length(self._pointer, value, selector)
-    def set_style_x(self, value: 'int', selector: 'lv_style_selector_t') -> 'None':
-        return _lvgl.lv_obj_set_style_x(self._pointer, value, selector)
-    def set_style_y(self, value: 'int', selector: 'lv_style_selector_t') -> 'None':
-        return _lvgl.lv_obj_set_style_y(self._pointer, value, selector)
-    def set_style_align(self, value: 'ALIGN', selector: 'lv_style_selector_t') -> 'None':
-        return _lvgl.lv_obj_set_style_align(self._pointer, value.value if value else 0, selector)
-    def set_style_transform_width(self, value: 'int', selector: 'lv_style_selector_t') -> 'None':
-        return _lvgl.lv_obj_set_style_transform_width(self._pointer, value, selector)
-    def set_style_transform_height(self, value: 'int', selector: 'lv_style_selector_t') -> 'None':
-        return _lvgl.lv_obj_set_style_transform_height(self._pointer, value, selector)
-    def set_style_translate_x(self, value: 'int', selector: 'lv_style_selector_t') -> 'None':
-        return _lvgl.lv_obj_set_style_translate_x(self._pointer, value, selector)
-    def set_style_translate_y(self, value: 'int', selector: 'lv_style_selector_t') -> 'None':
-        return _lvgl.lv_obj_set_style_translate_y(self._pointer, value, selector)
-    def set_style_translate_radial(self, value: 'int', selector: 'lv_style_selector_t') -> 'None':
-        return _lvgl.lv_obj_set_style_translate_radial(self._pointer, value, selector)
-    def set_style_transform_scale_x(self, value: 'int', selector: 'lv_style_selector_t') -> 'None':
-        return _lvgl.lv_obj_set_style_transform_scale_x(self._pointer, value, selector)
-    def set_style_transform_scale_y(self, value: 'int', selector: 'lv_style_selector_t') -> 'None':
-        return _lvgl.lv_obj_set_style_transform_scale_y(self._pointer, value, selector)
-    def set_style_transform_rotation(self, value: 'int', selector: 'lv_style_selector_t') -> 'None':
-        return _lvgl.lv_obj_set_style_transform_rotation(self._pointer, value, selector)
-    def set_style_transform_pivot_x(self, value: 'int', selector: 'lv_style_selector_t') -> 'None':
-        return _lvgl.lv_obj_set_style_transform_pivot_x(self._pointer, value, selector)
-    def set_style_transform_pivot_y(self, value: 'int', selector: 'lv_style_selector_t') -> 'None':
-        return _lvgl.lv_obj_set_style_transform_pivot_y(self._pointer, value, selector)
-    def set_style_transform_skew_x(self, value: 'int', selector: 'lv_style_selector_t') -> 'None':
-        return _lvgl.lv_obj_set_style_transform_skew_x(self._pointer, value, selector)
-    def set_style_transform_skew_y(self, value: 'int', selector: 'lv_style_selector_t') -> 'None':
-        return _lvgl.lv_obj_set_style_transform_skew_y(self._pointer, value, selector)
-    def set_style_pad_top(self, value: 'int', selector: 'lv_style_selector_t') -> 'None':
-        return _lvgl.lv_obj_set_style_pad_top(self._pointer, value, selector)
-    def set_style_pad_bottom(self, value: 'int', selector: 'lv_style_selector_t') -> 'None':
-        return _lvgl.lv_obj_set_style_pad_bottom(self._pointer, value, selector)
-    def set_style_pad_left(self, value: 'int', selector: 'lv_style_selector_t') -> 'None':
-        return _lvgl.lv_obj_set_style_pad_left(self._pointer, value, selector)
-    def set_style_pad_right(self, value: 'int', selector: 'lv_style_selector_t') -> 'None':
-        return _lvgl.lv_obj_set_style_pad_right(self._pointer, value, selector)
-    def set_style_pad_row(self, value: 'int', selector: 'lv_style_selector_t') -> 'None':
-        return _lvgl.lv_obj_set_style_pad_row(self._pointer, value, selector)
-    def set_style_pad_column(self, value: 'int', selector: 'lv_style_selector_t') -> 'None':
-        return _lvgl.lv_obj_set_style_pad_column(self._pointer, value, selector)
-    def set_style_pad_radial(self, value: 'int', selector: 'lv_style_selector_t') -> 'None':
-        return _lvgl.lv_obj_set_style_pad_radial(self._pointer, value, selector)
-    def set_style_margin_top(self, value: 'int', selector: 'lv_style_selector_t') -> 'None':
-        return _lvgl.lv_obj_set_style_margin_top(self._pointer, value, selector)
-    def set_style_margin_bottom(self, value: 'int', selector: 'lv_style_selector_t') -> 'None':
-        return _lvgl.lv_obj_set_style_margin_bottom(self._pointer, value, selector)
-    def set_style_margin_left(self, value: 'int', selector: 'lv_style_selector_t') -> 'None':
-        return _lvgl.lv_obj_set_style_margin_left(self._pointer, value, selector)
-    def set_style_margin_right(self, value: 'int', selector: 'lv_style_selector_t') -> 'None':
-        return _lvgl.lv_obj_set_style_margin_right(self._pointer, value, selector)
-    def set_style_bg_color(self, value: 'lv_color_t', selector: 'lv_style_selector_t') -> 'None':
-        return _lvgl.lv_obj_set_style_bg_color(self._pointer, value, selector)
-    def set_style_bg_opa(self, value: 'lv_opa_t', selector: 'lv_style_selector_t') -> 'None':
-        return _lvgl.lv_obj_set_style_bg_opa(self._pointer, value, selector)
-    def set_style_bg_grad_color(self, value: 'lv_color_t', selector: 'lv_style_selector_t') -> 'None':
-        return _lvgl.lv_obj_set_style_bg_grad_color(self._pointer, value, selector)
-    def set_style_bg_grad_dir(self, value: 'GRAD_DIR', selector: 'lv_style_selector_t') -> 'None':
-        return _lvgl.lv_obj_set_style_bg_grad_dir(self._pointer, value.value if value else 0, selector)
-    def set_style_bg_main_stop(self, value: 'int', selector: 'lv_style_selector_t') -> 'None':
-        return _lvgl.lv_obj_set_style_bg_main_stop(self._pointer, value, selector)
-    def set_style_bg_grad_stop(self, value: 'int', selector: 'lv_style_selector_t') -> 'None':
-        return _lvgl.lv_obj_set_style_bg_grad_stop(self._pointer, value, selector)
-    def set_style_bg_main_opa(self, value: 'lv_opa_t', selector: 'lv_style_selector_t') -> 'None':
-        return _lvgl.lv_obj_set_style_bg_main_opa(self._pointer, value, selector)
-    def set_style_bg_grad_opa(self, value: 'lv_opa_t', selector: 'lv_style_selector_t') -> 'None':
-        return _lvgl.lv_obj_set_style_bg_grad_opa(self._pointer, value, selector)
-    def set_style_bg_grad(self, value: 'grad_dsc', selector: 'lv_style_selector_t') -> 'None':
-        return _lvgl.lv_obj_set_style_bg_grad(self._pointer, value._pointer if value else ffi.NULL, selector)
-    def set_style_bg_image_src(self, value: 'None', selector: 'lv_style_selector_t') -> 'None':
-        return _lvgl.lv_obj_set_style_bg_image_src(self._pointer, ffi.NULL if value is None else value, selector)
-    def set_style_bg_image_opa(self, value: 'lv_opa_t', selector: 'lv_style_selector_t') -> 'None':
-        return _lvgl.lv_obj_set_style_bg_image_opa(self._pointer, value, selector)
-    def set_style_bg_image_recolor(self, value: 'lv_color_t', selector: 'lv_style_selector_t') -> 'None':
-        return _lvgl.lv_obj_set_style_bg_image_recolor(self._pointer, value, selector)
-    def set_style_bg_image_recolor_opa(self, value: 'lv_opa_t', selector: 'lv_style_selector_t') -> 'None':
-        return _lvgl.lv_obj_set_style_bg_image_recolor_opa(self._pointer, value, selector)
-    def set_style_bg_image_tiled(self, value: 'bool', selector: 'lv_style_selector_t') -> 'None':
-        return _lvgl.lv_obj_set_style_bg_image_tiled(self._pointer, value, selector)
-    def set_style_border_color(self, value: 'lv_color_t', selector: 'lv_style_selector_t') -> 'None':
-        return _lvgl.lv_obj_set_style_border_color(self._pointer, value, selector)
-    def set_style_border_opa(self, value: 'lv_opa_t', selector: 'lv_style_selector_t') -> 'None':
-        return _lvgl.lv_obj_set_style_border_opa(self._pointer, value, selector)
-    def set_style_border_width(self, value: 'int', selector: 'lv_style_selector_t') -> 'None':
-        return _lvgl.lv_obj_set_style_border_width(self._pointer, value, selector)
-    def set_style_border_side(self, value: 'BORDER_SIDE', selector: 'lv_style_selector_t') -> 'None':
-        return _lvgl.lv_obj_set_style_border_side(self._pointer, value.value if value else 0, selector)
-    def set_style_border_post(self, value: 'bool', selector: 'lv_style_selector_t') -> 'None':
-        return _lvgl.lv_obj_set_style_border_post(self._pointer, value, selector)
-    def set_style_outline_width(self, value: 'int', selector: 'lv_style_selector_t') -> 'None':
-        return _lvgl.lv_obj_set_style_outline_width(self._pointer, value, selector)
-    def set_style_outline_color(self, value: 'lv_color_t', selector: 'lv_style_selector_t') -> 'None':
-        return _lvgl.lv_obj_set_style_outline_color(self._pointer, value, selector)
-    def set_style_outline_opa(self, value: 'lv_opa_t', selector: 'lv_style_selector_t') -> 'None':
-        return _lvgl.lv_obj_set_style_outline_opa(self._pointer, value, selector)
-    def set_style_outline_pad(self, value: 'int', selector: 'lv_style_selector_t') -> 'None':
-        return _lvgl.lv_obj_set_style_outline_pad(self._pointer, value, selector)
-    def set_style_shadow_width(self, value: 'int', selector: 'lv_style_selector_t') -> 'None':
-        return _lvgl.lv_obj_set_style_shadow_width(self._pointer, value, selector)
-    def set_style_shadow_offset_x(self, value: 'int', selector: 'lv_style_selector_t') -> 'None':
-        return _lvgl.lv_obj_set_style_shadow_offset_x(self._pointer, value, selector)
-    def set_style_shadow_offset_y(self, value: 'int', selector: 'lv_style_selector_t') -> 'None':
-        return _lvgl.lv_obj_set_style_shadow_offset_y(self._pointer, value, selector)
-    def set_style_shadow_spread(self, value: 'int', selector: 'lv_style_selector_t') -> 'None':
-        return _lvgl.lv_obj_set_style_shadow_spread(self._pointer, value, selector)
-    def set_style_shadow_color(self, value: 'lv_color_t', selector: 'lv_style_selector_t') -> 'None':
-        return _lvgl.lv_obj_set_style_shadow_color(self._pointer, value, selector)
-    def set_style_shadow_opa(self, value: 'lv_opa_t', selector: 'lv_style_selector_t') -> 'None':
-        return _lvgl.lv_obj_set_style_shadow_opa(self._pointer, value, selector)
-    def set_style_image_opa(self, value: 'lv_opa_t', selector: 'lv_style_selector_t') -> 'None':
-        return _lvgl.lv_obj_set_style_image_opa(self._pointer, value, selector)
-    def set_style_image_recolor(self, value: 'lv_color_t', selector: 'lv_style_selector_t') -> 'None':
-        return _lvgl.lv_obj_set_style_image_recolor(self._pointer, value, selector)
-    def set_style_image_recolor_opa(self, value: 'lv_opa_t', selector: 'lv_style_selector_t') -> 'None':
-        return _lvgl.lv_obj_set_style_image_recolor_opa(self._pointer, value, selector)
-    def set_style_line_width(self, value: 'int', selector: 'lv_style_selector_t') -> 'None':
-        return _lvgl.lv_obj_set_style_line_width(self._pointer, value, selector)
-    def set_style_line_dash_width(self, value: 'int', selector: 'lv_style_selector_t') -> 'None':
-        return _lvgl.lv_obj_set_style_line_dash_width(self._pointer, value, selector)
-    def set_style_line_dash_gap(self, value: 'int', selector: 'lv_style_selector_t') -> 'None':
-        return _lvgl.lv_obj_set_style_line_dash_gap(self._pointer, value, selector)
-    def set_style_line_rounded(self, value: 'bool', selector: 'lv_style_selector_t') -> 'None':
-        return _lvgl.lv_obj_set_style_line_rounded(self._pointer, value, selector)
-    def set_style_line_color(self, value: 'lv_color_t', selector: 'lv_style_selector_t') -> 'None':
-        return _lvgl.lv_obj_set_style_line_color(self._pointer, value, selector)
-    def set_style_line_opa(self, value: 'lv_opa_t', selector: 'lv_style_selector_t') -> 'None':
-        return _lvgl.lv_obj_set_style_line_opa(self._pointer, value, selector)
-    def set_style_arc_width(self, value: 'int', selector: 'lv_style_selector_t') -> 'None':
-        return _lvgl.lv_obj_set_style_arc_width(self._pointer, value, selector)
-    def set_style_arc_rounded(self, value: 'bool', selector: 'lv_style_selector_t') -> 'None':
-        return _lvgl.lv_obj_set_style_arc_rounded(self._pointer, value, selector)
-    def set_style_arc_color(self, value: 'lv_color_t', selector: 'lv_style_selector_t') -> 'None':
-        return _lvgl.lv_obj_set_style_arc_color(self._pointer, value, selector)
-    def set_style_arc_opa(self, value: 'lv_opa_t', selector: 'lv_style_selector_t') -> 'None':
-        return _lvgl.lv_obj_set_style_arc_opa(self._pointer, value, selector)
-    def set_style_arc_image_src(self, value: 'None', selector: 'lv_style_selector_t') -> 'None':
-        return _lvgl.lv_obj_set_style_arc_image_src(self._pointer, ffi.NULL if value is None else value, selector)
-    def set_style_text_color(self, value: 'lv_color_t', selector: 'lv_style_selector_t') -> 'None':
-        return _lvgl.lv_obj_set_style_text_color(self._pointer, value, selector)
-    def set_style_text_opa(self, value: 'lv_opa_t', selector: 'lv_style_selector_t') -> 'None':
-        return _lvgl.lv_obj_set_style_text_opa(self._pointer, value, selector)
-    def set_style_text_font(self, value: 'font', selector: 'lv_style_selector_t') -> 'None':
-        return _lvgl.lv_obj_set_style_text_font(self._pointer, value._pointer if value else ffi.NULL, selector)
-    def set_style_text_letter_space(self, value: 'int', selector: 'lv_style_selector_t') -> 'None':
-        return _lvgl.lv_obj_set_style_text_letter_space(self._pointer, value, selector)
-    def set_style_text_line_space(self, value: 'int', selector: 'lv_style_selector_t') -> 'None':
-        return _lvgl.lv_obj_set_style_text_line_space(self._pointer, value, selector)
-    def set_style_text_decor(self, value: 'TEXT_DECOR', selector: 'lv_style_selector_t') -> 'None':
-        return _lvgl.lv_obj_set_style_text_decor(self._pointer, value.value if value else 0, selector)
-    def set_style_text_align(self, value: 'TEXT_ALIGN', selector: 'lv_style_selector_t') -> 'None':
-        return _lvgl.lv_obj_set_style_text_align(self._pointer, value.value if value else 0, selector)
-    def set_style_text_outline_stroke_color(self, value: 'lv_color_t', selector: 'lv_style_selector_t') -> 'None':
-        return _lvgl.lv_obj_set_style_text_outline_stroke_color(self._pointer, value, selector)
-    def set_style_text_outline_stroke_width(self, value: 'int', selector: 'lv_style_selector_t') -> 'None':
-        return _lvgl.lv_obj_set_style_text_outline_stroke_width(self._pointer, value, selector)
-    def set_style_text_outline_stroke_opa(self, value: 'lv_opa_t', selector: 'lv_style_selector_t') -> 'None':
-        return _lvgl.lv_obj_set_style_text_outline_stroke_opa(self._pointer, value, selector)
-    def set_style_radius(self, value: 'int', selector: 'lv_style_selector_t') -> 'None':
-        return _lvgl.lv_obj_set_style_radius(self._pointer, value, selector)
-    def set_style_radial_offset(self, value: 'int', selector: 'lv_style_selector_t') -> 'None':
-        return _lvgl.lv_obj_set_style_radial_offset(self._pointer, value, selector)
-    def set_style_clip_corner(self, value: 'bool', selector: 'lv_style_selector_t') -> 'None':
-        return _lvgl.lv_obj_set_style_clip_corner(self._pointer, value, selector)
-    def set_style_opa(self, value: 'lv_opa_t', selector: 'lv_style_selector_t') -> 'None':
-        return _lvgl.lv_obj_set_style_opa(self._pointer, value, selector)
-    def set_style_opa_layered(self, value: 'lv_opa_t', selector: 'lv_style_selector_t') -> 'None':
-        return _lvgl.lv_obj_set_style_opa_layered(self._pointer, value, selector)
-    def set_style_color_filter_dsc(self, value: 'lv_color_filter_dsc_t', selector: 'lv_style_selector_t') -> 'None':
-        return _lvgl.lv_obj_set_style_color_filter_dsc(self._pointer, ffi.NULL if value is None else value, selector)
-    def set_style_color_filter_opa(self, value: 'lv_opa_t', selector: 'lv_style_selector_t') -> 'None':
-        return _lvgl.lv_obj_set_style_color_filter_opa(self._pointer, value, selector)
-    def set_style_recolor(self, value: 'lv_color_t', selector: 'lv_style_selector_t') -> 'None':
-        return _lvgl.lv_obj_set_style_recolor(self._pointer, value, selector)
-    def set_style_recolor_opa(self, value: 'lv_opa_t', selector: 'lv_style_selector_t') -> 'None':
-        return _lvgl.lv_obj_set_style_recolor_opa(self._pointer, value, selector)
-    def set_style_anim(self, value: 'anim', selector: 'lv_style_selector_t') -> 'None':
-        return _lvgl.lv_obj_set_style_anim(self._pointer, value._pointer if value else ffi.NULL, selector)
-    def set_style_anim_duration(self, value: 'int', selector: 'lv_style_selector_t') -> 'None':
-        return _lvgl.lv_obj_set_style_anim_duration(self._pointer, value, selector)
-    def set_style_transition(self, value: 'style_transition_dsc', selector: 'lv_style_selector_t') -> 'None':
-        return _lvgl.lv_obj_set_style_transition(self._pointer, value._pointer if value else ffi.NULL, selector)
-    def set_style_blend_mode(self, value: 'BLEND_MODE', selector: 'lv_style_selector_t') -> 'None':
-        return _lvgl.lv_obj_set_style_blend_mode(self._pointer, value.value if value else 0, selector)
-    def set_style_layout(self, value: 'int', selector: 'lv_style_selector_t') -> 'None':
-        return _lvgl.lv_obj_set_style_layout(self._pointer, value, selector)
-    def set_style_base_dir(self, value: 'BASE_DIR', selector: 'lv_style_selector_t') -> 'None':
-        return _lvgl.lv_obj_set_style_base_dir(self._pointer, value.value if value else 0, selector)
-    def set_style_bitmap_mask_src(self, value: 'None', selector: 'lv_style_selector_t') -> 'None':
-        return _lvgl.lv_obj_set_style_bitmap_mask_src(self._pointer, ffi.NULL if value is None else value, selector)
-    def set_style_rotary_sensitivity(self, value: 'int', selector: 'lv_style_selector_t') -> 'None':
-        return _lvgl.lv_obj_set_style_rotary_sensitivity(self._pointer, value, selector)
-    def set_style_flex_flow(self, value: 'FLEX_FLOW', selector: 'lv_style_selector_t') -> 'None':
-        return _lvgl.lv_obj_set_style_flex_flow(self._pointer, value.value if value else 0, selector)
-    def set_style_flex_main_place(self, value: 'FLEX_ALIGN', selector: 'lv_style_selector_t') -> 'None':
-        return _lvgl.lv_obj_set_style_flex_main_place(self._pointer, value.value if value else 0, selector)
-    def set_style_flex_cross_place(self, value: 'FLEX_ALIGN', selector: 'lv_style_selector_t') -> 'None':
-        return _lvgl.lv_obj_set_style_flex_cross_place(self._pointer, value.value if value else 0, selector)
-    def set_style_flex_track_place(self, value: 'FLEX_ALIGN', selector: 'lv_style_selector_t') -> 'None':
-        return _lvgl.lv_obj_set_style_flex_track_place(self._pointer, value.value if value else 0, selector)
-    def set_style_flex_grow(self, value: 'int', selector: 'lv_style_selector_t') -> 'None':
-        return _lvgl.lv_obj_set_style_flex_grow(self._pointer, value, selector)
-    def set_style_grid_column_dsc_array(self, value: 'int', selector: 'lv_style_selector_t') -> 'None':
-        return _lvgl.lv_obj_set_style_grid_column_dsc_array(self._pointer, ffi.NULL if value is None else value, selector)
-    def set_style_grid_column_align(self, value: 'GRID_ALIGN', selector: 'lv_style_selector_t') -> 'None':
-        return _lvgl.lv_obj_set_style_grid_column_align(self._pointer, value.value if value else 0, selector)
-    def set_style_grid_row_dsc_array(self, value: 'int', selector: 'lv_style_selector_t') -> 'None':
-        return _lvgl.lv_obj_set_style_grid_row_dsc_array(self._pointer, ffi.NULL if value is None else value, selector)
-    def set_style_grid_row_align(self, value: 'GRID_ALIGN', selector: 'lv_style_selector_t') -> 'None':
-        return _lvgl.lv_obj_set_style_grid_row_align(self._pointer, value.value if value else 0, selector)
-    def set_style_grid_cell_column_pos(self, value: 'int', selector: 'lv_style_selector_t') -> 'None':
-        return _lvgl.lv_obj_set_style_grid_cell_column_pos(self._pointer, value, selector)
-    def set_style_grid_cell_x_align(self, value: 'GRID_ALIGN', selector: 'lv_style_selector_t') -> 'None':
-        return _lvgl.lv_obj_set_style_grid_cell_x_align(self._pointer, value.value if value else 0, selector)
-    def set_style_grid_cell_column_span(self, value: 'int', selector: 'lv_style_selector_t') -> 'None':
-        return _lvgl.lv_obj_set_style_grid_cell_column_span(self._pointer, value, selector)
-    def set_style_grid_cell_row_pos(self, value: 'int', selector: 'lv_style_selector_t') -> 'None':
-        return _lvgl.lv_obj_set_style_grid_cell_row_pos(self._pointer, value, selector)
-    def set_style_grid_cell_y_align(self, value: 'GRID_ALIGN', selector: 'lv_style_selector_t') -> 'None':
-        return _lvgl.lv_obj_set_style_grid_cell_y_align(self._pointer, value.value if value else 0, selector)
-    def set_style_grid_cell_row_span(self, value: 'int', selector: 'lv_style_selector_t') -> 'None':
-        return _lvgl.lv_obj_set_style_grid_cell_row_span(self._pointer, value, selector)
-    def calculate_style_text_align(self, part: 'lv_part_t', txt: 'str') -> 'lv_text_align_t':
-        return _lvgl.lv_obj_calculate_style_text_align(self._pointer, part, txt.encode('utf-8'))
-    def get_style_opa_recursive(self, part: 'lv_part_t') -> 'lv_opa_t':
-        return _lvgl.lv_obj_get_style_opa_recursive(self._pointer, part)
-    def style_apply_recolor(self, part: 'lv_part_t', color: 'lv_color32_t') -> 'lv_color32_t':
-        return _lvgl.lv_obj_style_apply_recolor(self._pointer, part, color)
-    def get_style_recolor_recursive(self, part: 'lv_part_t') -> 'lv_color32_t':
-        return _lvgl.lv_obj_get_style_recolor_recursive(self._pointer, part)
-    def init_draw_rect_dsc(self, part: 'lv_part_t', draw_dsc: 'draw_rect_dsc') -> 'None':
-        return _lvgl.lv_obj_init_draw_rect_dsc(self._pointer, part, draw_dsc._pointer if draw_dsc else ffi.NULL)
-    def init_draw_label_dsc(self, part: 'lv_part_t', draw_dsc: 'draw_label_dsc') -> 'None':
-        return _lvgl.lv_obj_init_draw_label_dsc(self._pointer, part, draw_dsc._pointer if draw_dsc else ffi.NULL)
-    def init_draw_image_dsc(self, part: 'lv_part_t', draw_dsc: 'draw_image_dsc') -> 'None':
-        return _lvgl.lv_obj_init_draw_image_dsc(self._pointer, part, draw_dsc._pointer if draw_dsc else ffi.NULL)
-    def init_draw_line_dsc(self, part: 'lv_part_t', draw_dsc: 'draw_line_dsc') -> 'None':
-        return _lvgl.lv_obj_init_draw_line_dsc(self._pointer, part, draw_dsc._pointer if draw_dsc else ffi.NULL)
-    def init_draw_arc_dsc(self, part: 'lv_part_t', draw_dsc: 'draw_arc_dsc') -> 'None':
-        return _lvgl.lv_obj_init_draw_arc_dsc(self._pointer, part, draw_dsc._pointer if draw_dsc else ffi.NULL)
-    def calculate_ext_draw_size(self, part: 'lv_part_t') -> 'int':
-        return _lvgl.lv_obj_calculate_ext_draw_size(self._pointer, part)
+    def set_style_width(self, value: 'int', selector: 'STATE') -> 'None':
+        return _lvgl.lv_obj_set_style_width(self._pointer, value, selector.value if selector and isinstance(selector, Enum) else (selector or 0))
+    def set_style_min_width(self, value: 'int', selector: 'STATE') -> 'None':
+        return _lvgl.lv_obj_set_style_min_width(self._pointer, value, selector.value if selector and isinstance(selector, Enum) else (selector or 0))
+    def set_style_max_width(self, value: 'int', selector: 'STATE') -> 'None':
+        return _lvgl.lv_obj_set_style_max_width(self._pointer, value, selector.value if selector and isinstance(selector, Enum) else (selector or 0))
+    def set_style_height(self, value: 'int', selector: 'STATE') -> 'None':
+        return _lvgl.lv_obj_set_style_height(self._pointer, value, selector.value if selector and isinstance(selector, Enum) else (selector or 0))
+    def set_style_min_height(self, value: 'int', selector: 'STATE') -> 'None':
+        return _lvgl.lv_obj_set_style_min_height(self._pointer, value, selector.value if selector and isinstance(selector, Enum) else (selector or 0))
+    def set_style_max_height(self, value: 'int', selector: 'STATE') -> 'None':
+        return _lvgl.lv_obj_set_style_max_height(self._pointer, value, selector.value if selector and isinstance(selector, Enum) else (selector or 0))
+    def set_style_length(self, value: 'int', selector: 'STATE') -> 'None':
+        return _lvgl.lv_obj_set_style_length(self._pointer, value, selector.value if selector and isinstance(selector, Enum) else (selector or 0))
+    def set_style_x(self, value: 'int', selector: 'STATE') -> 'None':
+        return _lvgl.lv_obj_set_style_x(self._pointer, value, selector.value if selector and isinstance(selector, Enum) else (selector or 0))
+    def set_style_y(self, value: 'int', selector: 'STATE') -> 'None':
+        return _lvgl.lv_obj_set_style_y(self._pointer, value, selector.value if selector and isinstance(selector, Enum) else (selector or 0))
+    def set_style_align(self, value: 'ALIGN', selector: 'STATE') -> 'None':
+        return _lvgl.lv_obj_set_style_align(self._pointer, value.value if value and isinstance(value, Enum) else (value or 0), selector.value if selector and isinstance(selector, Enum) else (selector or 0))
+    def set_style_transform_width(self, value: 'int', selector: 'STATE') -> 'None':
+        return _lvgl.lv_obj_set_style_transform_width(self._pointer, value, selector.value if selector and isinstance(selector, Enum) else (selector or 0))
+    def set_style_transform_height(self, value: 'int', selector: 'STATE') -> 'None':
+        return _lvgl.lv_obj_set_style_transform_height(self._pointer, value, selector.value if selector and isinstance(selector, Enum) else (selector or 0))
+    def set_style_translate_x(self, value: 'int', selector: 'STATE') -> 'None':
+        return _lvgl.lv_obj_set_style_translate_x(self._pointer, value, selector.value if selector and isinstance(selector, Enum) else (selector or 0))
+    def set_style_translate_y(self, value: 'int', selector: 'STATE') -> 'None':
+        return _lvgl.lv_obj_set_style_translate_y(self._pointer, value, selector.value if selector and isinstance(selector, Enum) else (selector or 0))
+    def set_style_translate_radial(self, value: 'int', selector: 'STATE') -> 'None':
+        return _lvgl.lv_obj_set_style_translate_radial(self._pointer, value, selector.value if selector and isinstance(selector, Enum) else (selector or 0))
+    def set_style_transform_scale_x(self, value: 'int', selector: 'STATE') -> 'None':
+        return _lvgl.lv_obj_set_style_transform_scale_x(self._pointer, value, selector.value if selector and isinstance(selector, Enum) else (selector or 0))
+    def set_style_transform_scale_y(self, value: 'int', selector: 'STATE') -> 'None':
+        return _lvgl.lv_obj_set_style_transform_scale_y(self._pointer, value, selector.value if selector and isinstance(selector, Enum) else (selector or 0))
+    def set_style_transform_rotation(self, value: 'int', selector: 'STATE') -> 'None':
+        return _lvgl.lv_obj_set_style_transform_rotation(self._pointer, value, selector.value if selector and isinstance(selector, Enum) else (selector or 0))
+    def set_style_transform_pivot_x(self, value: 'int', selector: 'STATE') -> 'None':
+        return _lvgl.lv_obj_set_style_transform_pivot_x(self._pointer, value, selector.value if selector and isinstance(selector, Enum) else (selector or 0))
+    def set_style_transform_pivot_y(self, value: 'int', selector: 'STATE') -> 'None':
+        return _lvgl.lv_obj_set_style_transform_pivot_y(self._pointer, value, selector.value if selector and isinstance(selector, Enum) else (selector or 0))
+    def set_style_transform_skew_x(self, value: 'int', selector: 'STATE') -> 'None':
+        return _lvgl.lv_obj_set_style_transform_skew_x(self._pointer, value, selector.value if selector and isinstance(selector, Enum) else (selector or 0))
+    def set_style_transform_skew_y(self, value: 'int', selector: 'STATE') -> 'None':
+        return _lvgl.lv_obj_set_style_transform_skew_y(self._pointer, value, selector.value if selector and isinstance(selector, Enum) else (selector or 0))
+    def set_style_pad_top(self, value: 'int', selector: 'STATE') -> 'None':
+        return _lvgl.lv_obj_set_style_pad_top(self._pointer, value, selector.value if selector and isinstance(selector, Enum) else (selector or 0))
+    def set_style_pad_bottom(self, value: 'int', selector: 'STATE') -> 'None':
+        return _lvgl.lv_obj_set_style_pad_bottom(self._pointer, value, selector.value if selector and isinstance(selector, Enum) else (selector or 0))
+    def set_style_pad_left(self, value: 'int', selector: 'STATE') -> 'None':
+        return _lvgl.lv_obj_set_style_pad_left(self._pointer, value, selector.value if selector and isinstance(selector, Enum) else (selector or 0))
+    def set_style_pad_right(self, value: 'int', selector: 'STATE') -> 'None':
+        return _lvgl.lv_obj_set_style_pad_right(self._pointer, value, selector.value if selector and isinstance(selector, Enum) else (selector or 0))
+    def set_style_pad_row(self, value: 'int', selector: 'STATE') -> 'None':
+        return _lvgl.lv_obj_set_style_pad_row(self._pointer, value, selector.value if selector and isinstance(selector, Enum) else (selector or 0))
+    def set_style_pad_column(self, value: 'int', selector: 'STATE') -> 'None':
+        return _lvgl.lv_obj_set_style_pad_column(self._pointer, value, selector.value if selector and isinstance(selector, Enum) else (selector or 0))
+    def set_style_pad_radial(self, value: 'int', selector: 'STATE') -> 'None':
+        return _lvgl.lv_obj_set_style_pad_radial(self._pointer, value, selector.value if selector and isinstance(selector, Enum) else (selector or 0))
+    def set_style_margin_top(self, value: 'int', selector: 'STATE') -> 'None':
+        return _lvgl.lv_obj_set_style_margin_top(self._pointer, value, selector.value if selector and isinstance(selector, Enum) else (selector or 0))
+    def set_style_margin_bottom(self, value: 'int', selector: 'STATE') -> 'None':
+        return _lvgl.lv_obj_set_style_margin_bottom(self._pointer, value, selector.value if selector and isinstance(selector, Enum) else (selector or 0))
+    def set_style_margin_left(self, value: 'int', selector: 'STATE') -> 'None':
+        return _lvgl.lv_obj_set_style_margin_left(self._pointer, value, selector.value if selector and isinstance(selector, Enum) else (selector or 0))
+    def set_style_margin_right(self, value: 'int', selector: 'STATE') -> 'None':
+        return _lvgl.lv_obj_set_style_margin_right(self._pointer, value, selector.value if selector and isinstance(selector, Enum) else (selector or 0))
+    def set_style_bg_color(self, value: 'lv_color_t', selector: 'STATE') -> 'None':
+        return _lvgl.lv_obj_set_style_bg_color(self._pointer, value, selector.value if selector and isinstance(selector, Enum) else (selector or 0))
+    def set_style_bg_opa(self, value: 'OPA', selector: 'STATE') -> 'None':
+        return _lvgl.lv_obj_set_style_bg_opa(self._pointer, value.value if value and isinstance(value, Enum) else (value or 0), selector.value if selector and isinstance(selector, Enum) else (selector or 0))
+    def set_style_bg_grad_color(self, value: 'lv_color_t', selector: 'STATE') -> 'None':
+        return _lvgl.lv_obj_set_style_bg_grad_color(self._pointer, value, selector.value if selector and isinstance(selector, Enum) else (selector or 0))
+    def set_style_bg_grad_dir(self, value: 'GRAD_DIR', selector: 'STATE') -> 'None':
+        return _lvgl.lv_obj_set_style_bg_grad_dir(self._pointer, value.value if value and isinstance(value, Enum) else (value or 0), selector.value if selector and isinstance(selector, Enum) else (selector or 0))
+    def set_style_bg_main_stop(self, value: 'int', selector: 'STATE') -> 'None':
+        return _lvgl.lv_obj_set_style_bg_main_stop(self._pointer, value, selector.value if selector and isinstance(selector, Enum) else (selector or 0))
+    def set_style_bg_grad_stop(self, value: 'int', selector: 'STATE') -> 'None':
+        return _lvgl.lv_obj_set_style_bg_grad_stop(self._pointer, value, selector.value if selector and isinstance(selector, Enum) else (selector or 0))
+    def set_style_bg_main_opa(self, value: 'OPA', selector: 'STATE') -> 'None':
+        return _lvgl.lv_obj_set_style_bg_main_opa(self._pointer, value.value if value and isinstance(value, Enum) else (value or 0), selector.value if selector and isinstance(selector, Enum) else (selector or 0))
+    def set_style_bg_grad_opa(self, value: 'OPA', selector: 'STATE') -> 'None':
+        return _lvgl.lv_obj_set_style_bg_grad_opa(self._pointer, value.value if value and isinstance(value, Enum) else (value or 0), selector.value if selector and isinstance(selector, Enum) else (selector or 0))
+    def set_style_bg_grad(self, value: 'grad_dsc', selector: 'STATE') -> 'None':
+        return _lvgl.lv_obj_set_style_bg_grad(self._pointer, value._pointer if value else ffi.NULL, selector.value if selector and isinstance(selector, Enum) else (selector or 0))
+    def set_style_bg_image_src(self, value: 'None', selector: 'STATE') -> 'None':
+        return _lvgl.lv_obj_set_style_bg_image_src(self._pointer, ffi.NULL if value is None else value, selector.value if selector and isinstance(selector, Enum) else (selector or 0))
+    def set_style_bg_image_opa(self, value: 'OPA', selector: 'STATE') -> 'None':
+        return _lvgl.lv_obj_set_style_bg_image_opa(self._pointer, value.value if value and isinstance(value, Enum) else (value or 0), selector.value if selector and isinstance(selector, Enum) else (selector or 0))
+    def set_style_bg_image_recolor(self, value: 'lv_color_t', selector: 'STATE') -> 'None':
+        return _lvgl.lv_obj_set_style_bg_image_recolor(self._pointer, value, selector.value if selector and isinstance(selector, Enum) else (selector or 0))
+    def set_style_bg_image_recolor_opa(self, value: 'OPA', selector: 'STATE') -> 'None':
+        return _lvgl.lv_obj_set_style_bg_image_recolor_opa(self._pointer, value.value if value and isinstance(value, Enum) else (value or 0), selector.value if selector and isinstance(selector, Enum) else (selector or 0))
+    def set_style_bg_image_tiled(self, value: 'bool', selector: 'STATE') -> 'None':
+        return _lvgl.lv_obj_set_style_bg_image_tiled(self._pointer, value, selector.value if selector and isinstance(selector, Enum) else (selector or 0))
+    def set_style_border_color(self, value: 'lv_color_t', selector: 'STATE') -> 'None':
+        return _lvgl.lv_obj_set_style_border_color(self._pointer, value, selector.value if selector and isinstance(selector, Enum) else (selector or 0))
+    def set_style_border_opa(self, value: 'OPA', selector: 'STATE') -> 'None':
+        return _lvgl.lv_obj_set_style_border_opa(self._pointer, value.value if value and isinstance(value, Enum) else (value or 0), selector.value if selector and isinstance(selector, Enum) else (selector or 0))
+    def set_style_border_width(self, value: 'int', selector: 'STATE') -> 'None':
+        return _lvgl.lv_obj_set_style_border_width(self._pointer, value, selector.value if selector and isinstance(selector, Enum) else (selector or 0))
+    def set_style_border_side(self, value: 'BORDER_SIDE', selector: 'STATE') -> 'None':
+        return _lvgl.lv_obj_set_style_border_side(self._pointer, value.value if value and isinstance(value, Enum) else (value or 0), selector.value if selector and isinstance(selector, Enum) else (selector or 0))
+    def set_style_border_post(self, value: 'bool', selector: 'STATE') -> 'None':
+        return _lvgl.lv_obj_set_style_border_post(self._pointer, value, selector.value if selector and isinstance(selector, Enum) else (selector or 0))
+    def set_style_outline_width(self, value: 'int', selector: 'STATE') -> 'None':
+        return _lvgl.lv_obj_set_style_outline_width(self._pointer, value, selector.value if selector and isinstance(selector, Enum) else (selector or 0))
+    def set_style_outline_color(self, value: 'lv_color_t', selector: 'STATE') -> 'None':
+        return _lvgl.lv_obj_set_style_outline_color(self._pointer, value, selector.value if selector and isinstance(selector, Enum) else (selector or 0))
+    def set_style_outline_opa(self, value: 'OPA', selector: 'STATE') -> 'None':
+        return _lvgl.lv_obj_set_style_outline_opa(self._pointer, value.value if value and isinstance(value, Enum) else (value or 0), selector.value if selector and isinstance(selector, Enum) else (selector or 0))
+    def set_style_outline_pad(self, value: 'int', selector: 'STATE') -> 'None':
+        return _lvgl.lv_obj_set_style_outline_pad(self._pointer, value, selector.value if selector and isinstance(selector, Enum) else (selector or 0))
+    def set_style_shadow_width(self, value: 'int', selector: 'STATE') -> 'None':
+        return _lvgl.lv_obj_set_style_shadow_width(self._pointer, value, selector.value if selector and isinstance(selector, Enum) else (selector or 0))
+    def set_style_shadow_offset_x(self, value: 'int', selector: 'STATE') -> 'None':
+        return _lvgl.lv_obj_set_style_shadow_offset_x(self._pointer, value, selector.value if selector and isinstance(selector, Enum) else (selector or 0))
+    def set_style_shadow_offset_y(self, value: 'int', selector: 'STATE') -> 'None':
+        return _lvgl.lv_obj_set_style_shadow_offset_y(self._pointer, value, selector.value if selector and isinstance(selector, Enum) else (selector or 0))
+    def set_style_shadow_spread(self, value: 'int', selector: 'STATE') -> 'None':
+        return _lvgl.lv_obj_set_style_shadow_spread(self._pointer, value, selector.value if selector and isinstance(selector, Enum) else (selector or 0))
+    def set_style_shadow_color(self, value: 'lv_color_t', selector: 'STATE') -> 'None':
+        return _lvgl.lv_obj_set_style_shadow_color(self._pointer, value, selector.value if selector and isinstance(selector, Enum) else (selector or 0))
+    def set_style_shadow_opa(self, value: 'OPA', selector: 'STATE') -> 'None':
+        return _lvgl.lv_obj_set_style_shadow_opa(self._pointer, value.value if value and isinstance(value, Enum) else (value or 0), selector.value if selector and isinstance(selector, Enum) else (selector or 0))
+    def set_style_image_opa(self, value: 'OPA', selector: 'STATE') -> 'None':
+        return _lvgl.lv_obj_set_style_image_opa(self._pointer, value.value if value and isinstance(value, Enum) else (value or 0), selector.value if selector and isinstance(selector, Enum) else (selector or 0))
+    def set_style_image_recolor(self, value: 'lv_color_t', selector: 'STATE') -> 'None':
+        return _lvgl.lv_obj_set_style_image_recolor(self._pointer, value, selector.value if selector and isinstance(selector, Enum) else (selector or 0))
+    def set_style_image_recolor_opa(self, value: 'OPA', selector: 'STATE') -> 'None':
+        return _lvgl.lv_obj_set_style_image_recolor_opa(self._pointer, value.value if value and isinstance(value, Enum) else (value or 0), selector.value if selector and isinstance(selector, Enum) else (selector or 0))
+    def set_style_line_width(self, value: 'int', selector: 'STATE') -> 'None':
+        return _lvgl.lv_obj_set_style_line_width(self._pointer, value, selector.value if selector and isinstance(selector, Enum) else (selector or 0))
+    def set_style_line_dash_width(self, value: 'int', selector: 'STATE') -> 'None':
+        return _lvgl.lv_obj_set_style_line_dash_width(self._pointer, value, selector.value if selector and isinstance(selector, Enum) else (selector or 0))
+    def set_style_line_dash_gap(self, value: 'int', selector: 'STATE') -> 'None':
+        return _lvgl.lv_obj_set_style_line_dash_gap(self._pointer, value, selector.value if selector and isinstance(selector, Enum) else (selector or 0))
+    def set_style_line_rounded(self, value: 'bool', selector: 'STATE') -> 'None':
+        return _lvgl.lv_obj_set_style_line_rounded(self._pointer, value, selector.value if selector and isinstance(selector, Enum) else (selector or 0))
+    def set_style_line_color(self, value: 'lv_color_t', selector: 'STATE') -> 'None':
+        return _lvgl.lv_obj_set_style_line_color(self._pointer, value, selector.value if selector and isinstance(selector, Enum) else (selector or 0))
+    def set_style_line_opa(self, value: 'OPA', selector: 'STATE') -> 'None':
+        return _lvgl.lv_obj_set_style_line_opa(self._pointer, value.value if value and isinstance(value, Enum) else (value or 0), selector.value if selector and isinstance(selector, Enum) else (selector or 0))
+    def set_style_arc_width(self, value: 'int', selector: 'STATE') -> 'None':
+        return _lvgl.lv_obj_set_style_arc_width(self._pointer, value, selector.value if selector and isinstance(selector, Enum) else (selector or 0))
+    def set_style_arc_rounded(self, value: 'bool', selector: 'STATE') -> 'None':
+        return _lvgl.lv_obj_set_style_arc_rounded(self._pointer, value, selector.value if selector and isinstance(selector, Enum) else (selector or 0))
+    def set_style_arc_color(self, value: 'lv_color_t', selector: 'STATE') -> 'None':
+        return _lvgl.lv_obj_set_style_arc_color(self._pointer, value, selector.value if selector and isinstance(selector, Enum) else (selector or 0))
+    def set_style_arc_opa(self, value: 'OPA', selector: 'STATE') -> 'None':
+        return _lvgl.lv_obj_set_style_arc_opa(self._pointer, value.value if value and isinstance(value, Enum) else (value or 0), selector.value if selector and isinstance(selector, Enum) else (selector or 0))
+    def set_style_arc_image_src(self, value: 'None', selector: 'STATE') -> 'None':
+        return _lvgl.lv_obj_set_style_arc_image_src(self._pointer, ffi.NULL if value is None else value, selector.value if selector and isinstance(selector, Enum) else (selector or 0))
+    def set_style_text_color(self, value: 'lv_color_t', selector: 'STATE') -> 'None':
+        return _lvgl.lv_obj_set_style_text_color(self._pointer, value, selector.value if selector and isinstance(selector, Enum) else (selector or 0))
+    def set_style_text_opa(self, value: 'OPA', selector: 'STATE') -> 'None':
+        return _lvgl.lv_obj_set_style_text_opa(self._pointer, value.value if value and isinstance(value, Enum) else (value or 0), selector.value if selector and isinstance(selector, Enum) else (selector or 0))
+    def set_style_text_font(self, value: 'font', selector: 'STATE') -> 'None':
+        return _lvgl.lv_obj_set_style_text_font(self._pointer, value._pointer if value else ffi.NULL, selector.value if selector and isinstance(selector, Enum) else (selector or 0))
+    def set_style_text_letter_space(self, value: 'int', selector: 'STATE') -> 'None':
+        return _lvgl.lv_obj_set_style_text_letter_space(self._pointer, value, selector.value if selector and isinstance(selector, Enum) else (selector or 0))
+    def set_style_text_line_space(self, value: 'int', selector: 'STATE') -> 'None':
+        return _lvgl.lv_obj_set_style_text_line_space(self._pointer, value, selector.value if selector and isinstance(selector, Enum) else (selector or 0))
+    def set_style_text_decor(self, value: 'TEXT_DECOR', selector: 'STATE') -> 'None':
+        return _lvgl.lv_obj_set_style_text_decor(self._pointer, value.value if value and isinstance(value, Enum) else (value or 0), selector.value if selector and isinstance(selector, Enum) else (selector or 0))
+    def set_style_text_align(self, value: 'TEXT_ALIGN', selector: 'STATE') -> 'None':
+        return _lvgl.lv_obj_set_style_text_align(self._pointer, value.value if value and isinstance(value, Enum) else (value or 0), selector.value if selector and isinstance(selector, Enum) else (selector or 0))
+    def set_style_text_outline_stroke_color(self, value: 'lv_color_t', selector: 'STATE') -> 'None':
+        return _lvgl.lv_obj_set_style_text_outline_stroke_color(self._pointer, value, selector.value if selector and isinstance(selector, Enum) else (selector or 0))
+    def set_style_text_outline_stroke_width(self, value: 'int', selector: 'STATE') -> 'None':
+        return _lvgl.lv_obj_set_style_text_outline_stroke_width(self._pointer, value, selector.value if selector and isinstance(selector, Enum) else (selector or 0))
+    def set_style_text_outline_stroke_opa(self, value: 'OPA', selector: 'STATE') -> 'None':
+        return _lvgl.lv_obj_set_style_text_outline_stroke_opa(self._pointer, value.value if value and isinstance(value, Enum) else (value or 0), selector.value if selector and isinstance(selector, Enum) else (selector or 0))
+    def set_style_radius(self, value: 'int', selector: 'STATE') -> 'None':
+        return _lvgl.lv_obj_set_style_radius(self._pointer, value, selector.value if selector and isinstance(selector, Enum) else (selector or 0))
+    def set_style_radial_offset(self, value: 'int', selector: 'STATE') -> 'None':
+        return _lvgl.lv_obj_set_style_radial_offset(self._pointer, value, selector.value if selector and isinstance(selector, Enum) else (selector or 0))
+    def set_style_clip_corner(self, value: 'bool', selector: 'STATE') -> 'None':
+        return _lvgl.lv_obj_set_style_clip_corner(self._pointer, value, selector.value if selector and isinstance(selector, Enum) else (selector or 0))
+    def set_style_opa(self, value: 'OPA', selector: 'STATE') -> 'None':
+        return _lvgl.lv_obj_set_style_opa(self._pointer, value.value if value and isinstance(value, Enum) else (value or 0), selector.value if selector and isinstance(selector, Enum) else (selector or 0))
+    def set_style_opa_layered(self, value: 'OPA', selector: 'STATE') -> 'None':
+        return _lvgl.lv_obj_set_style_opa_layered(self._pointer, value.value if value and isinstance(value, Enum) else (value or 0), selector.value if selector and isinstance(selector, Enum) else (selector or 0))
+    def set_style_color_filter_dsc(self, value: 'lv_color_filter_dsc_t', selector: 'STATE') -> 'None':
+        return _lvgl.lv_obj_set_style_color_filter_dsc(self._pointer, ffi.NULL if value is None else value, selector.value if selector and isinstance(selector, Enum) else (selector or 0))
+    def set_style_color_filter_opa(self, value: 'OPA', selector: 'STATE') -> 'None':
+        return _lvgl.lv_obj_set_style_color_filter_opa(self._pointer, value.value if value and isinstance(value, Enum) else (value or 0), selector.value if selector and isinstance(selector, Enum) else (selector or 0))
+    def set_style_recolor(self, value: 'lv_color_t', selector: 'STATE') -> 'None':
+        return _lvgl.lv_obj_set_style_recolor(self._pointer, value, selector.value if selector and isinstance(selector, Enum) else (selector or 0))
+    def set_style_recolor_opa(self, value: 'OPA', selector: 'STATE') -> 'None':
+        return _lvgl.lv_obj_set_style_recolor_opa(self._pointer, value.value if value and isinstance(value, Enum) else (value or 0), selector.value if selector and isinstance(selector, Enum) else (selector or 0))
+    def set_style_anim(self, value: 'anim', selector: 'STATE') -> 'None':
+        return _lvgl.lv_obj_set_style_anim(self._pointer, value._pointer if value else ffi.NULL, selector.value if selector and isinstance(selector, Enum) else (selector or 0))
+    def set_style_anim_duration(self, value: 'int', selector: 'STATE') -> 'None':
+        return _lvgl.lv_obj_set_style_anim_duration(self._pointer, value, selector.value if selector and isinstance(selector, Enum) else (selector or 0))
+    def set_style_transition(self, value: 'style_transition_dsc', selector: 'STATE') -> 'None':
+        return _lvgl.lv_obj_set_style_transition(self._pointer, value._pointer if value else ffi.NULL, selector.value if selector and isinstance(selector, Enum) else (selector or 0))
+    def set_style_blend_mode(self, value: 'BLEND_MODE', selector: 'STATE') -> 'None':
+        return _lvgl.lv_obj_set_style_blend_mode(self._pointer, value.value if value and isinstance(value, Enum) else (value or 0), selector.value if selector and isinstance(selector, Enum) else (selector or 0))
+    def set_style_layout(self, value: 'int', selector: 'STATE') -> 'None':
+        return _lvgl.lv_obj_set_style_layout(self._pointer, value, selector.value if selector and isinstance(selector, Enum) else (selector or 0))
+    def set_style_base_dir(self, value: 'BASE_DIR', selector: 'STATE') -> 'None':
+        return _lvgl.lv_obj_set_style_base_dir(self._pointer, value.value if value and isinstance(value, Enum) else (value or 0), selector.value if selector and isinstance(selector, Enum) else (selector or 0))
+    def set_style_bitmap_mask_src(self, value: 'None', selector: 'STATE') -> 'None':
+        return _lvgl.lv_obj_set_style_bitmap_mask_src(self._pointer, ffi.NULL if value is None else value, selector.value if selector and isinstance(selector, Enum) else (selector or 0))
+    def set_style_rotary_sensitivity(self, value: 'int', selector: 'STATE') -> 'None':
+        return _lvgl.lv_obj_set_style_rotary_sensitivity(self._pointer, value, selector.value if selector and isinstance(selector, Enum) else (selector or 0))
+    def set_style_flex_flow(self, value: 'FLEX_FLOW', selector: 'STATE') -> 'None':
+        return _lvgl.lv_obj_set_style_flex_flow(self._pointer, value.value if value and isinstance(value, Enum) else (value or 0), selector.value if selector and isinstance(selector, Enum) else (selector or 0))
+    def set_style_flex_main_place(self, value: 'FLEX_ALIGN', selector: 'STATE') -> 'None':
+        return _lvgl.lv_obj_set_style_flex_main_place(self._pointer, value.value if value and isinstance(value, Enum) else (value or 0), selector.value if selector and isinstance(selector, Enum) else (selector or 0))
+    def set_style_flex_cross_place(self, value: 'FLEX_ALIGN', selector: 'STATE') -> 'None':
+        return _lvgl.lv_obj_set_style_flex_cross_place(self._pointer, value.value if value and isinstance(value, Enum) else (value or 0), selector.value if selector and isinstance(selector, Enum) else (selector or 0))
+    def set_style_flex_track_place(self, value: 'FLEX_ALIGN', selector: 'STATE') -> 'None':
+        return _lvgl.lv_obj_set_style_flex_track_place(self._pointer, value.value if value and isinstance(value, Enum) else (value or 0), selector.value if selector and isinstance(selector, Enum) else (selector or 0))
+    def set_style_flex_grow(self, value: 'int', selector: 'STATE') -> 'None':
+        return _lvgl.lv_obj_set_style_flex_grow(self._pointer, value, selector.value if selector and isinstance(selector, Enum) else (selector or 0))
+    def set_style_grid_column_dsc_array(self, value: 'int', selector: 'STATE') -> 'None':
+        return _lvgl.lv_obj_set_style_grid_column_dsc_array(self._pointer, ffi.NULL if value is None else value, selector.value if selector and isinstance(selector, Enum) else (selector or 0))
+    def set_style_grid_column_align(self, value: 'GRID_ALIGN', selector: 'STATE') -> 'None':
+        return _lvgl.lv_obj_set_style_grid_column_align(self._pointer, value.value if value and isinstance(value, Enum) else (value or 0), selector.value if selector and isinstance(selector, Enum) else (selector or 0))
+    def set_style_grid_row_dsc_array(self, value: 'int', selector: 'STATE') -> 'None':
+        return _lvgl.lv_obj_set_style_grid_row_dsc_array(self._pointer, ffi.NULL if value is None else value, selector.value if selector and isinstance(selector, Enum) else (selector or 0))
+    def set_style_grid_row_align(self, value: 'GRID_ALIGN', selector: 'STATE') -> 'None':
+        return _lvgl.lv_obj_set_style_grid_row_align(self._pointer, value.value if value and isinstance(value, Enum) else (value or 0), selector.value if selector and isinstance(selector, Enum) else (selector or 0))
+    def set_style_grid_cell_column_pos(self, value: 'int', selector: 'STATE') -> 'None':
+        return _lvgl.lv_obj_set_style_grid_cell_column_pos(self._pointer, value, selector.value if selector and isinstance(selector, Enum) else (selector or 0))
+    def set_style_grid_cell_x_align(self, value: 'GRID_ALIGN', selector: 'STATE') -> 'None':
+        return _lvgl.lv_obj_set_style_grid_cell_x_align(self._pointer, value.value if value and isinstance(value, Enum) else (value or 0), selector.value if selector and isinstance(selector, Enum) else (selector or 0))
+    def set_style_grid_cell_column_span(self, value: 'int', selector: 'STATE') -> 'None':
+        return _lvgl.lv_obj_set_style_grid_cell_column_span(self._pointer, value, selector.value if selector and isinstance(selector, Enum) else (selector or 0))
+    def set_style_grid_cell_row_pos(self, value: 'int', selector: 'STATE') -> 'None':
+        return _lvgl.lv_obj_set_style_grid_cell_row_pos(self._pointer, value, selector.value if selector and isinstance(selector, Enum) else (selector or 0))
+    def set_style_grid_cell_y_align(self, value: 'GRID_ALIGN', selector: 'STATE') -> 'None':
+        return _lvgl.lv_obj_set_style_grid_cell_y_align(self._pointer, value.value if value and isinstance(value, Enum) else (value or 0), selector.value if selector and isinstance(selector, Enum) else (selector or 0))
+    def set_style_grid_cell_row_span(self, value: 'int', selector: 'STATE') -> 'None':
+        return _lvgl.lv_obj_set_style_grid_cell_row_span(self._pointer, value, selector.value if selector and isinstance(selector, Enum) else (selector or 0))
+    def calculate_style_text_align(self, part: 'PART', txt: 'str') -> 'lv_text_align_t':
+        return _lvgl.lv_obj_calculate_style_text_align(self._pointer, part.value if part and isinstance(part, Enum) else (part or 0), txt.encode('utf-8'))
+    def get_style_opa_recursive(self, part: 'PART') -> 'lv_opa_t':
+        return _lvgl.lv_obj_get_style_opa_recursive(self._pointer, part.value if part and isinstance(part, Enum) else (part or 0))
+    def style_apply_recolor(self, part: 'PART', color: 'lv_color32_t') -> 'lv_color32_t':
+        return _lvgl.lv_obj_style_apply_recolor(self._pointer, part.value if part and isinstance(part, Enum) else (part or 0), color)
+    def get_style_recolor_recursive(self, part: 'PART') -> 'lv_color32_t':
+        return _lvgl.lv_obj_get_style_recolor_recursive(self._pointer, part.value if part and isinstance(part, Enum) else (part or 0))
+    def init_draw_rect_dsc(self, part: 'PART', draw_dsc: 'draw_rect_dsc') -> 'None':
+        return _lvgl.lv_obj_init_draw_rect_dsc(self._pointer, part.value if part and isinstance(part, Enum) else (part or 0), draw_dsc._pointer if draw_dsc else ffi.NULL)
+    def init_draw_label_dsc(self, part: 'PART', draw_dsc: 'draw_label_dsc') -> 'None':
+        return _lvgl.lv_obj_init_draw_label_dsc(self._pointer, part.value if part and isinstance(part, Enum) else (part or 0), draw_dsc._pointer if draw_dsc else ffi.NULL)
+    def init_draw_image_dsc(self, part: 'PART', draw_dsc: 'draw_image_dsc') -> 'None':
+        return _lvgl.lv_obj_init_draw_image_dsc(self._pointer, part.value if part and isinstance(part, Enum) else (part or 0), draw_dsc._pointer if draw_dsc else ffi.NULL)
+    def init_draw_line_dsc(self, part: 'PART', draw_dsc: 'draw_line_dsc') -> 'None':
+        return _lvgl.lv_obj_init_draw_line_dsc(self._pointer, part.value if part and isinstance(part, Enum) else (part or 0), draw_dsc._pointer if draw_dsc else ffi.NULL)
+    def init_draw_arc_dsc(self, part: 'PART', draw_dsc: 'draw_arc_dsc') -> 'None':
+        return _lvgl.lv_obj_init_draw_arc_dsc(self._pointer, part.value if part and isinstance(part, Enum) else (part or 0), draw_dsc._pointer if draw_dsc else ffi.NULL)
+    def calculate_ext_draw_size(self, part: 'PART') -> 'int':
+        return _lvgl.lv_obj_calculate_ext_draw_size(self._pointer, part.value if part and isinstance(part, Enum) else (part or 0))
     def refresh_ext_draw_size(self) -> 'None':
         return _lvgl.lv_obj_refresh_ext_draw_size(self._pointer)
     def class_create_obj(self, parent: 'obj') -> 'obj':
@@ -1628,7 +1635,7 @@ class obj:
     def is_group_def(self) -> 'bool':
         return _lvgl.lv_obj_is_group_def(self._pointer)
     def send_event(self, event_code: 'EVENT_CODE', param: 'None') -> 'lv_result_t':
-        return _lvgl.lv_obj_send_event(self._pointer, event_code.value if event_code else 0, ffi.NULL if param is None else param)
+        return _lvgl.lv_obj_send_event(self._pointer, event_code.value if event_code and isinstance(event_code, Enum) else (event_code or 0), ffi.NULL if param is None else param)
     def event_base(self, e: 'event') -> 'lv_result_t':
         return _lvgl.lv_obj_event_base(self._pointer, e._pointer if e else ffi.NULL)
     def add_event_cb(self, event_cb: 'lv_event_cb_t', filter: 'EVENT_CODE', user_data: 'str') -> 'event_dsc':
@@ -1650,7 +1657,7 @@ class obj:
             user_data = ffi.from_buffer(user_data)
             self._user_data.append(user_data)
         result = event_dsc.__new__(event_dsc)
-        result._pointer = _lvgl.lv_obj_add_event_cb(self._pointer, event_cb_wrapper, filter.value if filter else 0, ffi.NULL if user_data is None else user_data)
+        result._pointer = _lvgl.lv_obj_add_event_cb(self._pointer, event_cb_wrapper, filter.value if filter and isinstance(filter, Enum) else (filter or 0), ffi.NULL if user_data is None else user_data)
         return result if result._pointer else None
     def get_event_count(self) -> 'int':
         return _lvgl.lv_obj_get_event_count(self._pointer)
@@ -1697,17 +1704,17 @@ class obj:
             self._user_data.append(user_data)
         return _lvgl.lv_obj_remove_event_cb_with_user_data(self._pointer, event_cb_wrapper, ffi.NULL if user_data is None else user_data)
     def add_flag(self, f: 'OBJ_FLAG') -> 'None':
-        return _lvgl.lv_obj_add_flag(self._pointer, f.value if f else 0)
+        return _lvgl.lv_obj_add_flag(self._pointer, f.value if f and isinstance(f, Enum) else (f or 0))
     def remove_flag(self, f: 'OBJ_FLAG') -> 'None':
-        return _lvgl.lv_obj_remove_flag(self._pointer, f.value if f else 0)
+        return _lvgl.lv_obj_remove_flag(self._pointer, f.value if f and isinstance(f, Enum) else (f or 0))
     def update_flag(self, f: 'OBJ_FLAG', v: 'bool') -> 'None':
-        return _lvgl.lv_obj_update_flag(self._pointer, f.value if f else 0, v)
-    def add_state(self, state: 'lv_state_t') -> 'None':
-        return _lvgl.lv_obj_add_state(self._pointer, state)
-    def remove_state(self, state: 'lv_state_t') -> 'None':
-        return _lvgl.lv_obj_remove_state(self._pointer, state)
-    def set_state(self, state: 'lv_state_t', v: 'bool') -> 'None':
-        return _lvgl.lv_obj_set_state(self._pointer, state, v)
+        return _lvgl.lv_obj_update_flag(self._pointer, f.value if f and isinstance(f, Enum) else (f or 0), v)
+    def add_state(self, state: 'STATE') -> 'None':
+        return _lvgl.lv_obj_add_state(self._pointer, state.value if state and isinstance(state, Enum) else (state or 0))
+    def remove_state(self, state: 'STATE') -> 'None':
+        return _lvgl.lv_obj_remove_state(self._pointer, state.value if state and isinstance(state, Enum) else (state or 0))
+    def set_state(self, state: 'STATE', v: 'bool') -> 'None':
+        return _lvgl.lv_obj_set_state(self._pointer, state.value if state and isinstance(state, Enum) else (state or 0), v)
     def set_user_data(self, user_data: 'str') -> 'None':
         if user_data is not None:
             user_data = user_data.encode('utf-8') + b'\x00'
@@ -1715,13 +1722,13 @@ class obj:
             self._user_data.append(user_data)
         return _lvgl.lv_obj_set_user_data(self._pointer, ffi.NULL if user_data is None else user_data)
     def has_flag(self, f: 'OBJ_FLAG') -> 'bool':
-        return _lvgl.lv_obj_has_flag(self._pointer, f.value if f else 0)
+        return _lvgl.lv_obj_has_flag(self._pointer, f.value if f and isinstance(f, Enum) else (f or 0))
     def has_flag_any(self, f: 'OBJ_FLAG') -> 'bool':
-        return _lvgl.lv_obj_has_flag_any(self._pointer, f.value if f else 0)
+        return _lvgl.lv_obj_has_flag_any(self._pointer, f.value if f and isinstance(f, Enum) else (f or 0))
     def get_state(self) -> 'lv_state_t':
         return _lvgl.lv_obj_get_state(self._pointer)
-    def has_state(self, state: 'lv_state_t') -> 'bool':
-        return _lvgl.lv_obj_has_state(self._pointer, state)
+    def has_state(self, state: 'STATE') -> 'bool':
+        return _lvgl.lv_obj_has_state(self._pointer, state.value if state and isinstance(state, Enum) else (state or 0))
     def get_group(self) -> 'group':
         result = group.__new__(group)
         result._pointer = _lvgl.lv_obj_get_group(self._pointer)
@@ -1749,334 +1756,334 @@ class obj:
         return _lvgl.lv_obj_remove_from_subject(self._pointer, subject._pointer if subject else ffi.NULL)
     def bind_flag_if_eq(self, subject: 'subject', flag: 'OBJ_FLAG', ref_value: 'int') -> 'observer':
         result = observer.__new__(observer)
-        result._pointer = _lvgl.lv_obj_bind_flag_if_eq(self._pointer, subject._pointer if subject else ffi.NULL, flag.value if flag else 0, ref_value)
+        result._pointer = _lvgl.lv_obj_bind_flag_if_eq(self._pointer, subject._pointer if subject else ffi.NULL, flag.value if flag and isinstance(flag, Enum) else (flag or 0), ref_value)
         return result if result._pointer else None
     def bind_flag_if_not_eq(self, subject: 'subject', flag: 'OBJ_FLAG', ref_value: 'int') -> 'observer':
         result = observer.__new__(observer)
-        result._pointer = _lvgl.lv_obj_bind_flag_if_not_eq(self._pointer, subject._pointer if subject else ffi.NULL, flag.value if flag else 0, ref_value)
+        result._pointer = _lvgl.lv_obj_bind_flag_if_not_eq(self._pointer, subject._pointer if subject else ffi.NULL, flag.value if flag and isinstance(flag, Enum) else (flag or 0), ref_value)
         return result if result._pointer else None
     def bind_flag_if_gt(self, subject: 'subject', flag: 'OBJ_FLAG', ref_value: 'int') -> 'observer':
         result = observer.__new__(observer)
-        result._pointer = _lvgl.lv_obj_bind_flag_if_gt(self._pointer, subject._pointer if subject else ffi.NULL, flag.value if flag else 0, ref_value)
+        result._pointer = _lvgl.lv_obj_bind_flag_if_gt(self._pointer, subject._pointer if subject else ffi.NULL, flag.value if flag and isinstance(flag, Enum) else (flag or 0), ref_value)
         return result if result._pointer else None
     def bind_flag_if_ge(self, subject: 'subject', flag: 'OBJ_FLAG', ref_value: 'int') -> 'observer':
         result = observer.__new__(observer)
-        result._pointer = _lvgl.lv_obj_bind_flag_if_ge(self._pointer, subject._pointer if subject else ffi.NULL, flag.value if flag else 0, ref_value)
+        result._pointer = _lvgl.lv_obj_bind_flag_if_ge(self._pointer, subject._pointer if subject else ffi.NULL, flag.value if flag and isinstance(flag, Enum) else (flag or 0), ref_value)
         return result if result._pointer else None
     def bind_flag_if_lt(self, subject: 'subject', flag: 'OBJ_FLAG', ref_value: 'int') -> 'observer':
         result = observer.__new__(observer)
-        result._pointer = _lvgl.lv_obj_bind_flag_if_lt(self._pointer, subject._pointer if subject else ffi.NULL, flag.value if flag else 0, ref_value)
+        result._pointer = _lvgl.lv_obj_bind_flag_if_lt(self._pointer, subject._pointer if subject else ffi.NULL, flag.value if flag and isinstance(flag, Enum) else (flag or 0), ref_value)
         return result if result._pointer else None
     def bind_flag_if_le(self, subject: 'subject', flag: 'OBJ_FLAG', ref_value: 'int') -> 'observer':
         result = observer.__new__(observer)
-        result._pointer = _lvgl.lv_obj_bind_flag_if_le(self._pointer, subject._pointer if subject else ffi.NULL, flag.value if flag else 0, ref_value)
+        result._pointer = _lvgl.lv_obj_bind_flag_if_le(self._pointer, subject._pointer if subject else ffi.NULL, flag.value if flag and isinstance(flag, Enum) else (flag or 0), ref_value)
         return result if result._pointer else None
-    def bind_state_if_eq(self, subject: 'subject', state: 'lv_state_t', ref_value: 'int') -> 'observer':
+    def bind_state_if_eq(self, subject: 'subject', state: 'STATE', ref_value: 'int') -> 'observer':
         result = observer.__new__(observer)
-        result._pointer = _lvgl.lv_obj_bind_state_if_eq(self._pointer, subject._pointer if subject else ffi.NULL, state, ref_value)
+        result._pointer = _lvgl.lv_obj_bind_state_if_eq(self._pointer, subject._pointer if subject else ffi.NULL, state.value if state and isinstance(state, Enum) else (state or 0), ref_value)
         return result if result._pointer else None
-    def bind_state_if_not_eq(self, subject: 'subject', state: 'lv_state_t', ref_value: 'int') -> 'observer':
+    def bind_state_if_not_eq(self, subject: 'subject', state: 'STATE', ref_value: 'int') -> 'observer':
         result = observer.__new__(observer)
-        result._pointer = _lvgl.lv_obj_bind_state_if_not_eq(self._pointer, subject._pointer if subject else ffi.NULL, state, ref_value)
+        result._pointer = _lvgl.lv_obj_bind_state_if_not_eq(self._pointer, subject._pointer if subject else ffi.NULL, state.value if state and isinstance(state, Enum) else (state or 0), ref_value)
         return result if result._pointer else None
-    def bind_state_if_gt(self, subject: 'subject', state: 'lv_state_t', ref_value: 'int') -> 'observer':
+    def bind_state_if_gt(self, subject: 'subject', state: 'STATE', ref_value: 'int') -> 'observer':
         result = observer.__new__(observer)
-        result._pointer = _lvgl.lv_obj_bind_state_if_gt(self._pointer, subject._pointer if subject else ffi.NULL, state, ref_value)
+        result._pointer = _lvgl.lv_obj_bind_state_if_gt(self._pointer, subject._pointer if subject else ffi.NULL, state.value if state and isinstance(state, Enum) else (state or 0), ref_value)
         return result if result._pointer else None
-    def bind_state_if_ge(self, subject: 'subject', state: 'lv_state_t', ref_value: 'int') -> 'observer':
+    def bind_state_if_ge(self, subject: 'subject', state: 'STATE', ref_value: 'int') -> 'observer':
         result = observer.__new__(observer)
-        result._pointer = _lvgl.lv_obj_bind_state_if_ge(self._pointer, subject._pointer if subject else ffi.NULL, state, ref_value)
+        result._pointer = _lvgl.lv_obj_bind_state_if_ge(self._pointer, subject._pointer if subject else ffi.NULL, state.value if state and isinstance(state, Enum) else (state or 0), ref_value)
         return result if result._pointer else None
-    def bind_state_if_lt(self, subject: 'subject', state: 'lv_state_t', ref_value: 'int') -> 'observer':
+    def bind_state_if_lt(self, subject: 'subject', state: 'STATE', ref_value: 'int') -> 'observer':
         result = observer.__new__(observer)
-        result._pointer = _lvgl.lv_obj_bind_state_if_lt(self._pointer, subject._pointer if subject else ffi.NULL, state, ref_value)
+        result._pointer = _lvgl.lv_obj_bind_state_if_lt(self._pointer, subject._pointer if subject else ffi.NULL, state.value if state and isinstance(state, Enum) else (state or 0), ref_value)
         return result if result._pointer else None
-    def bind_state_if_le(self, subject: 'subject', state: 'lv_state_t', ref_value: 'int') -> 'observer':
+    def bind_state_if_le(self, subject: 'subject', state: 'STATE', ref_value: 'int') -> 'observer':
         result = observer.__new__(observer)
-        result._pointer = _lvgl.lv_obj_bind_state_if_le(self._pointer, subject._pointer if subject else ffi.NULL, state, ref_value)
+        result._pointer = _lvgl.lv_obj_bind_state_if_le(self._pointer, subject._pointer if subject else ffi.NULL, state.value if state and isinstance(state, Enum) else (state or 0), ref_value)
         return result if result._pointer else None
     def bind_checked(self, subject: 'subject') -> 'observer':
         result = observer.__new__(observer)
         result._pointer = _lvgl.lv_obj_bind_checked(self._pointer, subject._pointer if subject else ffi.NULL)
         return result if result._pointer else None
-    def get_style_width(self, part: 'lv_part_t') -> 'int':
-        return _lvgl.lv_obj_get_style_width(self._pointer, part)
-    def get_style_min_width(self, part: 'lv_part_t') -> 'int':
-        return _lvgl.lv_obj_get_style_min_width(self._pointer, part)
-    def get_style_max_width(self, part: 'lv_part_t') -> 'int':
-        return _lvgl.lv_obj_get_style_max_width(self._pointer, part)
-    def get_style_height(self, part: 'lv_part_t') -> 'int':
-        return _lvgl.lv_obj_get_style_height(self._pointer, part)
-    def get_style_min_height(self, part: 'lv_part_t') -> 'int':
-        return _lvgl.lv_obj_get_style_min_height(self._pointer, part)
-    def get_style_max_height(self, part: 'lv_part_t') -> 'int':
-        return _lvgl.lv_obj_get_style_max_height(self._pointer, part)
-    def get_style_length(self, part: 'lv_part_t') -> 'int':
-        return _lvgl.lv_obj_get_style_length(self._pointer, part)
-    def get_style_x(self, part: 'lv_part_t') -> 'int':
-        return _lvgl.lv_obj_get_style_x(self._pointer, part)
-    def get_style_y(self, part: 'lv_part_t') -> 'int':
-        return _lvgl.lv_obj_get_style_y(self._pointer, part)
-    def get_style_align(self, part: 'lv_part_t') -> 'lv_align_t':
-        return _lvgl.lv_obj_get_style_align(self._pointer, part)
-    def get_style_transform_width(self, part: 'lv_part_t') -> 'int':
-        return _lvgl.lv_obj_get_style_transform_width(self._pointer, part)
-    def get_style_transform_height(self, part: 'lv_part_t') -> 'int':
-        return _lvgl.lv_obj_get_style_transform_height(self._pointer, part)
-    def get_style_translate_x(self, part: 'lv_part_t') -> 'int':
-        return _lvgl.lv_obj_get_style_translate_x(self._pointer, part)
-    def get_style_translate_y(self, part: 'lv_part_t') -> 'int':
-        return _lvgl.lv_obj_get_style_translate_y(self._pointer, part)
-    def get_style_translate_radial(self, part: 'lv_part_t') -> 'int':
-        return _lvgl.lv_obj_get_style_translate_radial(self._pointer, part)
-    def get_style_transform_scale_x(self, part: 'lv_part_t') -> 'int':
-        return _lvgl.lv_obj_get_style_transform_scale_x(self._pointer, part)
-    def get_style_transform_scale_y(self, part: 'lv_part_t') -> 'int':
-        return _lvgl.lv_obj_get_style_transform_scale_y(self._pointer, part)
-    def get_style_transform_rotation(self, part: 'lv_part_t') -> 'int':
-        return _lvgl.lv_obj_get_style_transform_rotation(self._pointer, part)
-    def get_style_transform_pivot_x(self, part: 'lv_part_t') -> 'int':
-        return _lvgl.lv_obj_get_style_transform_pivot_x(self._pointer, part)
-    def get_style_transform_pivot_y(self, part: 'lv_part_t') -> 'int':
-        return _lvgl.lv_obj_get_style_transform_pivot_y(self._pointer, part)
-    def get_style_transform_skew_x(self, part: 'lv_part_t') -> 'int':
-        return _lvgl.lv_obj_get_style_transform_skew_x(self._pointer, part)
-    def get_style_transform_skew_y(self, part: 'lv_part_t') -> 'int':
-        return _lvgl.lv_obj_get_style_transform_skew_y(self._pointer, part)
-    def get_style_pad_top(self, part: 'lv_part_t') -> 'int':
-        return _lvgl.lv_obj_get_style_pad_top(self._pointer, part)
-    def get_style_pad_bottom(self, part: 'lv_part_t') -> 'int':
-        return _lvgl.lv_obj_get_style_pad_bottom(self._pointer, part)
-    def get_style_pad_left(self, part: 'lv_part_t') -> 'int':
-        return _lvgl.lv_obj_get_style_pad_left(self._pointer, part)
-    def get_style_pad_right(self, part: 'lv_part_t') -> 'int':
-        return _lvgl.lv_obj_get_style_pad_right(self._pointer, part)
-    def get_style_pad_row(self, part: 'lv_part_t') -> 'int':
-        return _lvgl.lv_obj_get_style_pad_row(self._pointer, part)
-    def get_style_pad_column(self, part: 'lv_part_t') -> 'int':
-        return _lvgl.lv_obj_get_style_pad_column(self._pointer, part)
-    def get_style_pad_radial(self, part: 'lv_part_t') -> 'int':
-        return _lvgl.lv_obj_get_style_pad_radial(self._pointer, part)
-    def get_style_margin_top(self, part: 'lv_part_t') -> 'int':
-        return _lvgl.lv_obj_get_style_margin_top(self._pointer, part)
-    def get_style_margin_bottom(self, part: 'lv_part_t') -> 'int':
-        return _lvgl.lv_obj_get_style_margin_bottom(self._pointer, part)
-    def get_style_margin_left(self, part: 'lv_part_t') -> 'int':
-        return _lvgl.lv_obj_get_style_margin_left(self._pointer, part)
-    def get_style_margin_right(self, part: 'lv_part_t') -> 'int':
-        return _lvgl.lv_obj_get_style_margin_right(self._pointer, part)
-    def get_style_bg_color(self, part: 'lv_part_t') -> 'lv_color_t':
-        return _lvgl.lv_obj_get_style_bg_color(self._pointer, part)
-    def get_style_bg_color_filtered(self, part: 'lv_part_t') -> 'lv_color_t':
-        return _lvgl.lv_obj_get_style_bg_color_filtered(self._pointer, part)
-    def get_style_bg_opa(self, part: 'lv_part_t') -> 'lv_opa_t':
-        return _lvgl.lv_obj_get_style_bg_opa(self._pointer, part)
-    def get_style_bg_grad_color(self, part: 'lv_part_t') -> 'lv_color_t':
-        return _lvgl.lv_obj_get_style_bg_grad_color(self._pointer, part)
-    def get_style_bg_grad_color_filtered(self, part: 'lv_part_t') -> 'lv_color_t':
-        return _lvgl.lv_obj_get_style_bg_grad_color_filtered(self._pointer, part)
-    def get_style_bg_grad_dir(self, part: 'lv_part_t') -> 'lv_grad_dir_t':
-        return _lvgl.lv_obj_get_style_bg_grad_dir(self._pointer, part)
-    def get_style_bg_main_stop(self, part: 'lv_part_t') -> 'int':
-        return _lvgl.lv_obj_get_style_bg_main_stop(self._pointer, part)
-    def get_style_bg_grad_stop(self, part: 'lv_part_t') -> 'int':
-        return _lvgl.lv_obj_get_style_bg_grad_stop(self._pointer, part)
-    def get_style_bg_main_opa(self, part: 'lv_part_t') -> 'lv_opa_t':
-        return _lvgl.lv_obj_get_style_bg_main_opa(self._pointer, part)
-    def get_style_bg_grad_opa(self, part: 'lv_part_t') -> 'lv_opa_t':
-        return _lvgl.lv_obj_get_style_bg_grad_opa(self._pointer, part)
-    def get_style_bg_grad(self, part: 'lv_part_t') -> 'grad_dsc':
+    def get_style_width(self, part: 'PART') -> 'int':
+        return _lvgl.lv_obj_get_style_width(self._pointer, part.value if part and isinstance(part, Enum) else (part or 0))
+    def get_style_min_width(self, part: 'PART') -> 'int':
+        return _lvgl.lv_obj_get_style_min_width(self._pointer, part.value if part and isinstance(part, Enum) else (part or 0))
+    def get_style_max_width(self, part: 'PART') -> 'int':
+        return _lvgl.lv_obj_get_style_max_width(self._pointer, part.value if part and isinstance(part, Enum) else (part or 0))
+    def get_style_height(self, part: 'PART') -> 'int':
+        return _lvgl.lv_obj_get_style_height(self._pointer, part.value if part and isinstance(part, Enum) else (part or 0))
+    def get_style_min_height(self, part: 'PART') -> 'int':
+        return _lvgl.lv_obj_get_style_min_height(self._pointer, part.value if part and isinstance(part, Enum) else (part or 0))
+    def get_style_max_height(self, part: 'PART') -> 'int':
+        return _lvgl.lv_obj_get_style_max_height(self._pointer, part.value if part and isinstance(part, Enum) else (part or 0))
+    def get_style_length(self, part: 'PART') -> 'int':
+        return _lvgl.lv_obj_get_style_length(self._pointer, part.value if part and isinstance(part, Enum) else (part or 0))
+    def get_style_x(self, part: 'PART') -> 'int':
+        return _lvgl.lv_obj_get_style_x(self._pointer, part.value if part and isinstance(part, Enum) else (part or 0))
+    def get_style_y(self, part: 'PART') -> 'int':
+        return _lvgl.lv_obj_get_style_y(self._pointer, part.value if part and isinstance(part, Enum) else (part or 0))
+    def get_style_align(self, part: 'PART') -> 'lv_align_t':
+        return _lvgl.lv_obj_get_style_align(self._pointer, part.value if part and isinstance(part, Enum) else (part or 0))
+    def get_style_transform_width(self, part: 'PART') -> 'int':
+        return _lvgl.lv_obj_get_style_transform_width(self._pointer, part.value if part and isinstance(part, Enum) else (part or 0))
+    def get_style_transform_height(self, part: 'PART') -> 'int':
+        return _lvgl.lv_obj_get_style_transform_height(self._pointer, part.value if part and isinstance(part, Enum) else (part or 0))
+    def get_style_translate_x(self, part: 'PART') -> 'int':
+        return _lvgl.lv_obj_get_style_translate_x(self._pointer, part.value if part and isinstance(part, Enum) else (part or 0))
+    def get_style_translate_y(self, part: 'PART') -> 'int':
+        return _lvgl.lv_obj_get_style_translate_y(self._pointer, part.value if part and isinstance(part, Enum) else (part or 0))
+    def get_style_translate_radial(self, part: 'PART') -> 'int':
+        return _lvgl.lv_obj_get_style_translate_radial(self._pointer, part.value if part and isinstance(part, Enum) else (part or 0))
+    def get_style_transform_scale_x(self, part: 'PART') -> 'int':
+        return _lvgl.lv_obj_get_style_transform_scale_x(self._pointer, part.value if part and isinstance(part, Enum) else (part or 0))
+    def get_style_transform_scale_y(self, part: 'PART') -> 'int':
+        return _lvgl.lv_obj_get_style_transform_scale_y(self._pointer, part.value if part and isinstance(part, Enum) else (part or 0))
+    def get_style_transform_rotation(self, part: 'PART') -> 'int':
+        return _lvgl.lv_obj_get_style_transform_rotation(self._pointer, part.value if part and isinstance(part, Enum) else (part or 0))
+    def get_style_transform_pivot_x(self, part: 'PART') -> 'int':
+        return _lvgl.lv_obj_get_style_transform_pivot_x(self._pointer, part.value if part and isinstance(part, Enum) else (part or 0))
+    def get_style_transform_pivot_y(self, part: 'PART') -> 'int':
+        return _lvgl.lv_obj_get_style_transform_pivot_y(self._pointer, part.value if part and isinstance(part, Enum) else (part or 0))
+    def get_style_transform_skew_x(self, part: 'PART') -> 'int':
+        return _lvgl.lv_obj_get_style_transform_skew_x(self._pointer, part.value if part and isinstance(part, Enum) else (part or 0))
+    def get_style_transform_skew_y(self, part: 'PART') -> 'int':
+        return _lvgl.lv_obj_get_style_transform_skew_y(self._pointer, part.value if part and isinstance(part, Enum) else (part or 0))
+    def get_style_pad_top(self, part: 'PART') -> 'int':
+        return _lvgl.lv_obj_get_style_pad_top(self._pointer, part.value if part and isinstance(part, Enum) else (part or 0))
+    def get_style_pad_bottom(self, part: 'PART') -> 'int':
+        return _lvgl.lv_obj_get_style_pad_bottom(self._pointer, part.value if part and isinstance(part, Enum) else (part or 0))
+    def get_style_pad_left(self, part: 'PART') -> 'int':
+        return _lvgl.lv_obj_get_style_pad_left(self._pointer, part.value if part and isinstance(part, Enum) else (part or 0))
+    def get_style_pad_right(self, part: 'PART') -> 'int':
+        return _lvgl.lv_obj_get_style_pad_right(self._pointer, part.value if part and isinstance(part, Enum) else (part or 0))
+    def get_style_pad_row(self, part: 'PART') -> 'int':
+        return _lvgl.lv_obj_get_style_pad_row(self._pointer, part.value if part and isinstance(part, Enum) else (part or 0))
+    def get_style_pad_column(self, part: 'PART') -> 'int':
+        return _lvgl.lv_obj_get_style_pad_column(self._pointer, part.value if part and isinstance(part, Enum) else (part or 0))
+    def get_style_pad_radial(self, part: 'PART') -> 'int':
+        return _lvgl.lv_obj_get_style_pad_radial(self._pointer, part.value if part and isinstance(part, Enum) else (part or 0))
+    def get_style_margin_top(self, part: 'PART') -> 'int':
+        return _lvgl.lv_obj_get_style_margin_top(self._pointer, part.value if part and isinstance(part, Enum) else (part or 0))
+    def get_style_margin_bottom(self, part: 'PART') -> 'int':
+        return _lvgl.lv_obj_get_style_margin_bottom(self._pointer, part.value if part and isinstance(part, Enum) else (part or 0))
+    def get_style_margin_left(self, part: 'PART') -> 'int':
+        return _lvgl.lv_obj_get_style_margin_left(self._pointer, part.value if part and isinstance(part, Enum) else (part or 0))
+    def get_style_margin_right(self, part: 'PART') -> 'int':
+        return _lvgl.lv_obj_get_style_margin_right(self._pointer, part.value if part and isinstance(part, Enum) else (part or 0))
+    def get_style_bg_color(self, part: 'PART') -> 'lv_color_t':
+        return _lvgl.lv_obj_get_style_bg_color(self._pointer, part.value if part and isinstance(part, Enum) else (part or 0))
+    def get_style_bg_color_filtered(self, part: 'PART') -> 'lv_color_t':
+        return _lvgl.lv_obj_get_style_bg_color_filtered(self._pointer, part.value if part and isinstance(part, Enum) else (part or 0))
+    def get_style_bg_opa(self, part: 'PART') -> 'lv_opa_t':
+        return _lvgl.lv_obj_get_style_bg_opa(self._pointer, part.value if part and isinstance(part, Enum) else (part or 0))
+    def get_style_bg_grad_color(self, part: 'PART') -> 'lv_color_t':
+        return _lvgl.lv_obj_get_style_bg_grad_color(self._pointer, part.value if part and isinstance(part, Enum) else (part or 0))
+    def get_style_bg_grad_color_filtered(self, part: 'PART') -> 'lv_color_t':
+        return _lvgl.lv_obj_get_style_bg_grad_color_filtered(self._pointer, part.value if part and isinstance(part, Enum) else (part or 0))
+    def get_style_bg_grad_dir(self, part: 'PART') -> 'lv_grad_dir_t':
+        return _lvgl.lv_obj_get_style_bg_grad_dir(self._pointer, part.value if part and isinstance(part, Enum) else (part or 0))
+    def get_style_bg_main_stop(self, part: 'PART') -> 'int':
+        return _lvgl.lv_obj_get_style_bg_main_stop(self._pointer, part.value if part and isinstance(part, Enum) else (part or 0))
+    def get_style_bg_grad_stop(self, part: 'PART') -> 'int':
+        return _lvgl.lv_obj_get_style_bg_grad_stop(self._pointer, part.value if part and isinstance(part, Enum) else (part or 0))
+    def get_style_bg_main_opa(self, part: 'PART') -> 'lv_opa_t':
+        return _lvgl.lv_obj_get_style_bg_main_opa(self._pointer, part.value if part and isinstance(part, Enum) else (part or 0))
+    def get_style_bg_grad_opa(self, part: 'PART') -> 'lv_opa_t':
+        return _lvgl.lv_obj_get_style_bg_grad_opa(self._pointer, part.value if part and isinstance(part, Enum) else (part or 0))
+    def get_style_bg_grad(self, part: 'PART') -> 'grad_dsc':
         result = grad_dsc.__new__(grad_dsc)
-        result._pointer = _lvgl.lv_obj_get_style_bg_grad(self._pointer, part)
+        result._pointer = _lvgl.lv_obj_get_style_bg_grad(self._pointer, part.value if part and isinstance(part, Enum) else (part or 0))
         return result if result._pointer else None
-    def get_style_bg_image_src(self, part: 'lv_part_t') -> 'None':
-        return _lvgl.lv_obj_get_style_bg_image_src(self._pointer, part)
-    def get_style_bg_image_opa(self, part: 'lv_part_t') -> 'lv_opa_t':
-        return _lvgl.lv_obj_get_style_bg_image_opa(self._pointer, part)
-    def get_style_bg_image_recolor(self, part: 'lv_part_t') -> 'lv_color_t':
-        return _lvgl.lv_obj_get_style_bg_image_recolor(self._pointer, part)
-    def get_style_bg_image_recolor_filtered(self, part: 'lv_part_t') -> 'lv_color_t':
-        return _lvgl.lv_obj_get_style_bg_image_recolor_filtered(self._pointer, part)
-    def get_style_bg_image_recolor_opa(self, part: 'lv_part_t') -> 'lv_opa_t':
-        return _lvgl.lv_obj_get_style_bg_image_recolor_opa(self._pointer, part)
-    def get_style_bg_image_tiled(self, part: 'lv_part_t') -> 'bool':
-        return _lvgl.lv_obj_get_style_bg_image_tiled(self._pointer, part)
-    def get_style_border_color(self, part: 'lv_part_t') -> 'lv_color_t':
-        return _lvgl.lv_obj_get_style_border_color(self._pointer, part)
-    def get_style_border_color_filtered(self, part: 'lv_part_t') -> 'lv_color_t':
-        return _lvgl.lv_obj_get_style_border_color_filtered(self._pointer, part)
-    def get_style_border_opa(self, part: 'lv_part_t') -> 'lv_opa_t':
-        return _lvgl.lv_obj_get_style_border_opa(self._pointer, part)
-    def get_style_border_width(self, part: 'lv_part_t') -> 'int':
-        return _lvgl.lv_obj_get_style_border_width(self._pointer, part)
-    def get_style_border_side(self, part: 'lv_part_t') -> 'lv_border_side_t':
-        return _lvgl.lv_obj_get_style_border_side(self._pointer, part)
-    def get_style_border_post(self, part: 'lv_part_t') -> 'bool':
-        return _lvgl.lv_obj_get_style_border_post(self._pointer, part)
-    def get_style_outline_width(self, part: 'lv_part_t') -> 'int':
-        return _lvgl.lv_obj_get_style_outline_width(self._pointer, part)
-    def get_style_outline_color(self, part: 'lv_part_t') -> 'lv_color_t':
-        return _lvgl.lv_obj_get_style_outline_color(self._pointer, part)
-    def get_style_outline_color_filtered(self, part: 'lv_part_t') -> 'lv_color_t':
-        return _lvgl.lv_obj_get_style_outline_color_filtered(self._pointer, part)
-    def get_style_outline_opa(self, part: 'lv_part_t') -> 'lv_opa_t':
-        return _lvgl.lv_obj_get_style_outline_opa(self._pointer, part)
-    def get_style_outline_pad(self, part: 'lv_part_t') -> 'int':
-        return _lvgl.lv_obj_get_style_outline_pad(self._pointer, part)
-    def get_style_shadow_width(self, part: 'lv_part_t') -> 'int':
-        return _lvgl.lv_obj_get_style_shadow_width(self._pointer, part)
-    def get_style_shadow_offset_x(self, part: 'lv_part_t') -> 'int':
-        return _lvgl.lv_obj_get_style_shadow_offset_x(self._pointer, part)
-    def get_style_shadow_offset_y(self, part: 'lv_part_t') -> 'int':
-        return _lvgl.lv_obj_get_style_shadow_offset_y(self._pointer, part)
-    def get_style_shadow_spread(self, part: 'lv_part_t') -> 'int':
-        return _lvgl.lv_obj_get_style_shadow_spread(self._pointer, part)
-    def get_style_shadow_color(self, part: 'lv_part_t') -> 'lv_color_t':
-        return _lvgl.lv_obj_get_style_shadow_color(self._pointer, part)
-    def get_style_shadow_color_filtered(self, part: 'lv_part_t') -> 'lv_color_t':
-        return _lvgl.lv_obj_get_style_shadow_color_filtered(self._pointer, part)
-    def get_style_shadow_opa(self, part: 'lv_part_t') -> 'lv_opa_t':
-        return _lvgl.lv_obj_get_style_shadow_opa(self._pointer, part)
-    def get_style_image_opa(self, part: 'lv_part_t') -> 'lv_opa_t':
-        return _lvgl.lv_obj_get_style_image_opa(self._pointer, part)
-    def get_style_image_recolor(self, part: 'lv_part_t') -> 'lv_color_t':
-        return _lvgl.lv_obj_get_style_image_recolor(self._pointer, part)
-    def get_style_image_recolor_filtered(self, part: 'lv_part_t') -> 'lv_color_t':
-        return _lvgl.lv_obj_get_style_image_recolor_filtered(self._pointer, part)
-    def get_style_image_recolor_opa(self, part: 'lv_part_t') -> 'lv_opa_t':
-        return _lvgl.lv_obj_get_style_image_recolor_opa(self._pointer, part)
-    def get_style_line_width(self, part: 'lv_part_t') -> 'int':
-        return _lvgl.lv_obj_get_style_line_width(self._pointer, part)
-    def get_style_line_dash_width(self, part: 'lv_part_t') -> 'int':
-        return _lvgl.lv_obj_get_style_line_dash_width(self._pointer, part)
-    def get_style_line_dash_gap(self, part: 'lv_part_t') -> 'int':
-        return _lvgl.lv_obj_get_style_line_dash_gap(self._pointer, part)
-    def get_style_line_rounded(self, part: 'lv_part_t') -> 'bool':
-        return _lvgl.lv_obj_get_style_line_rounded(self._pointer, part)
-    def get_style_line_color(self, part: 'lv_part_t') -> 'lv_color_t':
-        return _lvgl.lv_obj_get_style_line_color(self._pointer, part)
-    def get_style_line_color_filtered(self, part: 'lv_part_t') -> 'lv_color_t':
-        return _lvgl.lv_obj_get_style_line_color_filtered(self._pointer, part)
-    def get_style_line_opa(self, part: 'lv_part_t') -> 'lv_opa_t':
-        return _lvgl.lv_obj_get_style_line_opa(self._pointer, part)
-    def get_style_arc_width(self, part: 'lv_part_t') -> 'int':
-        return _lvgl.lv_obj_get_style_arc_width(self._pointer, part)
-    def get_style_arc_rounded(self, part: 'lv_part_t') -> 'bool':
-        return _lvgl.lv_obj_get_style_arc_rounded(self._pointer, part)
-    def get_style_arc_color(self, part: 'lv_part_t') -> 'lv_color_t':
-        return _lvgl.lv_obj_get_style_arc_color(self._pointer, part)
-    def get_style_arc_color_filtered(self, part: 'lv_part_t') -> 'lv_color_t':
-        return _lvgl.lv_obj_get_style_arc_color_filtered(self._pointer, part)
-    def get_style_arc_opa(self, part: 'lv_part_t') -> 'lv_opa_t':
-        return _lvgl.lv_obj_get_style_arc_opa(self._pointer, part)
-    def get_style_arc_image_src(self, part: 'lv_part_t') -> 'None':
-        return _lvgl.lv_obj_get_style_arc_image_src(self._pointer, part)
-    def get_style_text_color(self, part: 'lv_part_t') -> 'lv_color_t':
-        return _lvgl.lv_obj_get_style_text_color(self._pointer, part)
-    def get_style_text_color_filtered(self, part: 'lv_part_t') -> 'lv_color_t':
-        return _lvgl.lv_obj_get_style_text_color_filtered(self._pointer, part)
-    def get_style_text_opa(self, part: 'lv_part_t') -> 'lv_opa_t':
-        return _lvgl.lv_obj_get_style_text_opa(self._pointer, part)
-    def get_style_text_font(self, part: 'lv_part_t') -> 'font':
+    def get_style_bg_image_src(self, part: 'PART') -> 'None':
+        return _lvgl.lv_obj_get_style_bg_image_src(self._pointer, part.value if part and isinstance(part, Enum) else (part or 0))
+    def get_style_bg_image_opa(self, part: 'PART') -> 'lv_opa_t':
+        return _lvgl.lv_obj_get_style_bg_image_opa(self._pointer, part.value if part and isinstance(part, Enum) else (part or 0))
+    def get_style_bg_image_recolor(self, part: 'PART') -> 'lv_color_t':
+        return _lvgl.lv_obj_get_style_bg_image_recolor(self._pointer, part.value if part and isinstance(part, Enum) else (part or 0))
+    def get_style_bg_image_recolor_filtered(self, part: 'PART') -> 'lv_color_t':
+        return _lvgl.lv_obj_get_style_bg_image_recolor_filtered(self._pointer, part.value if part and isinstance(part, Enum) else (part or 0))
+    def get_style_bg_image_recolor_opa(self, part: 'PART') -> 'lv_opa_t':
+        return _lvgl.lv_obj_get_style_bg_image_recolor_opa(self._pointer, part.value if part and isinstance(part, Enum) else (part or 0))
+    def get_style_bg_image_tiled(self, part: 'PART') -> 'bool':
+        return _lvgl.lv_obj_get_style_bg_image_tiled(self._pointer, part.value if part and isinstance(part, Enum) else (part or 0))
+    def get_style_border_color(self, part: 'PART') -> 'lv_color_t':
+        return _lvgl.lv_obj_get_style_border_color(self._pointer, part.value if part and isinstance(part, Enum) else (part or 0))
+    def get_style_border_color_filtered(self, part: 'PART') -> 'lv_color_t':
+        return _lvgl.lv_obj_get_style_border_color_filtered(self._pointer, part.value if part and isinstance(part, Enum) else (part or 0))
+    def get_style_border_opa(self, part: 'PART') -> 'lv_opa_t':
+        return _lvgl.lv_obj_get_style_border_opa(self._pointer, part.value if part and isinstance(part, Enum) else (part or 0))
+    def get_style_border_width(self, part: 'PART') -> 'int':
+        return _lvgl.lv_obj_get_style_border_width(self._pointer, part.value if part and isinstance(part, Enum) else (part or 0))
+    def get_style_border_side(self, part: 'PART') -> 'lv_border_side_t':
+        return _lvgl.lv_obj_get_style_border_side(self._pointer, part.value if part and isinstance(part, Enum) else (part or 0))
+    def get_style_border_post(self, part: 'PART') -> 'bool':
+        return _lvgl.lv_obj_get_style_border_post(self._pointer, part.value if part and isinstance(part, Enum) else (part or 0))
+    def get_style_outline_width(self, part: 'PART') -> 'int':
+        return _lvgl.lv_obj_get_style_outline_width(self._pointer, part.value if part and isinstance(part, Enum) else (part or 0))
+    def get_style_outline_color(self, part: 'PART') -> 'lv_color_t':
+        return _lvgl.lv_obj_get_style_outline_color(self._pointer, part.value if part and isinstance(part, Enum) else (part or 0))
+    def get_style_outline_color_filtered(self, part: 'PART') -> 'lv_color_t':
+        return _lvgl.lv_obj_get_style_outline_color_filtered(self._pointer, part.value if part and isinstance(part, Enum) else (part or 0))
+    def get_style_outline_opa(self, part: 'PART') -> 'lv_opa_t':
+        return _lvgl.lv_obj_get_style_outline_opa(self._pointer, part.value if part and isinstance(part, Enum) else (part or 0))
+    def get_style_outline_pad(self, part: 'PART') -> 'int':
+        return _lvgl.lv_obj_get_style_outline_pad(self._pointer, part.value if part and isinstance(part, Enum) else (part or 0))
+    def get_style_shadow_width(self, part: 'PART') -> 'int':
+        return _lvgl.lv_obj_get_style_shadow_width(self._pointer, part.value if part and isinstance(part, Enum) else (part or 0))
+    def get_style_shadow_offset_x(self, part: 'PART') -> 'int':
+        return _lvgl.lv_obj_get_style_shadow_offset_x(self._pointer, part.value if part and isinstance(part, Enum) else (part or 0))
+    def get_style_shadow_offset_y(self, part: 'PART') -> 'int':
+        return _lvgl.lv_obj_get_style_shadow_offset_y(self._pointer, part.value if part and isinstance(part, Enum) else (part or 0))
+    def get_style_shadow_spread(self, part: 'PART') -> 'int':
+        return _lvgl.lv_obj_get_style_shadow_spread(self._pointer, part.value if part and isinstance(part, Enum) else (part or 0))
+    def get_style_shadow_color(self, part: 'PART') -> 'lv_color_t':
+        return _lvgl.lv_obj_get_style_shadow_color(self._pointer, part.value if part and isinstance(part, Enum) else (part or 0))
+    def get_style_shadow_color_filtered(self, part: 'PART') -> 'lv_color_t':
+        return _lvgl.lv_obj_get_style_shadow_color_filtered(self._pointer, part.value if part and isinstance(part, Enum) else (part or 0))
+    def get_style_shadow_opa(self, part: 'PART') -> 'lv_opa_t':
+        return _lvgl.lv_obj_get_style_shadow_opa(self._pointer, part.value if part and isinstance(part, Enum) else (part or 0))
+    def get_style_image_opa(self, part: 'PART') -> 'lv_opa_t':
+        return _lvgl.lv_obj_get_style_image_opa(self._pointer, part.value if part and isinstance(part, Enum) else (part or 0))
+    def get_style_image_recolor(self, part: 'PART') -> 'lv_color_t':
+        return _lvgl.lv_obj_get_style_image_recolor(self._pointer, part.value if part and isinstance(part, Enum) else (part or 0))
+    def get_style_image_recolor_filtered(self, part: 'PART') -> 'lv_color_t':
+        return _lvgl.lv_obj_get_style_image_recolor_filtered(self._pointer, part.value if part and isinstance(part, Enum) else (part or 0))
+    def get_style_image_recolor_opa(self, part: 'PART') -> 'lv_opa_t':
+        return _lvgl.lv_obj_get_style_image_recolor_opa(self._pointer, part.value if part and isinstance(part, Enum) else (part or 0))
+    def get_style_line_width(self, part: 'PART') -> 'int':
+        return _lvgl.lv_obj_get_style_line_width(self._pointer, part.value if part and isinstance(part, Enum) else (part or 0))
+    def get_style_line_dash_width(self, part: 'PART') -> 'int':
+        return _lvgl.lv_obj_get_style_line_dash_width(self._pointer, part.value if part and isinstance(part, Enum) else (part or 0))
+    def get_style_line_dash_gap(self, part: 'PART') -> 'int':
+        return _lvgl.lv_obj_get_style_line_dash_gap(self._pointer, part.value if part and isinstance(part, Enum) else (part or 0))
+    def get_style_line_rounded(self, part: 'PART') -> 'bool':
+        return _lvgl.lv_obj_get_style_line_rounded(self._pointer, part.value if part and isinstance(part, Enum) else (part or 0))
+    def get_style_line_color(self, part: 'PART') -> 'lv_color_t':
+        return _lvgl.lv_obj_get_style_line_color(self._pointer, part.value if part and isinstance(part, Enum) else (part or 0))
+    def get_style_line_color_filtered(self, part: 'PART') -> 'lv_color_t':
+        return _lvgl.lv_obj_get_style_line_color_filtered(self._pointer, part.value if part and isinstance(part, Enum) else (part or 0))
+    def get_style_line_opa(self, part: 'PART') -> 'lv_opa_t':
+        return _lvgl.lv_obj_get_style_line_opa(self._pointer, part.value if part and isinstance(part, Enum) else (part or 0))
+    def get_style_arc_width(self, part: 'PART') -> 'int':
+        return _lvgl.lv_obj_get_style_arc_width(self._pointer, part.value if part and isinstance(part, Enum) else (part or 0))
+    def get_style_arc_rounded(self, part: 'PART') -> 'bool':
+        return _lvgl.lv_obj_get_style_arc_rounded(self._pointer, part.value if part and isinstance(part, Enum) else (part or 0))
+    def get_style_arc_color(self, part: 'PART') -> 'lv_color_t':
+        return _lvgl.lv_obj_get_style_arc_color(self._pointer, part.value if part and isinstance(part, Enum) else (part or 0))
+    def get_style_arc_color_filtered(self, part: 'PART') -> 'lv_color_t':
+        return _lvgl.lv_obj_get_style_arc_color_filtered(self._pointer, part.value if part and isinstance(part, Enum) else (part or 0))
+    def get_style_arc_opa(self, part: 'PART') -> 'lv_opa_t':
+        return _lvgl.lv_obj_get_style_arc_opa(self._pointer, part.value if part and isinstance(part, Enum) else (part or 0))
+    def get_style_arc_image_src(self, part: 'PART') -> 'None':
+        return _lvgl.lv_obj_get_style_arc_image_src(self._pointer, part.value if part and isinstance(part, Enum) else (part or 0))
+    def get_style_text_color(self, part: 'PART') -> 'lv_color_t':
+        return _lvgl.lv_obj_get_style_text_color(self._pointer, part.value if part and isinstance(part, Enum) else (part or 0))
+    def get_style_text_color_filtered(self, part: 'PART') -> 'lv_color_t':
+        return _lvgl.lv_obj_get_style_text_color_filtered(self._pointer, part.value if part and isinstance(part, Enum) else (part or 0))
+    def get_style_text_opa(self, part: 'PART') -> 'lv_opa_t':
+        return _lvgl.lv_obj_get_style_text_opa(self._pointer, part.value if part and isinstance(part, Enum) else (part or 0))
+    def get_style_text_font(self, part: 'PART') -> 'font':
         result = font.__new__(font)
-        result._pointer = _lvgl.lv_obj_get_style_text_font(self._pointer, part)
+        result._pointer = _lvgl.lv_obj_get_style_text_font(self._pointer, part.value if part and isinstance(part, Enum) else (part or 0))
         return result if result._pointer else None
-    def get_style_text_letter_space(self, part: 'lv_part_t') -> 'int':
-        return _lvgl.lv_obj_get_style_text_letter_space(self._pointer, part)
-    def get_style_text_line_space(self, part: 'lv_part_t') -> 'int':
-        return _lvgl.lv_obj_get_style_text_line_space(self._pointer, part)
-    def get_style_text_decor(self, part: 'lv_part_t') -> 'lv_text_decor_t':
-        return _lvgl.lv_obj_get_style_text_decor(self._pointer, part)
-    def get_style_text_align(self, part: 'lv_part_t') -> 'lv_text_align_t':
-        return _lvgl.lv_obj_get_style_text_align(self._pointer, part)
-    def get_style_text_outline_stroke_color(self, part: 'lv_part_t') -> 'lv_color_t':
-        return _lvgl.lv_obj_get_style_text_outline_stroke_color(self._pointer, part)
-    def get_style_text_outline_stroke_color_filtered(self, part: 'lv_part_t') -> 'lv_color_t':
-        return _lvgl.lv_obj_get_style_text_outline_stroke_color_filtered(self._pointer, part)
-    def get_style_text_outline_stroke_width(self, part: 'lv_part_t') -> 'int':
-        return _lvgl.lv_obj_get_style_text_outline_stroke_width(self._pointer, part)
-    def get_style_text_outline_stroke_opa(self, part: 'lv_part_t') -> 'lv_opa_t':
-        return _lvgl.lv_obj_get_style_text_outline_stroke_opa(self._pointer, part)
-    def get_style_radius(self, part: 'lv_part_t') -> 'int':
-        return _lvgl.lv_obj_get_style_radius(self._pointer, part)
-    def get_style_radial_offset(self, part: 'lv_part_t') -> 'int':
-        return _lvgl.lv_obj_get_style_radial_offset(self._pointer, part)
-    def get_style_clip_corner(self, part: 'lv_part_t') -> 'bool':
-        return _lvgl.lv_obj_get_style_clip_corner(self._pointer, part)
-    def get_style_opa(self, part: 'lv_part_t') -> 'lv_opa_t':
-        return _lvgl.lv_obj_get_style_opa(self._pointer, part)
-    def get_style_opa_layered(self, part: 'lv_part_t') -> 'lv_opa_t':
-        return _lvgl.lv_obj_get_style_opa_layered(self._pointer, part)
-    def get_style_color_filter_dsc(self, part: 'lv_part_t') -> 'lv_color_filter_dsc_t':
-        return _lvgl.lv_obj_get_style_color_filter_dsc(self._pointer, part)
-    def get_style_color_filter_opa(self, part: 'lv_part_t') -> 'lv_opa_t':
-        return _lvgl.lv_obj_get_style_color_filter_opa(self._pointer, part)
-    def get_style_recolor(self, part: 'lv_part_t') -> 'lv_color_t':
-        return _lvgl.lv_obj_get_style_recolor(self._pointer, part)
-    def get_style_recolor_opa(self, part: 'lv_part_t') -> 'lv_opa_t':
-        return _lvgl.lv_obj_get_style_recolor_opa(self._pointer, part)
-    def get_style_anim(self, part: 'lv_part_t') -> 'anim':
+    def get_style_text_letter_space(self, part: 'PART') -> 'int':
+        return _lvgl.lv_obj_get_style_text_letter_space(self._pointer, part.value if part and isinstance(part, Enum) else (part or 0))
+    def get_style_text_line_space(self, part: 'PART') -> 'int':
+        return _lvgl.lv_obj_get_style_text_line_space(self._pointer, part.value if part and isinstance(part, Enum) else (part or 0))
+    def get_style_text_decor(self, part: 'PART') -> 'lv_text_decor_t':
+        return _lvgl.lv_obj_get_style_text_decor(self._pointer, part.value if part and isinstance(part, Enum) else (part or 0))
+    def get_style_text_align(self, part: 'PART') -> 'lv_text_align_t':
+        return _lvgl.lv_obj_get_style_text_align(self._pointer, part.value if part and isinstance(part, Enum) else (part or 0))
+    def get_style_text_outline_stroke_color(self, part: 'PART') -> 'lv_color_t':
+        return _lvgl.lv_obj_get_style_text_outline_stroke_color(self._pointer, part.value if part and isinstance(part, Enum) else (part or 0))
+    def get_style_text_outline_stroke_color_filtered(self, part: 'PART') -> 'lv_color_t':
+        return _lvgl.lv_obj_get_style_text_outline_stroke_color_filtered(self._pointer, part.value if part and isinstance(part, Enum) else (part or 0))
+    def get_style_text_outline_stroke_width(self, part: 'PART') -> 'int':
+        return _lvgl.lv_obj_get_style_text_outline_stroke_width(self._pointer, part.value if part and isinstance(part, Enum) else (part or 0))
+    def get_style_text_outline_stroke_opa(self, part: 'PART') -> 'lv_opa_t':
+        return _lvgl.lv_obj_get_style_text_outline_stroke_opa(self._pointer, part.value if part and isinstance(part, Enum) else (part or 0))
+    def get_style_radius(self, part: 'PART') -> 'int':
+        return _lvgl.lv_obj_get_style_radius(self._pointer, part.value if part and isinstance(part, Enum) else (part or 0))
+    def get_style_radial_offset(self, part: 'PART') -> 'int':
+        return _lvgl.lv_obj_get_style_radial_offset(self._pointer, part.value if part and isinstance(part, Enum) else (part or 0))
+    def get_style_clip_corner(self, part: 'PART') -> 'bool':
+        return _lvgl.lv_obj_get_style_clip_corner(self._pointer, part.value if part and isinstance(part, Enum) else (part or 0))
+    def get_style_opa(self, part: 'PART') -> 'lv_opa_t':
+        return _lvgl.lv_obj_get_style_opa(self._pointer, part.value if part and isinstance(part, Enum) else (part or 0))
+    def get_style_opa_layered(self, part: 'PART') -> 'lv_opa_t':
+        return _lvgl.lv_obj_get_style_opa_layered(self._pointer, part.value if part and isinstance(part, Enum) else (part or 0))
+    def get_style_color_filter_dsc(self, part: 'PART') -> 'lv_color_filter_dsc_t':
+        return _lvgl.lv_obj_get_style_color_filter_dsc(self._pointer, part.value if part and isinstance(part, Enum) else (part or 0))
+    def get_style_color_filter_opa(self, part: 'PART') -> 'lv_opa_t':
+        return _lvgl.lv_obj_get_style_color_filter_opa(self._pointer, part.value if part and isinstance(part, Enum) else (part or 0))
+    def get_style_recolor(self, part: 'PART') -> 'lv_color_t':
+        return _lvgl.lv_obj_get_style_recolor(self._pointer, part.value if part and isinstance(part, Enum) else (part or 0))
+    def get_style_recolor_opa(self, part: 'PART') -> 'lv_opa_t':
+        return _lvgl.lv_obj_get_style_recolor_opa(self._pointer, part.value if part and isinstance(part, Enum) else (part or 0))
+    def get_style_anim(self, part: 'PART') -> 'anim':
         result = anim.__new__(anim)
-        result._pointer = _lvgl.lv_obj_get_style_anim(self._pointer, part)
+        result._pointer = _lvgl.lv_obj_get_style_anim(self._pointer, part.value if part and isinstance(part, Enum) else (part or 0))
         return result if result._pointer else None
-    def get_style_anim_duration(self, part: 'lv_part_t') -> 'int':
-        return _lvgl.lv_obj_get_style_anim_duration(self._pointer, part)
-    def get_style_transition(self, part: 'lv_part_t') -> 'style_transition_dsc':
+    def get_style_anim_duration(self, part: 'PART') -> 'int':
+        return _lvgl.lv_obj_get_style_anim_duration(self._pointer, part.value if part and isinstance(part, Enum) else (part or 0))
+    def get_style_transition(self, part: 'PART') -> 'style_transition_dsc':
         result = style_transition_dsc.__new__(style_transition_dsc)
-        result._pointer = _lvgl.lv_obj_get_style_transition(self._pointer, part)
+        result._pointer = _lvgl.lv_obj_get_style_transition(self._pointer, part.value if part and isinstance(part, Enum) else (part or 0))
         return result if result._pointer else None
-    def get_style_blend_mode(self, part: 'lv_part_t') -> 'lv_blend_mode_t':
-        return _lvgl.lv_obj_get_style_blend_mode(self._pointer, part)
-    def get_style_layout(self, part: 'lv_part_t') -> 'int':
-        return _lvgl.lv_obj_get_style_layout(self._pointer, part)
-    def get_style_base_dir(self, part: 'lv_part_t') -> 'lv_base_dir_t':
-        return _lvgl.lv_obj_get_style_base_dir(self._pointer, part)
-    def get_style_bitmap_mask_src(self, part: 'lv_part_t') -> 'None':
-        return _lvgl.lv_obj_get_style_bitmap_mask_src(self._pointer, part)
-    def get_style_rotary_sensitivity(self, part: 'lv_part_t') -> 'int':
-        return _lvgl.lv_obj_get_style_rotary_sensitivity(self._pointer, part)
-    def get_style_flex_flow(self, part: 'lv_part_t') -> 'lv_flex_flow_t':
-        return _lvgl.lv_obj_get_style_flex_flow(self._pointer, part)
-    def get_style_flex_main_place(self, part: 'lv_part_t') -> 'lv_flex_align_t':
-        return _lvgl.lv_obj_get_style_flex_main_place(self._pointer, part)
-    def get_style_flex_cross_place(self, part: 'lv_part_t') -> 'lv_flex_align_t':
-        return _lvgl.lv_obj_get_style_flex_cross_place(self._pointer, part)
-    def get_style_flex_track_place(self, part: 'lv_part_t') -> 'lv_flex_align_t':
-        return _lvgl.lv_obj_get_style_flex_track_place(self._pointer, part)
-    def get_style_flex_grow(self, part: 'lv_part_t') -> 'int':
-        return _lvgl.lv_obj_get_style_flex_grow(self._pointer, part)
-    def get_style_grid_column_dsc_array(self, part: 'lv_part_t') -> 'int':
-        return _lvgl.lv_obj_get_style_grid_column_dsc_array(self._pointer, part)
-    def get_style_grid_column_align(self, part: 'lv_part_t') -> 'lv_grid_align_t':
-        return _lvgl.lv_obj_get_style_grid_column_align(self._pointer, part)
-    def get_style_grid_row_dsc_array(self, part: 'lv_part_t') -> 'int':
-        return _lvgl.lv_obj_get_style_grid_row_dsc_array(self._pointer, part)
-    def get_style_grid_row_align(self, part: 'lv_part_t') -> 'lv_grid_align_t':
-        return _lvgl.lv_obj_get_style_grid_row_align(self._pointer, part)
-    def get_style_grid_cell_column_pos(self, part: 'lv_part_t') -> 'int':
-        return _lvgl.lv_obj_get_style_grid_cell_column_pos(self._pointer, part)
-    def get_style_grid_cell_x_align(self, part: 'lv_part_t') -> 'lv_grid_align_t':
-        return _lvgl.lv_obj_get_style_grid_cell_x_align(self._pointer, part)
-    def get_style_grid_cell_column_span(self, part: 'lv_part_t') -> 'int':
-        return _lvgl.lv_obj_get_style_grid_cell_column_span(self._pointer, part)
-    def get_style_grid_cell_row_pos(self, part: 'lv_part_t') -> 'int':
-        return _lvgl.lv_obj_get_style_grid_cell_row_pos(self._pointer, part)
-    def get_style_grid_cell_y_align(self, part: 'lv_part_t') -> 'lv_grid_align_t':
-        return _lvgl.lv_obj_get_style_grid_cell_y_align(self._pointer, part)
-    def get_style_grid_cell_row_span(self, part: 'lv_part_t') -> 'int':
-        return _lvgl.lv_obj_get_style_grid_cell_row_span(self._pointer, part)
-    def get_style_space_left(self, part: 'lv_part_t') -> 'int':
-        return _lvgl.lv_obj_get_style_space_left(self._pointer, part)
-    def get_style_space_right(self, part: 'lv_part_t') -> 'int':
-        return _lvgl.lv_obj_get_style_space_right(self._pointer, part)
-    def get_style_space_top(self, part: 'lv_part_t') -> 'int':
-        return _lvgl.lv_obj_get_style_space_top(self._pointer, part)
-    def get_style_space_bottom(self, part: 'lv_part_t') -> 'int':
-        return _lvgl.lv_obj_get_style_space_bottom(self._pointer, part)
-    def get_style_transform_scale_x_safe(self, part: 'lv_part_t') -> 'int':
-        return _lvgl.lv_obj_get_style_transform_scale_x_safe(self._pointer, part)
-    def get_style_transform_scale_y_safe(self, part: 'lv_part_t') -> 'int':
-        return _lvgl.lv_obj_get_style_transform_scale_y_safe(self._pointer, part)
+    def get_style_blend_mode(self, part: 'PART') -> 'lv_blend_mode_t':
+        return _lvgl.lv_obj_get_style_blend_mode(self._pointer, part.value if part and isinstance(part, Enum) else (part or 0))
+    def get_style_layout(self, part: 'PART') -> 'int':
+        return _lvgl.lv_obj_get_style_layout(self._pointer, part.value if part and isinstance(part, Enum) else (part or 0))
+    def get_style_base_dir(self, part: 'PART') -> 'lv_base_dir_t':
+        return _lvgl.lv_obj_get_style_base_dir(self._pointer, part.value if part and isinstance(part, Enum) else (part or 0))
+    def get_style_bitmap_mask_src(self, part: 'PART') -> 'None':
+        return _lvgl.lv_obj_get_style_bitmap_mask_src(self._pointer, part.value if part and isinstance(part, Enum) else (part or 0))
+    def get_style_rotary_sensitivity(self, part: 'PART') -> 'int':
+        return _lvgl.lv_obj_get_style_rotary_sensitivity(self._pointer, part.value if part and isinstance(part, Enum) else (part or 0))
+    def get_style_flex_flow(self, part: 'PART') -> 'lv_flex_flow_t':
+        return _lvgl.lv_obj_get_style_flex_flow(self._pointer, part.value if part and isinstance(part, Enum) else (part or 0))
+    def get_style_flex_main_place(self, part: 'PART') -> 'lv_flex_align_t':
+        return _lvgl.lv_obj_get_style_flex_main_place(self._pointer, part.value if part and isinstance(part, Enum) else (part or 0))
+    def get_style_flex_cross_place(self, part: 'PART') -> 'lv_flex_align_t':
+        return _lvgl.lv_obj_get_style_flex_cross_place(self._pointer, part.value if part and isinstance(part, Enum) else (part or 0))
+    def get_style_flex_track_place(self, part: 'PART') -> 'lv_flex_align_t':
+        return _lvgl.lv_obj_get_style_flex_track_place(self._pointer, part.value if part and isinstance(part, Enum) else (part or 0))
+    def get_style_flex_grow(self, part: 'PART') -> 'int':
+        return _lvgl.lv_obj_get_style_flex_grow(self._pointer, part.value if part and isinstance(part, Enum) else (part or 0))
+    def get_style_grid_column_dsc_array(self, part: 'PART') -> 'int':
+        return _lvgl.lv_obj_get_style_grid_column_dsc_array(self._pointer, part.value if part and isinstance(part, Enum) else (part or 0))
+    def get_style_grid_column_align(self, part: 'PART') -> 'lv_grid_align_t':
+        return _lvgl.lv_obj_get_style_grid_column_align(self._pointer, part.value if part and isinstance(part, Enum) else (part or 0))
+    def get_style_grid_row_dsc_array(self, part: 'PART') -> 'int':
+        return _lvgl.lv_obj_get_style_grid_row_dsc_array(self._pointer, part.value if part and isinstance(part, Enum) else (part or 0))
+    def get_style_grid_row_align(self, part: 'PART') -> 'lv_grid_align_t':
+        return _lvgl.lv_obj_get_style_grid_row_align(self._pointer, part.value if part and isinstance(part, Enum) else (part or 0))
+    def get_style_grid_cell_column_pos(self, part: 'PART') -> 'int':
+        return _lvgl.lv_obj_get_style_grid_cell_column_pos(self._pointer, part.value if part and isinstance(part, Enum) else (part or 0))
+    def get_style_grid_cell_x_align(self, part: 'PART') -> 'lv_grid_align_t':
+        return _lvgl.lv_obj_get_style_grid_cell_x_align(self._pointer, part.value if part and isinstance(part, Enum) else (part or 0))
+    def get_style_grid_cell_column_span(self, part: 'PART') -> 'int':
+        return _lvgl.lv_obj_get_style_grid_cell_column_span(self._pointer, part.value if part and isinstance(part, Enum) else (part or 0))
+    def get_style_grid_cell_row_pos(self, part: 'PART') -> 'int':
+        return _lvgl.lv_obj_get_style_grid_cell_row_pos(self._pointer, part.value if part and isinstance(part, Enum) else (part or 0))
+    def get_style_grid_cell_y_align(self, part: 'PART') -> 'lv_grid_align_t':
+        return _lvgl.lv_obj_get_style_grid_cell_y_align(self._pointer, part.value if part and isinstance(part, Enum) else (part or 0))
+    def get_style_grid_cell_row_span(self, part: 'PART') -> 'int':
+        return _lvgl.lv_obj_get_style_grid_cell_row_span(self._pointer, part.value if part and isinstance(part, Enum) else (part or 0))
+    def get_style_space_left(self, part: 'PART') -> 'int':
+        return _lvgl.lv_obj_get_style_space_left(self._pointer, part.value if part and isinstance(part, Enum) else (part or 0))
+    def get_style_space_right(self, part: 'PART') -> 'int':
+        return _lvgl.lv_obj_get_style_space_right(self._pointer, part.value if part and isinstance(part, Enum) else (part or 0))
+    def get_style_space_top(self, part: 'PART') -> 'int':
+        return _lvgl.lv_obj_get_style_space_top(self._pointer, part.value if part and isinstance(part, Enum) else (part or 0))
+    def get_style_space_bottom(self, part: 'PART') -> 'int':
+        return _lvgl.lv_obj_get_style_space_bottom(self._pointer, part.value if part and isinstance(part, Enum) else (part or 0))
+    def get_style_transform_scale_x_safe(self, part: 'PART') -> 'int':
+        return _lvgl.lv_obj_get_style_transform_scale_x_safe(self._pointer, part.value if part and isinstance(part, Enum) else (part or 0))
+    def get_style_transform_scale_y_safe(self, part: 'PART') -> 'int':
+        return _lvgl.lv_obj_get_style_transform_scale_y_safe(self._pointer, part.value if part and isinstance(part, Enum) else (part or 0))
 
 class yuv_plane:
     _pointer = None
@@ -2286,7 +2293,7 @@ class tileview(obj):
         self._pointer = _lvgl.lv_tileview_create(parent._pointer if parent else ffi.NULL)
     def add_tile(self, col_id: 'int', row_id: 'int', dir: 'DIR') -> 'obj':
         result = obj.__new__(obj)
-        result._pointer = _lvgl.lv_tileview_add_tile(self._pointer, col_id, row_id, dir.value if dir else 0)
+        result._pointer = _lvgl.lv_tileview_add_tile(self._pointer, col_id, row_id, dir.value if dir and isinstance(dir, Enum) else (dir or 0))
         return result if result._pointer else None
     def set_tile(self, tile_obj: 'obj', anim_en: 'lv_anim_enable_t') -> 'None':
         return _lvgl.lv_tileview_set_tile(self._pointer, tile_obj._pointer if tile_obj else ffi.NULL, anim_en)
@@ -2392,7 +2399,7 @@ class textarea(obj):
     def set_password_show_time(self, time: 'int') -> 'None':
         return _lvgl.lv_textarea_set_password_show_time(self._pointer, time)
     def set_align(self, align: 'TEXT_ALIGN') -> 'None':
-        return _lvgl.lv_textarea_set_align(self._pointer, align.value if align else 0)
+        return _lvgl.lv_textarea_set_align(self._pointer, align.value if align and isinstance(align, Enum) else (align or 0))
     def get_text(self) -> 'str':
         result = _lvgl.lv_textarea_get_text(self._pointer)
         result = ffi.cast('char*', result)
@@ -2462,7 +2469,7 @@ class tabview(obj):
     def set_active(self, idx: 'int', anim_en: 'lv_anim_enable_t') -> 'None':
         return _lvgl.lv_tabview_set_active(self._pointer, idx, anim_en)
     def set_tab_bar_position(self, dir: 'DIR') -> 'None':
-        return _lvgl.lv_tabview_set_tab_bar_position(self._pointer, dir.value if dir else 0)
+        return _lvgl.lv_tabview_set_tab_bar_position(self._pointer, dir.value if dir and isinstance(dir, Enum) else (dir or 0))
     def set_tab_bar_size(self, size: 'int') -> 'None':
         return _lvgl.lv_tabview_set_tab_bar_size(self._pointer, size)
     def get_tab_count(self) -> 'int':
@@ -2503,9 +2510,9 @@ class table(obj):
     def set_column_width(self, col_id: 'int', w: 'int') -> 'None':
         return _lvgl.lv_table_set_column_width(self._pointer, col_id, w)
     def set_cell_ctrl(self, row: 'int', col: 'int', ctrl: 'TABLE_CELL_CTRL') -> 'None':
-        return _lvgl.lv_table_set_cell_ctrl(self._pointer, row, col, ctrl.value if ctrl else 0)
+        return _lvgl.lv_table_set_cell_ctrl(self._pointer, row, col, ctrl.value if ctrl and isinstance(ctrl, Enum) else (ctrl or 0))
     def clear_cell_ctrl(self, row: 'int', col: 'int', ctrl: 'TABLE_CELL_CTRL') -> 'None':
-        return _lvgl.lv_table_clear_cell_ctrl(self._pointer, row, col, ctrl.value if ctrl else 0)
+        return _lvgl.lv_table_clear_cell_ctrl(self._pointer, row, col, ctrl.value if ctrl and isinstance(ctrl, Enum) else (ctrl or 0))
     def set_cell_user_data(self, row: 'int', col: 'int', user_data: 'str') -> 'None':
         if user_data is not None:
             user_data = user_data.encode('utf-8') + b'\x00'
@@ -2526,7 +2533,7 @@ class table(obj):
     def get_column_width(self, col: 'int') -> 'int':
         return _lvgl.lv_table_get_column_width(self._pointer, col)
     def has_cell_ctrl(self, row: 'int', col: 'int', ctrl: 'TABLE_CELL_CTRL') -> 'bool':
-        return _lvgl.lv_table_has_cell_ctrl(self._pointer, row, col, ctrl.value if ctrl else 0)
+        return _lvgl.lv_table_has_cell_ctrl(self._pointer, row, col, ctrl.value if ctrl and isinstance(ctrl, Enum) else (ctrl or 0))
     def get_selected_cell(self, row: 'int', col: 'int') -> 'None':
         return _lvgl.lv_table_get_selected_cell(self._pointer, ffi.NULL if row is None else row, ffi.NULL if col is None else col)
     def get_cell_user_data(self, row: 'int', col: 'int') -> 'str':
@@ -2543,7 +2550,7 @@ class switch(obj):
     def __init__(self, parent):
         self._pointer = _lvgl.lv_switch_create(parent._pointer if parent else ffi.NULL)
     def set_orientation(self, orientation: 'SWITCH_ORIENTATION') -> 'None':
-        return _lvgl.lv_switch_set_orientation(self._pointer, orientation.value if orientation else 0)
+        return _lvgl.lv_switch_set_orientation(self._pointer, orientation.value if orientation and isinstance(orientation, Enum) else (orientation or 0))
     def get_orientation(self) -> 'lv_switch_orientation_t':
         return _lvgl.lv_switch_get_orientation(self._pointer)
 
@@ -2763,7 +2770,7 @@ class style:
     def set_y(self, value: 'int') -> 'None':
         return _lvgl.lv_style_set_y(self._pointer, value)
     def set_align(self, value: 'ALIGN') -> 'None':
-        return _lvgl.lv_style_set_align(self._pointer, value.value if value else 0)
+        return _lvgl.lv_style_set_align(self._pointer, value.value if value and isinstance(value, Enum) else (value or 0))
     def set_transform_width(self, value: 'int') -> 'None':
         return _lvgl.lv_style_set_transform_width(self._pointer, value)
     def set_transform_height(self, value: 'int') -> 'None':
@@ -2812,48 +2819,48 @@ class style:
         return _lvgl.lv_style_set_margin_right(self._pointer, value)
     def set_bg_color(self, value: 'lv_color_t') -> 'None':
         return _lvgl.lv_style_set_bg_color(self._pointer, value)
-    def set_bg_opa(self, value: 'lv_opa_t') -> 'None':
-        return _lvgl.lv_style_set_bg_opa(self._pointer, value)
+    def set_bg_opa(self, value: 'OPA') -> 'None':
+        return _lvgl.lv_style_set_bg_opa(self._pointer, value.value if value and isinstance(value, Enum) else (value or 0))
     def set_bg_grad_color(self, value: 'lv_color_t') -> 'None':
         return _lvgl.lv_style_set_bg_grad_color(self._pointer, value)
     def set_bg_grad_dir(self, value: 'GRAD_DIR') -> 'None':
-        return _lvgl.lv_style_set_bg_grad_dir(self._pointer, value.value if value else 0)
+        return _lvgl.lv_style_set_bg_grad_dir(self._pointer, value.value if value and isinstance(value, Enum) else (value or 0))
     def set_bg_main_stop(self, value: 'int') -> 'None':
         return _lvgl.lv_style_set_bg_main_stop(self._pointer, value)
     def set_bg_grad_stop(self, value: 'int') -> 'None':
         return _lvgl.lv_style_set_bg_grad_stop(self._pointer, value)
-    def set_bg_main_opa(self, value: 'lv_opa_t') -> 'None':
-        return _lvgl.lv_style_set_bg_main_opa(self._pointer, value)
-    def set_bg_grad_opa(self, value: 'lv_opa_t') -> 'None':
-        return _lvgl.lv_style_set_bg_grad_opa(self._pointer, value)
+    def set_bg_main_opa(self, value: 'OPA') -> 'None':
+        return _lvgl.lv_style_set_bg_main_opa(self._pointer, value.value if value and isinstance(value, Enum) else (value or 0))
+    def set_bg_grad_opa(self, value: 'OPA') -> 'None':
+        return _lvgl.lv_style_set_bg_grad_opa(self._pointer, value.value if value and isinstance(value, Enum) else (value or 0))
     def set_bg_grad(self, value: 'grad_dsc') -> 'None':
         return _lvgl.lv_style_set_bg_grad(self._pointer, value._pointer if value else ffi.NULL)
     def set_bg_image_src(self, value: 'None') -> 'None':
         return _lvgl.lv_style_set_bg_image_src(self._pointer, ffi.NULL if value is None else value)
-    def set_bg_image_opa(self, value: 'lv_opa_t') -> 'None':
-        return _lvgl.lv_style_set_bg_image_opa(self._pointer, value)
+    def set_bg_image_opa(self, value: 'OPA') -> 'None':
+        return _lvgl.lv_style_set_bg_image_opa(self._pointer, value.value if value and isinstance(value, Enum) else (value or 0))
     def set_bg_image_recolor(self, value: 'lv_color_t') -> 'None':
         return _lvgl.lv_style_set_bg_image_recolor(self._pointer, value)
-    def set_bg_image_recolor_opa(self, value: 'lv_opa_t') -> 'None':
-        return _lvgl.lv_style_set_bg_image_recolor_opa(self._pointer, value)
+    def set_bg_image_recolor_opa(self, value: 'OPA') -> 'None':
+        return _lvgl.lv_style_set_bg_image_recolor_opa(self._pointer, value.value if value and isinstance(value, Enum) else (value or 0))
     def set_bg_image_tiled(self, value: 'bool') -> 'None':
         return _lvgl.lv_style_set_bg_image_tiled(self._pointer, value)
     def set_border_color(self, value: 'lv_color_t') -> 'None':
         return _lvgl.lv_style_set_border_color(self._pointer, value)
-    def set_border_opa(self, value: 'lv_opa_t') -> 'None':
-        return _lvgl.lv_style_set_border_opa(self._pointer, value)
+    def set_border_opa(self, value: 'OPA') -> 'None':
+        return _lvgl.lv_style_set_border_opa(self._pointer, value.value if value and isinstance(value, Enum) else (value or 0))
     def set_border_width(self, value: 'int') -> 'None':
         return _lvgl.lv_style_set_border_width(self._pointer, value)
     def set_border_side(self, value: 'BORDER_SIDE') -> 'None':
-        return _lvgl.lv_style_set_border_side(self._pointer, value.value if value else 0)
+        return _lvgl.lv_style_set_border_side(self._pointer, value.value if value and isinstance(value, Enum) else (value or 0))
     def set_border_post(self, value: 'bool') -> 'None':
         return _lvgl.lv_style_set_border_post(self._pointer, value)
     def set_outline_width(self, value: 'int') -> 'None':
         return _lvgl.lv_style_set_outline_width(self._pointer, value)
     def set_outline_color(self, value: 'lv_color_t') -> 'None':
         return _lvgl.lv_style_set_outline_color(self._pointer, value)
-    def set_outline_opa(self, value: 'lv_opa_t') -> 'None':
-        return _lvgl.lv_style_set_outline_opa(self._pointer, value)
+    def set_outline_opa(self, value: 'OPA') -> 'None':
+        return _lvgl.lv_style_set_outline_opa(self._pointer, value.value if value and isinstance(value, Enum) else (value or 0))
     def set_outline_pad(self, value: 'int') -> 'None':
         return _lvgl.lv_style_set_outline_pad(self._pointer, value)
     def set_shadow_width(self, value: 'int') -> 'None':
@@ -2866,14 +2873,14 @@ class style:
         return _lvgl.lv_style_set_shadow_spread(self._pointer, value)
     def set_shadow_color(self, value: 'lv_color_t') -> 'None':
         return _lvgl.lv_style_set_shadow_color(self._pointer, value)
-    def set_shadow_opa(self, value: 'lv_opa_t') -> 'None':
-        return _lvgl.lv_style_set_shadow_opa(self._pointer, value)
-    def set_image_opa(self, value: 'lv_opa_t') -> 'None':
-        return _lvgl.lv_style_set_image_opa(self._pointer, value)
+    def set_shadow_opa(self, value: 'OPA') -> 'None':
+        return _lvgl.lv_style_set_shadow_opa(self._pointer, value.value if value and isinstance(value, Enum) else (value or 0))
+    def set_image_opa(self, value: 'OPA') -> 'None':
+        return _lvgl.lv_style_set_image_opa(self._pointer, value.value if value and isinstance(value, Enum) else (value or 0))
     def set_image_recolor(self, value: 'lv_color_t') -> 'None':
         return _lvgl.lv_style_set_image_recolor(self._pointer, value)
-    def set_image_recolor_opa(self, value: 'lv_opa_t') -> 'None':
-        return _lvgl.lv_style_set_image_recolor_opa(self._pointer, value)
+    def set_image_recolor_opa(self, value: 'OPA') -> 'None':
+        return _lvgl.lv_style_set_image_recolor_opa(self._pointer, value.value if value and isinstance(value, Enum) else (value or 0))
     def set_line_width(self, value: 'int') -> 'None':
         return _lvgl.lv_style_set_line_width(self._pointer, value)
     def set_line_dash_width(self, value: 'int') -> 'None':
@@ -2884,22 +2891,22 @@ class style:
         return _lvgl.lv_style_set_line_rounded(self._pointer, value)
     def set_line_color(self, value: 'lv_color_t') -> 'None':
         return _lvgl.lv_style_set_line_color(self._pointer, value)
-    def set_line_opa(self, value: 'lv_opa_t') -> 'None':
-        return _lvgl.lv_style_set_line_opa(self._pointer, value)
+    def set_line_opa(self, value: 'OPA') -> 'None':
+        return _lvgl.lv_style_set_line_opa(self._pointer, value.value if value and isinstance(value, Enum) else (value or 0))
     def set_arc_width(self, value: 'int') -> 'None':
         return _lvgl.lv_style_set_arc_width(self._pointer, value)
     def set_arc_rounded(self, value: 'bool') -> 'None':
         return _lvgl.lv_style_set_arc_rounded(self._pointer, value)
     def set_arc_color(self, value: 'lv_color_t') -> 'None':
         return _lvgl.lv_style_set_arc_color(self._pointer, value)
-    def set_arc_opa(self, value: 'lv_opa_t') -> 'None':
-        return _lvgl.lv_style_set_arc_opa(self._pointer, value)
+    def set_arc_opa(self, value: 'OPA') -> 'None':
+        return _lvgl.lv_style_set_arc_opa(self._pointer, value.value if value and isinstance(value, Enum) else (value or 0))
     def set_arc_image_src(self, value: 'None') -> 'None':
         return _lvgl.lv_style_set_arc_image_src(self._pointer, ffi.NULL if value is None else value)
     def set_text_color(self, value: 'lv_color_t') -> 'None':
         return _lvgl.lv_style_set_text_color(self._pointer, value)
-    def set_text_opa(self, value: 'lv_opa_t') -> 'None':
-        return _lvgl.lv_style_set_text_opa(self._pointer, value)
+    def set_text_opa(self, value: 'OPA') -> 'None':
+        return _lvgl.lv_style_set_text_opa(self._pointer, value.value if value and isinstance(value, Enum) else (value or 0))
     def set_text_font(self, value: 'font') -> 'None':
         return _lvgl.lv_style_set_text_font(self._pointer, value._pointer if value else ffi.NULL)
     def set_text_letter_space(self, value: 'int') -> 'None':
@@ -2907,33 +2914,33 @@ class style:
     def set_text_line_space(self, value: 'int') -> 'None':
         return _lvgl.lv_style_set_text_line_space(self._pointer, value)
     def set_text_decor(self, value: 'TEXT_DECOR') -> 'None':
-        return _lvgl.lv_style_set_text_decor(self._pointer, value.value if value else 0)
+        return _lvgl.lv_style_set_text_decor(self._pointer, value.value if value and isinstance(value, Enum) else (value or 0))
     def set_text_align(self, value: 'TEXT_ALIGN') -> 'None':
-        return _lvgl.lv_style_set_text_align(self._pointer, value.value if value else 0)
+        return _lvgl.lv_style_set_text_align(self._pointer, value.value if value and isinstance(value, Enum) else (value or 0))
     def set_text_outline_stroke_color(self, value: 'lv_color_t') -> 'None':
         return _lvgl.lv_style_set_text_outline_stroke_color(self._pointer, value)
     def set_text_outline_stroke_width(self, value: 'int') -> 'None':
         return _lvgl.lv_style_set_text_outline_stroke_width(self._pointer, value)
-    def set_text_outline_stroke_opa(self, value: 'lv_opa_t') -> 'None':
-        return _lvgl.lv_style_set_text_outline_stroke_opa(self._pointer, value)
+    def set_text_outline_stroke_opa(self, value: 'OPA') -> 'None':
+        return _lvgl.lv_style_set_text_outline_stroke_opa(self._pointer, value.value if value and isinstance(value, Enum) else (value or 0))
     def set_radius(self, value: 'int') -> 'None':
         return _lvgl.lv_style_set_radius(self._pointer, value)
     def set_radial_offset(self, value: 'int') -> 'None':
         return _lvgl.lv_style_set_radial_offset(self._pointer, value)
     def set_clip_corner(self, value: 'bool') -> 'None':
         return _lvgl.lv_style_set_clip_corner(self._pointer, value)
-    def set_opa(self, value: 'lv_opa_t') -> 'None':
-        return _lvgl.lv_style_set_opa(self._pointer, value)
-    def set_opa_layered(self, value: 'lv_opa_t') -> 'None':
-        return _lvgl.lv_style_set_opa_layered(self._pointer, value)
+    def set_opa(self, value: 'OPA') -> 'None':
+        return _lvgl.lv_style_set_opa(self._pointer, value.value if value and isinstance(value, Enum) else (value or 0))
+    def set_opa_layered(self, value: 'OPA') -> 'None':
+        return _lvgl.lv_style_set_opa_layered(self._pointer, value.value if value and isinstance(value, Enum) else (value or 0))
     def set_color_filter_dsc(self, value: 'lv_color_filter_dsc_t') -> 'None':
         return _lvgl.lv_style_set_color_filter_dsc(self._pointer, ffi.NULL if value is None else value)
-    def set_color_filter_opa(self, value: 'lv_opa_t') -> 'None':
-        return _lvgl.lv_style_set_color_filter_opa(self._pointer, value)
+    def set_color_filter_opa(self, value: 'OPA') -> 'None':
+        return _lvgl.lv_style_set_color_filter_opa(self._pointer, value.value if value and isinstance(value, Enum) else (value or 0))
     def set_recolor(self, value: 'lv_color_t') -> 'None':
         return _lvgl.lv_style_set_recolor(self._pointer, value)
-    def set_recolor_opa(self, value: 'lv_opa_t') -> 'None':
-        return _lvgl.lv_style_set_recolor_opa(self._pointer, value)
+    def set_recolor_opa(self, value: 'OPA') -> 'None':
+        return _lvgl.lv_style_set_recolor_opa(self._pointer, value.value if value and isinstance(value, Enum) else (value or 0))
     def set_anim(self, value: 'anim') -> 'None':
         return _lvgl.lv_style_set_anim(self._pointer, value._pointer if value else ffi.NULL)
     def set_anim_duration(self, value: 'int') -> 'None':
@@ -2941,43 +2948,43 @@ class style:
     def set_transition(self, value: 'style_transition_dsc') -> 'None':
         return _lvgl.lv_style_set_transition(self._pointer, value._pointer if value else ffi.NULL)
     def set_blend_mode(self, value: 'BLEND_MODE') -> 'None':
-        return _lvgl.lv_style_set_blend_mode(self._pointer, value.value if value else 0)
+        return _lvgl.lv_style_set_blend_mode(self._pointer, value.value if value and isinstance(value, Enum) else (value or 0))
     def set_layout(self, value: 'int') -> 'None':
         return _lvgl.lv_style_set_layout(self._pointer, value)
     def set_base_dir(self, value: 'BASE_DIR') -> 'None':
-        return _lvgl.lv_style_set_base_dir(self._pointer, value.value if value else 0)
+        return _lvgl.lv_style_set_base_dir(self._pointer, value.value if value and isinstance(value, Enum) else (value or 0))
     def set_bitmap_mask_src(self, value: 'None') -> 'None':
         return _lvgl.lv_style_set_bitmap_mask_src(self._pointer, ffi.NULL if value is None else value)
     def set_rotary_sensitivity(self, value: 'int') -> 'None':
         return _lvgl.lv_style_set_rotary_sensitivity(self._pointer, value)
     def set_flex_flow(self, value: 'FLEX_FLOW') -> 'None':
-        return _lvgl.lv_style_set_flex_flow(self._pointer, value.value if value else 0)
+        return _lvgl.lv_style_set_flex_flow(self._pointer, value.value if value and isinstance(value, Enum) else (value or 0))
     def set_flex_main_place(self, value: 'FLEX_ALIGN') -> 'None':
-        return _lvgl.lv_style_set_flex_main_place(self._pointer, value.value if value else 0)
+        return _lvgl.lv_style_set_flex_main_place(self._pointer, value.value if value and isinstance(value, Enum) else (value or 0))
     def set_flex_cross_place(self, value: 'FLEX_ALIGN') -> 'None':
-        return _lvgl.lv_style_set_flex_cross_place(self._pointer, value.value if value else 0)
+        return _lvgl.lv_style_set_flex_cross_place(self._pointer, value.value if value and isinstance(value, Enum) else (value or 0))
     def set_flex_track_place(self, value: 'FLEX_ALIGN') -> 'None':
-        return _lvgl.lv_style_set_flex_track_place(self._pointer, value.value if value else 0)
+        return _lvgl.lv_style_set_flex_track_place(self._pointer, value.value if value and isinstance(value, Enum) else (value or 0))
     def set_flex_grow(self, value: 'int') -> 'None':
         return _lvgl.lv_style_set_flex_grow(self._pointer, value)
     def set_grid_column_dsc_array(self, value: 'int') -> 'None':
         return _lvgl.lv_style_set_grid_column_dsc_array(self._pointer, ffi.NULL if value is None else value)
     def set_grid_column_align(self, value: 'GRID_ALIGN') -> 'None':
-        return _lvgl.lv_style_set_grid_column_align(self._pointer, value.value if value else 0)
+        return _lvgl.lv_style_set_grid_column_align(self._pointer, value.value if value and isinstance(value, Enum) else (value or 0))
     def set_grid_row_dsc_array(self, value: 'int') -> 'None':
         return _lvgl.lv_style_set_grid_row_dsc_array(self._pointer, ffi.NULL if value is None else value)
     def set_grid_row_align(self, value: 'GRID_ALIGN') -> 'None':
-        return _lvgl.lv_style_set_grid_row_align(self._pointer, value.value if value else 0)
+        return _lvgl.lv_style_set_grid_row_align(self._pointer, value.value if value and isinstance(value, Enum) else (value or 0))
     def set_grid_cell_column_pos(self, value: 'int') -> 'None':
         return _lvgl.lv_style_set_grid_cell_column_pos(self._pointer, value)
     def set_grid_cell_x_align(self, value: 'GRID_ALIGN') -> 'None':
-        return _lvgl.lv_style_set_grid_cell_x_align(self._pointer, value.value if value else 0)
+        return _lvgl.lv_style_set_grid_cell_x_align(self._pointer, value.value if value and isinstance(value, Enum) else (value or 0))
     def set_grid_cell_column_span(self, value: 'int') -> 'None':
         return _lvgl.lv_style_set_grid_cell_column_span(self._pointer, value)
     def set_grid_cell_row_pos(self, value: 'int') -> 'None':
         return _lvgl.lv_style_set_grid_cell_row_pos(self._pointer, value)
     def set_grid_cell_y_align(self, value: 'GRID_ALIGN') -> 'None':
-        return _lvgl.lv_style_set_grid_cell_y_align(self._pointer, value.value if value else 0)
+        return _lvgl.lv_style_set_grid_cell_y_align(self._pointer, value.value if value and isinstance(value, Enum) else (value or 0))
     def set_grid_cell_row_span(self, value: 'int') -> 'None':
         return _lvgl.lv_style_set_grid_cell_row_span(self._pointer, value)
     def is_const(self) -> 'bool':
@@ -3014,7 +3021,7 @@ class spinbox(obj):
     def set_cursor_pos(self, pos: 'int') -> 'None':
         return _lvgl.lv_spinbox_set_cursor_pos(self._pointer, pos)
     def set_digit_step_direction(self, direction: 'DIR') -> 'None':
-        return _lvgl.lv_spinbox_set_digit_step_direction(self._pointer, direction.value if direction else 0)
+        return _lvgl.lv_spinbox_set_digit_step_direction(self._pointer, direction.value if direction and isinstance(direction, Enum) else (direction or 0))
     def get_rollover(self) -> 'bool':
         return _lvgl.lv_spinbox_get_rollover(self._pointer)
     def get_value(self) -> 'int':
@@ -3050,13 +3057,13 @@ class spangroup(obj):
     def set_span_style(self, span: 'span', style: 'style') -> 'None':
         return _lvgl.lv_spangroup_set_span_style(self._pointer, span._pointer if span else ffi.NULL, style._pointer if style else ffi.NULL)
     def set_align(self, align: 'TEXT_ALIGN') -> 'None':
-        return _lvgl.lv_spangroup_set_align(self._pointer, align.value if align else 0)
+        return _lvgl.lv_spangroup_set_align(self._pointer, align.value if align and isinstance(align, Enum) else (align or 0))
     def set_overflow(self, overflow: 'SPAN_OVERFLOW') -> 'None':
-        return _lvgl.lv_spangroup_set_overflow(self._pointer, overflow.value if overflow else 0)
+        return _lvgl.lv_spangroup_set_overflow(self._pointer, overflow.value if overflow and isinstance(overflow, Enum) else (overflow or 0))
     def set_indent(self, indent: 'int') -> 'None':
         return _lvgl.lv_spangroup_set_indent(self._pointer, indent)
     def set_mode(self, mode: 'SPAN_MODE') -> 'None':
-        return _lvgl.lv_spangroup_set_mode(self._pointer, mode.value if mode else 0)
+        return _lvgl.lv_spangroup_set_mode(self._pointer, mode.value if mode and isinstance(mode, Enum) else (mode or 0))
     def set_max_lines(self, lines: 'int') -> 'None':
         return _lvgl.lv_spangroup_set_max_lines(self._pointer, lines)
     def get_child(self, id: 'int') -> 'span':
@@ -3137,9 +3144,9 @@ class slider(obj):
     def set_range(self, min: 'int', max: 'int') -> 'None':
         return _lvgl.lv_slider_set_range(self._pointer, min, max)
     def set_mode(self, mode: 'SLIDER_MODE') -> 'None':
-        return _lvgl.lv_slider_set_mode(self._pointer, mode.value if mode else 0)
+        return _lvgl.lv_slider_set_mode(self._pointer, mode.value if mode and isinstance(mode, Enum) else (mode or 0))
     def set_orientation(self, orientation: 'SLIDER_ORIENTATION') -> 'None':
-        return _lvgl.lv_slider_set_orientation(self._pointer, orientation.value if orientation else 0)
+        return _lvgl.lv_slider_set_orientation(self._pointer, orientation.value if orientation and isinstance(orientation, Enum) else (orientation or 0))
     def get_value(self) -> 'int':
         return _lvgl.lv_slider_get_value(self._pointer)
     def get_left_value(self) -> 'int':
@@ -3171,8 +3178,8 @@ class scale_section:
         _objects[self] = self._pointer
     def set_range(self, min: 'int', max: 'int') -> 'None':
         return _lvgl.lv_scale_section_set_range(self._pointer, min, max)
-    def set_style(self, part: 'lv_part_t', section_part_style: 'style') -> 'None':
-        return _lvgl.lv_scale_section_set_style(self._pointer, part, section_part_style._pointer if section_part_style else ffi.NULL)
+    def set_style(self, part: 'PART', section_part_style: 'style') -> 'None':
+        return _lvgl.lv_scale_section_set_style(self._pointer, part.value if part and isinstance(part, Enum) else (part or 0), section_part_style._pointer if section_part_style else ffi.NULL)
 
 class scale(obj):
     _pointer = None
@@ -3182,7 +3189,7 @@ class scale(obj):
     def __init__(self, parent):
         self._pointer = _lvgl.lv_scale_create(parent._pointer if parent else ffi.NULL)
     def set_mode(self, mode: 'SCALE_MODE') -> 'None':
-        return _lvgl.lv_scale_set_mode(self._pointer, mode.value if mode else 0)
+        return _lvgl.lv_scale_set_mode(self._pointer, mode.value if mode and isinstance(mode, Enum) else (mode or 0))
     def set_total_tick_count(self, total_tick_count: 'int') -> 'None':
         return _lvgl.lv_scale_set_total_tick_count(self._pointer, total_tick_count)
     def set_major_tick_every(self, major_tick_every: 'int') -> 'None':
@@ -3242,7 +3249,7 @@ class roller(obj):
     def __init__(self, parent):
         self._pointer = _lvgl.lv_roller_create(parent._pointer if parent else ffi.NULL)
     def set_options(self, options: 'str', mode: 'ROLLER_MODE') -> 'None':
-        return _lvgl.lv_roller_set_options(self._pointer, options.encode('utf-8'), mode.value if mode else 0)
+        return _lvgl.lv_roller_set_options(self._pointer, options.encode('utf-8'), mode.value if mode and isinstance(mode, Enum) else (mode or 0))
     def set_selected(self, sel_opt: 'int', anim: 'lv_anim_enable_t') -> 'None':
         return _lvgl.lv_roller_set_selected(self._pointer, sel_opt, anim)
     def set_selected_str(self, sel_opt: 'str', anim: 'lv_anim_enable_t') -> 'bool':
@@ -3559,9 +3566,9 @@ class menu(obj):
     def set_sidebar_page(self, page: 'obj') -> 'None':
         return _lvgl.lv_menu_set_sidebar_page(self._pointer, page._pointer if page else ffi.NULL)
     def set_mode_header(self, mode: 'MENU_MODE_HEADER') -> 'None':
-        return _lvgl.lv_menu_set_mode_header(self._pointer, mode.value if mode else 0)
+        return _lvgl.lv_menu_set_mode_header(self._pointer, mode.value if mode and isinstance(mode, Enum) else (mode or 0))
     def set_mode_root_back_button(self, mode: 'MENU_MODE_ROOT_BACK_BUTTON') -> 'None':
-        return _lvgl.lv_menu_set_mode_root_back_button(self._pointer, mode.value if mode else 0)
+        return _lvgl.lv_menu_set_mode_root_back_button(self._pointer, mode.value if mode and isinstance(mode, Enum) else (mode or 0))
     def set_load_page_event(self, obj: 'obj', page: 'obj') -> 'None':
         return _lvgl.lv_menu_set_load_page_event(self._pointer, obj._pointer if obj else ffi.NULL, page._pointer if page else ffi.NULL)
     def get_cur_main_page(self) -> 'obj':
@@ -3710,7 +3717,7 @@ class label(obj):
     def set_text_static(self, text: 'str') -> 'None':
         return _lvgl.lv_label_set_text_static(self._pointer, text.encode('utf-8'))
     def set_long_mode(self, long_mode: 'LABEL_LONG_MODE') -> 'None':
-        return _lvgl.lv_label_set_long_mode(self._pointer, long_mode.value if long_mode else 0)
+        return _lvgl.lv_label_set_long_mode(self._pointer, long_mode.value if long_mode and isinstance(long_mode, Enum) else (long_mode or 0))
     def set_text_selection_start(self, index: 'int') -> 'None':
         return _lvgl.lv_label_set_text_selection_start(self._pointer, index)
     def set_text_selection_end(self, index: 'int') -> 'None':
@@ -3755,11 +3762,11 @@ class keyboard(obj):
     def set_textarea(self, ta: 'obj') -> 'None':
         return _lvgl.lv_keyboard_set_textarea(self._pointer, ta._pointer if ta else ffi.NULL)
     def set_mode(self, mode: 'KEYBOARD_MODE') -> 'None':
-        return _lvgl.lv_keyboard_set_mode(self._pointer, mode.value if mode else 0)
+        return _lvgl.lv_keyboard_set_mode(self._pointer, mode.value if mode and isinstance(mode, Enum) else (mode or 0))
     def set_popovers(self, en: 'bool') -> 'None':
         return _lvgl.lv_keyboard_set_popovers(self._pointer, en)
     def set_map(self, mode: 'KEYBOARD_MODE', map: 'str', ctrl_map: 'lv_buttonmatrix_ctrl_t') -> 'None':
-        return _lvgl.lv_keyboard_set_map(self._pointer, mode.value if mode else 0, ffi.NULL if map is None else map, ffi.NULL if ctrl_map is None else ctrl_map)
+        return _lvgl.lv_keyboard_set_map(self._pointer, mode.value if mode and isinstance(mode, Enum) else (mode or 0), ffi.NULL if map is None else map, ffi.NULL if ctrl_map is None else ctrl_map)
     def get_textarea(self) -> 'obj':
         result = obj.__new__(obj)
         result._pointer = _lvgl.lv_keyboard_get_textarea(self._pointer)
@@ -3863,7 +3870,7 @@ class indev:
     def enable(self, enable: 'bool') -> 'None':
         return _lvgl.lv_indev_enable(self._pointer, enable)
     def set_type(self, indev_type: 'INDEV_TYPE') -> 'None':
-        return _lvgl.lv_indev_set_type(self._pointer, indev_type.value if indev_type else 0)
+        return _lvgl.lv_indev_set_type(self._pointer, indev_type.value if indev_type and isinstance(indev_type, Enum) else (indev_type or 0))
     def set_read_cb(self, read_cb: 'lv_indev_read_cb_t') -> 'None':
         def wrap_read_cb(original_read_cb):
             def read_cb(_indev, _data):
@@ -3961,7 +3968,7 @@ class indev:
         result._pointer = _lvgl.lv_indev_get_read_timer(self._pointer)
         return result if result._pointer else None
     def set_mode(self, mode: 'INDEV_MODE') -> 'None':
-        return _lvgl.lv_indev_set_mode(self._pointer, mode.value if mode else 0)
+        return _lvgl.lv_indev_set_mode(self._pointer, mode.value if mode and isinstance(mode, Enum) else (mode or 0))
     def get_mode(self) -> 'lv_indev_mode_t':
         return _lvgl.lv_indev_get_mode(self._pointer)
     def search_obj(self, point: 'point') -> 'obj':
@@ -3986,7 +3993,7 @@ class indev:
             user_data = user_data.encode('utf-8') + b'\x00'
             user_data = ffi.from_buffer(user_data)
             self._user_data.append(user_data)
-        return _lvgl.lv_indev_add_event_cb(self._pointer, event_cb_wrapper, filter.value if filter else 0, ffi.NULL if user_data is None else user_data)
+        return _lvgl.lv_indev_add_event_cb(self._pointer, event_cb_wrapper, filter.value if filter and isinstance(filter, Enum) else (filter or 0), ffi.NULL if user_data is None else user_data)
     def get_event_count(self) -> 'int':
         return _lvgl.lv_indev_get_event_count(self._pointer)
     def get_event_dsc(self, index: 'int') -> 'event_dsc':
@@ -4015,7 +4022,7 @@ class indev:
             self._user_data.append(user_data)
         return _lvgl.lv_indev_remove_event_cb_with_user_data(self._pointer, event_cb_wrapper, ffi.NULL if user_data is None else user_data)
     def send_event(self, code: 'EVENT_CODE', param: 'None') -> 'lv_result_t':
-        return _lvgl.lv_indev_send_event(self._pointer, code.value if code else 0, ffi.NULL if param is None else param)
+        return _lvgl.lv_indev_send_event(self._pointer, code.value if code and isinstance(code, Enum) else (code or 0), ffi.NULL if param is None else param)
 
 class ime_pinyin:
     _pointer = None
@@ -4043,15 +4050,15 @@ class imagebutton(obj):
     def __init__(self, parent):
         self._pointer = _lvgl.lv_imagebutton_create(parent._pointer if parent else ffi.NULL)
     def set_src(self, state: 'IMAGEBUTTON_STATE', src_left: 'None', src_mid: 'None', src_right: 'None') -> 'None':
-        return _lvgl.lv_imagebutton_set_src(self._pointer, state.value if state else 0, ffi.NULL if src_left is None else src_left, ffi.NULL if src_mid is None else src_mid, ffi.NULL if src_right is None else src_right)
+        return _lvgl.lv_imagebutton_set_src(self._pointer, state.value if state and isinstance(state, Enum) else (state or 0), ffi.NULL if src_left is None else src_left, ffi.NULL if src_mid is None else src_mid, ffi.NULL if src_right is None else src_right)
     def set_state(self, state: 'IMAGEBUTTON_STATE') -> 'None':
-        return _lvgl.lv_imagebutton_set_state(self._pointer, state.value if state else 0)
+        return _lvgl.lv_imagebutton_set_state(self._pointer, state.value if state and isinstance(state, Enum) else (state or 0))
     def get_src_left(self, state: 'IMAGEBUTTON_STATE') -> 'None':
-        return _lvgl.lv_imagebutton_get_src_left(self._pointer, state.value if state else 0)
+        return _lvgl.lv_imagebutton_get_src_left(self._pointer, state.value if state and isinstance(state, Enum) else (state or 0))
     def get_src_middle(self, state: 'IMAGEBUTTON_STATE') -> 'None':
-        return _lvgl.lv_imagebutton_get_src_middle(self._pointer, state.value if state else 0)
+        return _lvgl.lv_imagebutton_get_src_middle(self._pointer, state.value if state and isinstance(state, Enum) else (state or 0))
     def get_src_right(self, state: 'IMAGEBUTTON_STATE') -> 'None':
-        return _lvgl.lv_imagebutton_get_src_right(self._pointer, state.value if state else 0)
+        return _lvgl.lv_imagebutton_get_src_right(self._pointer, state.value if state and isinstance(state, Enum) else (state or 0))
 
 class image_header_cache_data:
     _pointer = None
@@ -4248,11 +4255,11 @@ class image(obj):
     def set_scale_y(self, zoom: 'int') -> 'None':
         return _lvgl.lv_image_set_scale_y(self._pointer, zoom)
     def set_blend_mode(self, blend_mode: 'BLEND_MODE') -> 'None':
-        return _lvgl.lv_image_set_blend_mode(self._pointer, blend_mode.value if blend_mode else 0)
+        return _lvgl.lv_image_set_blend_mode(self._pointer, blend_mode.value if blend_mode and isinstance(blend_mode, Enum) else (blend_mode or 0))
     def set_antialias(self, antialias: 'bool') -> 'None':
         return _lvgl.lv_image_set_antialias(self._pointer, antialias)
     def set_inner_align(self, align: 'IMAGE_ALIGN') -> 'None':
-        return _lvgl.lv_image_set_inner_align(self._pointer, align.value if align else 0)
+        return _lvgl.lv_image_set_inner_align(self._pointer, align.value if align and isinstance(align, Enum) else (align or 0))
     def set_bitmap_map_src(self, src: 'image_dsc') -> 'None':
         return _lvgl.lv_image_set_bitmap_map_src(self._pointer, src._pointer if src else ffi.NULL)
     def get_src(self) -> 'None':
@@ -4353,7 +4360,7 @@ class group:
             self._callbacks[edge_cb] = edge_cb_wrapper
         return _lvgl.lv_group_set_edge_cb(self._pointer, edge_cb_wrapper)
     def set_refocus_policy(self, policy: 'GROUP_REFOCUS_POLICY') -> 'None':
-        return _lvgl.lv_group_set_refocus_policy(self._pointer, policy.value if policy else 0)
+        return _lvgl.lv_group_set_refocus_policy(self._pointer, policy.value if policy and isinstance(policy, Enum) else (policy or 0))
     def set_editing(self, edit: 'bool') -> 'None':
         return _lvgl.lv_group_set_editing(self._pointer, edit)
     def set_wrap(self, en: 'bool') -> 'None':
@@ -4401,13 +4408,13 @@ class grad_dsc:
     def vertical_init(self) -> 'None':
         return _lvgl.lv_grad_vertical_init(self._pointer)
     def linear_init(self, from_x: 'int', from_y: 'int', to_x: 'int', to_y: 'int', extend: 'GRAD_EXTEND') -> 'None':
-        return _lvgl.lv_grad_linear_init(self._pointer, from_x, from_y, to_x, to_y, extend.value if extend else 0)
+        return _lvgl.lv_grad_linear_init(self._pointer, from_x, from_y, to_x, to_y, extend.value if extend and isinstance(extend, Enum) else (extend or 0))
     def radial_init(self, center_x: 'int', center_y: 'int', to_x: 'int', to_y: 'int', extend: 'GRAD_EXTEND') -> 'None':
-        return _lvgl.lv_grad_radial_init(self._pointer, center_x, center_y, to_x, to_y, extend.value if extend else 0)
+        return _lvgl.lv_grad_radial_init(self._pointer, center_x, center_y, to_x, to_y, extend.value if extend and isinstance(extend, Enum) else (extend or 0))
     def radial_set_focal(self, center_x: 'int', center_y: 'int', radius: 'int') -> 'None':
         return _lvgl.lv_grad_radial_set_focal(self._pointer, center_x, center_y, radius)
     def conical_init(self, center_x: 'int', center_y: 'int', start_angle: 'int', end_angle: 'int', extend: 'GRAD_EXTEND') -> 'None':
-        return _lvgl.lv_grad_conical_init(self._pointer, center_x, center_y, start_angle, end_angle, extend.value if extend else 0)
+        return _lvgl.lv_grad_conical_init(self._pointer, center_x, center_y, start_angle, end_angle, extend.value if extend and isinstance(extend, Enum) else (extend or 0))
 
 class glfw_window:
     _pointer = None
@@ -4608,7 +4615,7 @@ class font:
     def get_line_height(self) -> 'int':
         return _lvgl.lv_font_get_line_height(self._pointer)
     def set_kerning(self, kerning: 'FONT_KERNING') -> 'None':
-        return _lvgl.lv_font_set_kerning(self._pointer, kerning.value if kerning else 0)
+        return _lvgl.lv_font_set_kerning(self._pointer, kerning.value if kerning and isinstance(kerning, Enum) else (kerning or 0))
     def get_bitmap_fmt_txt(self, draw_buf: 'draw_buf') -> 'None':
         return _lvgl.lv_font_get_bitmap_fmt_txt(self._pointer, draw_buf._pointer if draw_buf else ffi.NULL)
     def get_glyph_dsc_fmt_txt(self, dsc_out: 'font_glyph_dsc', unicode_letter: 'int', unicode_letter_next: 'int') -> 'bool':
@@ -4686,7 +4693,7 @@ class event:
             user_data = ffi.from_buffer(user_data)
             self._user_data.append(user_data)
         result = event_dsc.__new__(event_dsc)
-        result._pointer = _lvgl.lv_event_add(self._pointer, cb_wrapper, filter.value if filter else 0, ffi.NULL if user_data is None else user_data)
+        result._pointer = _lvgl.lv_event_add(self._pointer, cb_wrapper, filter.value if filter and isinstance(filter, Enum) else (filter or 0), ffi.NULL if user_data is None else user_data)
         return result if result._pointer else None
     def remove_dsc(self, dsc: 'event_dsc') -> 'bool':
         return _lvgl.lv_event_remove_dsc(self._pointer, dsc._pointer if dsc else ffi.NULL)
@@ -4764,7 +4771,7 @@ class event:
         result._pointer = _lvgl.lv_event_get_cover_area(self._pointer)
         return result if result._pointer else None
     def set_cover_res(self, res: 'COVER_RES') -> 'None':
-        return _lvgl.lv_event_set_cover_res(self._pointer, res.value if res else 0)
+        return _lvgl.lv_event_set_cover_res(self._pointer, res.value if res and isinstance(res, Enum) else (res or 0))
     def get_draw_task(self) -> 'draw_task':
         result = draw_task.__new__(draw_task)
         result._pointer = _lvgl.lv_event_get_draw_task(self._pointer)
@@ -4808,7 +4815,7 @@ class dropdown(obj):
     def set_selected(self, sel_opt: 'int', anim: 'lv_anim_enable_t') -> 'None':
         return _lvgl.lv_dropdown_set_selected(self._pointer, sel_opt, anim)
     def set_dir(self, dir: 'DIR') -> 'None':
-        return _lvgl.lv_dropdown_set_dir(self._pointer, dir.value if dir else 0)
+        return _lvgl.lv_dropdown_set_dir(self._pointer, dir.value if dir and isinstance(dir, Enum) else (dir or 0))
     def set_symbol(self, symbol: 'None') -> 'None':
         return _lvgl.lv_dropdown_set_symbol(self._pointer, ffi.NULL if symbol is None else symbol)
     def set_selected_highlight(self, en: 'bool') -> 'None':
@@ -5178,22 +5185,22 @@ class draw_buf:
     def init_with_default_handlers(self) -> 'None':
         return _lvgl.lv_draw_buf_init_with_default_handlers(self._pointer)
     def align(self, color_format: 'COLOR_FORMAT') -> 'None':
-        return _lvgl.lv_draw_buf_align(self._pointer, color_format.value if color_format else 0)
+        return _lvgl.lv_draw_buf_align(self._pointer, color_format.value if color_format and isinstance(color_format, Enum) else (color_format or 0))
     def align_ex(self, buf: 'None', color_format: 'COLOR_FORMAT') -> 'None':
-        return _lvgl.lv_draw_buf_align_ex(self._pointer, ffi.NULL if buf is None else buf, color_format.value if color_format else 0)
+        return _lvgl.lv_draw_buf_align_ex(self._pointer, ffi.NULL if buf is None else buf, color_format.value if color_format and isinstance(color_format, Enum) else (color_format or 0))
     def invalidate_cache(self, area: 'area') -> 'None':
         return _lvgl.lv_draw_buf_invalidate_cache(self._pointer, area._pointer if area else ffi.NULL)
     def flush_cache(self, area: 'area') -> 'None':
         return _lvgl.lv_draw_buf_flush_cache(self._pointer, area._pointer if area else ffi.NULL)
     def width_to_stride_ex(self, w: 'int', color_format: 'COLOR_FORMAT') -> 'int':
-        return _lvgl.lv_draw_buf_width_to_stride_ex(self._pointer, w, color_format.value if color_format else 0)
+        return _lvgl.lv_draw_buf_width_to_stride_ex(self._pointer, w, color_format.value if color_format and isinstance(color_format, Enum) else (color_format or 0))
     def clear(self, a: 'area') -> 'None':
         return _lvgl.lv_draw_buf_clear(self._pointer, a._pointer if a else ffi.NULL)
     def copy(self, dest_area: 'area', src: 'draw_buf', src_area: 'area') -> 'None':
         return _lvgl.lv_draw_buf_copy(self._pointer, dest_area._pointer if dest_area else ffi.NULL, src._pointer if src else ffi.NULL, src_area._pointer if src_area else ffi.NULL)
     def create_ex(self, w: 'int', h: 'int', cf: 'COLOR_FORMAT', stride: 'int') -> 'draw_buf':
         result = draw_buf.__new__(draw_buf)
-        result._pointer = _lvgl.lv_draw_buf_create_ex(self._pointer, w, h, cf.value if cf else 0, stride)
+        result._pointer = _lvgl.lv_draw_buf_create_ex(self._pointer, w, h, cf.value if cf and isinstance(cf, Enum) else (cf or 0), stride)
         return result if result._pointer else None
     def dup(self) -> 'draw_buf':
         result = draw_buf.__new__(draw_buf)
@@ -5205,7 +5212,7 @@ class draw_buf:
         return result if result._pointer else None
     def reshape(self, cf: 'COLOR_FORMAT', w: 'int', h: 'int', stride: 'int') -> 'draw_buf':
         result = draw_buf.__new__(draw_buf)
-        result._pointer = _lvgl.lv_draw_buf_reshape(self._pointer, cf.value if cf else 0, w, h, stride)
+        result._pointer = _lvgl.lv_draw_buf_reshape(self._pointer, cf.value if cf and isinstance(cf, Enum) else (cf or 0), w, h, stride)
         return result if result._pointer else None
     def destroy(self) -> 'None':
         return _lvgl.lv_draw_buf_destroy(self._pointer)
@@ -5216,11 +5223,11 @@ class draw_buf:
     def premultiply(self) -> 'lv_result_t':
         return _lvgl.lv_draw_buf_premultiply(self._pointer)
     def has_flag(self, flag: 'IMAGE_FLAGS') -> 'bool':
-        return _lvgl.lv_draw_buf_has_flag(self._pointer, flag.value if flag else 0)
+        return _lvgl.lv_draw_buf_has_flag(self._pointer, flag.value if flag and isinstance(flag, Enum) else (flag or 0))
     def set_flag(self, flag: 'IMAGE_FLAGS') -> 'None':
-        return _lvgl.lv_draw_buf_set_flag(self._pointer, flag.value if flag else 0)
+        return _lvgl.lv_draw_buf_set_flag(self._pointer, flag.value if flag and isinstance(flag, Enum) else (flag or 0))
     def clear_flag(self, flag: 'IMAGE_FLAGS') -> 'None':
-        return _lvgl.lv_draw_buf_clear_flag(self._pointer, flag.value if flag else 0)
+        return _lvgl.lv_draw_buf_clear_flag(self._pointer, flag.value if flag and isinstance(flag, Enum) else (flag or 0))
     def from_image(self, img: 'image_dsc') -> 'lv_result_t':
         return _lvgl.lv_draw_buf_from_image(self._pointer, img._pointer if img else ffi.NULL)
     def to_image(self, img: 'image_dsc') -> 'None':
@@ -5283,7 +5290,7 @@ class display:
     def set_offset(self, x: 'int', y: 'int') -> 'None':
         return _lvgl.lv_display_set_offset(self._pointer, x, y)
     def set_rotation(self, rotation: 'DISPLAY_ROTATION') -> 'None':
-        return _lvgl.lv_display_set_rotation(self._pointer, rotation.value if rotation else 0)
+        return _lvgl.lv_display_set_rotation(self._pointer, rotation.value if rotation and isinstance(rotation, Enum) else (rotation or 0))
     def set_dpi(self, dpi: 'int') -> 'None':
         return _lvgl.lv_display_set_dpi(self._pointer, dpi)
     def get_horizontal_resolution(self) -> 'int':
@@ -5303,13 +5310,13 @@ class display:
     def get_dpi(self) -> 'int':
         return _lvgl.lv_display_get_dpi(self._pointer)
     def set_buffers(self, buf1: 'None', buf2: 'None', buf_size: 'int', render_mode: 'DISPLAY_RENDER_MODE') -> 'None':
-        return _lvgl.lv_display_set_buffers(self._pointer, ffi.NULL if buf1 is None else buf1, ffi.NULL if buf2 is None else buf2, buf_size, render_mode.value if render_mode else 0)
+        return _lvgl.lv_display_set_buffers(self._pointer, ffi.NULL if buf1 is None else buf1, ffi.NULL if buf2 is None else buf2, buf_size, render_mode.value if render_mode and isinstance(render_mode, Enum) else (render_mode or 0))
     def set_buffers_with_stride(self, buf1: 'None', buf2: 'None', buf_size: 'int', stride: 'int', render_mode: 'DISPLAY_RENDER_MODE') -> 'None':
-        return _lvgl.lv_display_set_buffers_with_stride(self._pointer, ffi.NULL if buf1 is None else buf1, ffi.NULL if buf2 is None else buf2, buf_size, stride, render_mode.value if render_mode else 0)
+        return _lvgl.lv_display_set_buffers_with_stride(self._pointer, ffi.NULL if buf1 is None else buf1, ffi.NULL if buf2 is None else buf2, buf_size, stride, render_mode.value if render_mode and isinstance(render_mode, Enum) else (render_mode or 0))
     def set_draw_buffers(self, buf1: 'draw_buf', buf2: 'draw_buf') -> 'None':
         return _lvgl.lv_display_set_draw_buffers(self._pointer, buf1._pointer if buf1 else ffi.NULL, buf2._pointer if buf2 else ffi.NULL)
     def set_render_mode(self, render_mode: 'DISPLAY_RENDER_MODE') -> 'None':
-        return _lvgl.lv_display_set_render_mode(self._pointer, render_mode.value if render_mode else 0)
+        return _lvgl.lv_display_set_render_mode(self._pointer, render_mode.value if render_mode and isinstance(render_mode, Enum) else (render_mode or 0))
     def set_flush_cb(self, flush_cb: 'lv_display_flush_cb_t') -> 'None':
         def wrap_flush_cb(original_flush_cb):
             def flush_cb(_disp, _area, _px_map):
@@ -5344,7 +5351,7 @@ class display:
             self._callbacks[wait_cb] = wait_cb_wrapper
         return _lvgl.lv_display_set_flush_wait_cb(self._pointer, wait_cb_wrapper)
     def set_color_format(self, color_format: 'COLOR_FORMAT') -> 'None':
-        return _lvgl.lv_display_set_color_format(self._pointer, color_format.value if color_format else 0)
+        return _lvgl.lv_display_set_color_format(self._pointer, color_format.value if color_format and isinstance(color_format, Enum) else (color_format or 0))
     def get_color_format(self) -> 'lv_color_format_t':
         return _lvgl.lv_display_get_color_format(self._pointer)
     def set_tile_cnt(self, tile_cnt: 'int') -> 'None':
@@ -5399,7 +5406,7 @@ class display:
             user_data = user_data.encode('utf-8') + b'\x00'
             user_data = ffi.from_buffer(user_data)
             self._user_data.append(user_data)
-        return _lvgl.lv_display_add_event_cb(self._pointer, event_cb_wrapper, filter.value if filter else 0, ffi.NULL if user_data is None else user_data)
+        return _lvgl.lv_display_add_event_cb(self._pointer, event_cb_wrapper, filter.value if filter and isinstance(filter, Enum) else (filter or 0), ffi.NULL if user_data is None else user_data)
     def get_event_count(self) -> 'int':
         return _lvgl.lv_display_get_event_count(self._pointer)
     def get_event_dsc(self, index: 'int') -> 'event_dsc':
@@ -5428,7 +5435,7 @@ class display:
             self._user_data.append(user_data)
         return _lvgl.lv_display_remove_event_cb_with_user_data(self._pointer, event_cb_wrapper, ffi.NULL if user_data is None else user_data)
     def send_event(self, code: 'EVENT_CODE', param: 'None') -> 'lv_result_t':
-        return _lvgl.lv_display_send_event(self._pointer, code.value if code else 0, ffi.NULL if param is None else param)
+        return _lvgl.lv_display_send_event(self._pointer, code.value if code and isinstance(code, Enum) else (code or 0), ffi.NULL if param is None else param)
     def set_theme(self, th: 'theme') -> 'None':
         return _lvgl.lv_display_set_theme(self._pointer, th._pointer if th else ffi.NULL)
     def get_theme(self) -> 'theme':
@@ -5599,13 +5606,13 @@ class chart(obj):
     def __init__(self, parent):
         self._pointer = _lvgl.lv_chart_create(parent._pointer if parent else ffi.NULL)
     def set_type(self, type: 'CHART_TYPE') -> 'None':
-        return _lvgl.lv_chart_set_type(self._pointer, type.value if type else 0)
+        return _lvgl.lv_chart_set_type(self._pointer, type.value if type and isinstance(type, Enum) else (type or 0))
     def set_point_count(self, cnt: 'int') -> 'None':
         return _lvgl.lv_chart_set_point_count(self._pointer, cnt)
     def set_axis_range(self, axis: 'CHART_AXIS', min: 'int', max: 'int') -> 'None':
-        return _lvgl.lv_chart_set_axis_range(self._pointer, axis.value if axis else 0, min, max)
+        return _lvgl.lv_chart_set_axis_range(self._pointer, axis.value if axis and isinstance(axis, Enum) else (axis or 0), min, max)
     def set_update_mode(self, update_mode: 'CHART_UPDATE_MODE') -> 'None':
-        return _lvgl.lv_chart_set_update_mode(self._pointer, update_mode.value if update_mode else 0)
+        return _lvgl.lv_chart_set_update_mode(self._pointer, update_mode.value if update_mode and isinstance(update_mode, Enum) else (update_mode or 0))
     def set_div_line_count(self, hdiv: 'int', vdiv: 'int') -> 'None':
         return _lvgl.lv_chart_set_div_line_count(self._pointer, hdiv, vdiv)
     def get_type(self) -> 'lv_chart_type_t':
@@ -5620,7 +5627,7 @@ class chart(obj):
         return _lvgl.lv_chart_refresh(self._pointer)
     def add_series(self, color: 'lv_color_t', axis: 'CHART_AXIS') -> 'chart_series':
         result = chart_series.__new__(chart_series)
-        result._pointer = _lvgl.lv_chart_add_series(self._pointer, color, axis.value if axis else 0)
+        result._pointer = _lvgl.lv_chart_add_series(self._pointer, color, axis.value if axis and isinstance(axis, Enum) else (axis or 0))
         return result if result._pointer else None
     def remove_series(self, series: 'chart_series') -> 'None':
         return _lvgl.lv_chart_remove_series(self._pointer, series._pointer if series else ffi.NULL)
@@ -5638,7 +5645,7 @@ class chart(obj):
         return result if result._pointer else None
     def add_cursor(self, color: 'lv_color_t', dir: 'DIR') -> 'chart_cursor':
         result = chart_cursor.__new__(chart_cursor)
-        result._pointer = _lvgl.lv_chart_add_cursor(self._pointer, color, dir.value if dir else 0)
+        result._pointer = _lvgl.lv_chart_add_cursor(self._pointer, color, dir.value if dir and isinstance(dir, Enum) else (dir or 0))
         return result if result._pointer else None
     def set_cursor_pos(self, cursor: 'chart_cursor', pos: 'point') -> 'None':
         return _lvgl.lv_chart_set_cursor_pos(self._pointer, cursor._pointer if cursor else ffi.NULL, pos._pointer if pos else ffi.NULL)
@@ -5683,11 +5690,11 @@ class canvas(obj):
     def __init__(self, parent):
         self._pointer = _lvgl.lv_canvas_create(parent._pointer if parent else ffi.NULL)
     def set_buffer(self, buf: 'None', w: 'int', h: 'int', cf: 'COLOR_FORMAT') -> 'None':
-        return _lvgl.lv_canvas_set_buffer(self._pointer, ffi.NULL if buf is None else buf, w, h, cf.value if cf else 0)
+        return _lvgl.lv_canvas_set_buffer(self._pointer, ffi.NULL if buf is None else buf, w, h, cf.value if cf and isinstance(cf, Enum) else (cf or 0))
     def set_draw_buf(self, draw_buf: 'draw_buf') -> 'None':
         return _lvgl.lv_canvas_set_draw_buf(self._pointer, draw_buf._pointer if draw_buf else ffi.NULL)
-    def set_px(self, x: 'int', y: 'int', color: 'lv_color_t', opa: 'lv_opa_t') -> 'None':
-        return _lvgl.lv_canvas_set_px(self._pointer, x, y, color, opa)
+    def set_px(self, x: 'int', y: 'int', color: 'lv_color_t', opa: 'OPA') -> 'None':
+        return _lvgl.lv_canvas_set_px(self._pointer, x, y, color, opa.value if opa and isinstance(opa, Enum) else (opa or 0))
     def set_palette(self, index: 'int', color: 'lv_color32_t') -> 'None':
         return _lvgl.lv_canvas_set_palette(self._pointer, index, color)
     def get_draw_buf(self) -> 'draw_buf':
@@ -5704,8 +5711,8 @@ class canvas(obj):
         return _lvgl.lv_canvas_get_buf(self._pointer)
     def copy_buf(self, canvas_area: 'area', dest_buf: 'draw_buf', dest_area: 'area') -> 'None':
         return _lvgl.lv_canvas_copy_buf(self._pointer, canvas_area._pointer if canvas_area else ffi.NULL, dest_buf._pointer if dest_buf else ffi.NULL, dest_area._pointer if dest_area else ffi.NULL)
-    def fill_bg(self, color: 'lv_color_t', opa: 'lv_opa_t') -> 'None':
-        return _lvgl.lv_canvas_fill_bg(self._pointer, color, opa)
+    def fill_bg(self, color: 'lv_color_t', opa: 'OPA') -> 'None':
+        return _lvgl.lv_canvas_fill_bg(self._pointer, color, opa.value if opa and isinstance(opa, Enum) else (opa or 0))
     def init_layer(self, layer: 'layer') -> 'None':
         return _lvgl.lv_canvas_init_layer(self._pointer, layer._pointer if layer else ffi.NULL)
     def finish_layer(self, layer: 'layer') -> 'None':
@@ -5798,13 +5805,13 @@ class buttonmatrix(obj):
     def set_selected_button(self, btn_id: 'int') -> 'None':
         return _lvgl.lv_buttonmatrix_set_selected_button(self._pointer, btn_id)
     def set_button_ctrl(self, btn_id: 'int', ctrl: 'BUTTONMATRIX_CTRL') -> 'None':
-        return _lvgl.lv_buttonmatrix_set_button_ctrl(self._pointer, btn_id, ctrl.value if ctrl else 0)
+        return _lvgl.lv_buttonmatrix_set_button_ctrl(self._pointer, btn_id, ctrl.value if ctrl and isinstance(ctrl, Enum) else (ctrl or 0))
     def clear_button_ctrl(self, btn_id: 'int', ctrl: 'BUTTONMATRIX_CTRL') -> 'None':
-        return _lvgl.lv_buttonmatrix_clear_button_ctrl(self._pointer, btn_id, ctrl.value if ctrl else 0)
+        return _lvgl.lv_buttonmatrix_clear_button_ctrl(self._pointer, btn_id, ctrl.value if ctrl and isinstance(ctrl, Enum) else (ctrl or 0))
     def set_button_ctrl_all(self, ctrl: 'BUTTONMATRIX_CTRL') -> 'None':
-        return _lvgl.lv_buttonmatrix_set_button_ctrl_all(self._pointer, ctrl.value if ctrl else 0)
+        return _lvgl.lv_buttonmatrix_set_button_ctrl_all(self._pointer, ctrl.value if ctrl and isinstance(ctrl, Enum) else (ctrl or 0))
     def clear_button_ctrl_all(self, ctrl: 'BUTTONMATRIX_CTRL') -> 'None':
-        return _lvgl.lv_buttonmatrix_clear_button_ctrl_all(self._pointer, ctrl.value if ctrl else 0)
+        return _lvgl.lv_buttonmatrix_clear_button_ctrl_all(self._pointer, ctrl.value if ctrl and isinstance(ctrl, Enum) else (ctrl or 0))
     def set_button_width(self, btn_id: 'int', width: 'int') -> 'None':
         return _lvgl.lv_buttonmatrix_set_button_width(self._pointer, btn_id, width)
     def set_one_checked(self, en: 'bool') -> 'None':
@@ -5822,7 +5829,7 @@ class buttonmatrix(obj):
         result = ffi.string(result)
         return result.decode('utf-8')
     def has_button_ctrl(self, btn_id: 'int', ctrl: 'BUTTONMATRIX_CTRL') -> 'bool':
-        return _lvgl.lv_buttonmatrix_has_button_ctrl(self._pointer, btn_id, ctrl.value if ctrl else 0)
+        return _lvgl.lv_buttonmatrix_has_button_ctrl(self._pointer, btn_id, ctrl.value if ctrl and isinstance(ctrl, Enum) else (ctrl or 0))
     def get_one_checked(self) -> 'bool':
         return _lvgl.lv_buttonmatrix_get_one_checked(self._pointer)
 
@@ -5866,9 +5873,9 @@ class bar(obj):
     def set_range(self, min: 'int', max: 'int') -> 'None':
         return _lvgl.lv_bar_set_range(self._pointer, min, max)
     def set_mode(self, mode: 'BAR_MODE') -> 'None':
-        return _lvgl.lv_bar_set_mode(self._pointer, mode.value if mode else 0)
+        return _lvgl.lv_bar_set_mode(self._pointer, mode.value if mode and isinstance(mode, Enum) else (mode or 0))
     def set_orientation(self, orientation: 'BAR_ORIENTATION') -> 'None':
-        return _lvgl.lv_bar_set_orientation(self._pointer, orientation.value if orientation else 0)
+        return _lvgl.lv_bar_set_orientation(self._pointer, orientation.value if orientation and isinstance(orientation, Enum) else (orientation or 0))
     def get_value(self) -> 'int':
         return _lvgl.lv_bar_get_value(self._pointer)
     def get_start_value(self) -> 'int':
@@ -5955,7 +5962,7 @@ class area:
     def move(self, x_ofs: 'int', y_ofs: 'int') -> 'None':
         return _lvgl.lv_area_move(self._pointer, x_ofs, y_ofs)
     def align(self, to_align: 'area', align: 'ALIGN', ofs_x: 'int', ofs_y: 'int') -> 'None':
-        return _lvgl.lv_area_align(self._pointer, to_align._pointer if to_align else ffi.NULL, align.value if align else 0, ofs_x, ofs_y)
+        return _lvgl.lv_area_align(self._pointer, to_align._pointer if to_align else ffi.NULL, align.value if align and isinstance(align, Enum) else (align or 0), ofs_x, ofs_y)
     def copy(self, src: 'area') -> 'None':
         return _lvgl.lv_area_copy(self._pointer, src._pointer if src else ffi.NULL)
 
@@ -5981,7 +5988,7 @@ class arc(obj):
     def set_rotation(self, rotation: 'int') -> 'None':
         return _lvgl.lv_arc_set_rotation(self._pointer, rotation)
     def set_mode(self, type: 'ARC_MODE') -> 'None':
-        return _lvgl.lv_arc_set_mode(self._pointer, type.value if type else 0)
+        return _lvgl.lv_arc_set_mode(self._pointer, type.value if type and isinstance(type, Enum) else (type or 0))
     def set_value(self, value: 'int') -> 'None':
         return _lvgl.lv_arc_set_value(self._pointer, value)
     def set_range(self, min: 'int', max: 'int') -> 'None':
@@ -6492,13 +6499,13 @@ def pct(x: 'int') -> 'int':
 def pct_to_px(v: 'int', base: 'int') -> 'int':
     return _lvgl.lv_pct_to_px(v, base)
 def color_format_get_bpp(cf: 'COLOR_FORMAT') -> 'int':
-    return _lvgl.lv_color_format_get_bpp(cf.value if cf else 0)
+    return _lvgl.lv_color_format_get_bpp(cf.value if cf and isinstance(cf, Enum) else (cf or 0))
 def color_format_get_size(cf: 'COLOR_FORMAT') -> 'int':
-    return _lvgl.lv_color_format_get_size(cf.value if cf else 0)
+    return _lvgl.lv_color_format_get_size(cf.value if cf and isinstance(cf, Enum) else (cf or 0))
 def color_format_has_alpha(src_cf: 'COLOR_FORMAT') -> 'bool':
-    return _lvgl.lv_color_format_has_alpha(src_cf.value if src_cf else 0)
-def color_to_32(color: 'lv_color_t', opa: 'lv_opa_t') -> 'lv_color32_t':
-    return _lvgl.lv_color_to_32(color, opa)
+    return _lvgl.lv_color_format_has_alpha(src_cf.value if src_cf and isinstance(src_cf, Enum) else (src_cf or 0))
+def color_to_32(color: 'lv_color_t', opa: 'OPA') -> 'lv_color32_t':
+    return _lvgl.lv_color_to_32(color, opa.value if opa and isinstance(opa, Enum) else (opa or 0))
 def color_to_int(c: 'lv_color_t') -> 'int':
     return _lvgl.lv_color_to_int(c)
 def color_eq(c1: 'lv_color_t', c2: 'lv_color_t') -> 'bool':
@@ -6519,10 +6526,10 @@ def color_to_u32(color: 'lv_color_t') -> 'int':
     return _lvgl.lv_color_to_u32(color)
 def color_16_16_mix(c1: 'int', c2: 'int', mix: 'int') -> 'int':
     return _lvgl.lv_color_16_16_mix(c1, c2, mix)
-def color_lighten(c: 'lv_color_t', lvl: 'lv_opa_t') -> 'lv_color_t':
-    return _lvgl.lv_color_lighten(c, lvl)
-def color_darken(c: 'lv_color_t', lvl: 'lv_opa_t') -> 'lv_color_t':
-    return _lvgl.lv_color_darken(c, lvl)
+def color_lighten(c: 'lv_color_t', lvl: 'OPA') -> 'lv_color_t':
+    return _lvgl.lv_color_lighten(c, lvl.value if lvl and isinstance(lvl, Enum) else (lvl or 0))
+def color_darken(c: 'lv_color_t', lvl: 'OPA') -> 'lv_color_t':
+    return _lvgl.lv_color_darken(c, lvl.value if lvl and isinstance(lvl, Enum) else (lvl or 0))
 def color_hsv_to_rgb(h: 'int', s: 'int', v: 'int') -> 'lv_color_t':
     return _lvgl.lv_color_hsv_to_rgb(h, s, v)
 def color_rgb_to_hsv(r8: 'int', g8: 'int', b8: 'int') -> 'lv_color_hsv_t':
@@ -6535,8 +6542,8 @@ def color_black() -> 'lv_color_t':
     return _lvgl.lv_color_black()
 def color_premultiply(c: 'lv_color32_t') -> 'None':
     return _lvgl.lv_color_premultiply(ffi.NULL if c is None else c)
-def color16_premultiply(c: 'lv_color16_t', a: 'lv_opa_t') -> 'None':
-    return _lvgl.lv_color16_premultiply(ffi.NULL if c is None else c, a)
+def color16_premultiply(c: 'lv_color16_t', a: 'OPA') -> 'None':
+    return _lvgl.lv_color16_premultiply(ffi.NULL if c is None else c, a.value if a and isinstance(a, Enum) else (a or 0))
 def color_luminance(c: 'lv_color_t') -> 'int':
     return _lvgl.lv_color_luminance(c)
 def color16_luminance(c: 'lv_color16_t') -> 'int':
@@ -6546,11 +6553,11 @@ def color24_luminance(c: 'int') -> 'int':
 def color32_luminance(c: 'lv_color32_t') -> 'int':
     return _lvgl.lv_color32_luminance(c)
 def palette_main(p: 'PALETTE') -> 'lv_color_t':
-    return _lvgl.lv_palette_main(p.value if p else 0)
+    return _lvgl.lv_palette_main(p.value if p and isinstance(p, Enum) else (p or 0))
 def palette_lighten(p: 'PALETTE', lvl: 'int') -> 'lv_color_t':
-    return _lvgl.lv_palette_lighten(p.value if p else 0, lvl)
+    return _lvgl.lv_palette_lighten(p.value if p and isinstance(p, Enum) else (p or 0), lvl)
 def palette_darken(p: 'PALETTE', lvl: 'int') -> 'lv_color_t':
-    return _lvgl.lv_palette_darken(p.value if p else 0, lvl)
+    return _lvgl.lv_palette_darken(p.value if p and isinstance(p, Enum) else (p or 0), lvl)
 def color_mix(c1: 'lv_color_t', c2: 'lv_color_t', mix: 'int') -> 'lv_color_t':
     return _lvgl.lv_color_mix(c1, c2, mix)
 def color_mix32(fg: 'lv_color32_t', bg: 'lv_color32_t') -> 'lv_color32_t':
@@ -6588,10 +6595,10 @@ def draw_buf_get_image_handlers() -> 'draw_buf_handlers':
     result._pointer = _lvgl.lv_draw_buf_get_image_handlers()
     return result if result._pointer else None
 def draw_buf_width_to_stride(w: 'int', color_format: 'COLOR_FORMAT') -> 'int':
-    return _lvgl.lv_draw_buf_width_to_stride(w, color_format.value if color_format else 0)
+    return _lvgl.lv_draw_buf_width_to_stride(w, color_format.value if color_format and isinstance(color_format, Enum) else (color_format or 0))
 def draw_buf_create(w: 'int', h: 'int', cf: 'COLOR_FORMAT', stride: 'int') -> 'draw_buf':
     result = draw_buf.__new__(draw_buf)
-    result._pointer = _lvgl.lv_draw_buf_create(w, h, cf.value if cf else 0, stride)
+    result._pointer = _lvgl.lv_draw_buf_create(w, h, cf.value if cf and isinstance(cf, Enum) else (cf or 0), stride)
     return result if result._pointer else None
 def circle_buf_create(capacity: 'int', element_size: 'int') -> 'circle_buf':
     result = circle_buf.__new__(circle_buf)
@@ -6662,11 +6669,11 @@ def font_get_default() -> 'font':
     result._pointer = _lvgl.lv_font_get_default()
     return result if result._pointer else None
 def text_get_size(size_res: 'point', text: 'str', font: 'font', letter_space: 'int', line_space: 'int', max_width: 'int', flag: 'TEXT_FLAG') -> 'None':
-    return _lvgl.lv_text_get_size(size_res._pointer if size_res else ffi.NULL, text.encode('utf-8'), font._pointer if font else ffi.NULL, letter_space, line_space, max_width, flag.value if flag else 0)
+    return _lvgl.lv_text_get_size(size_res._pointer if size_res else ffi.NULL, text.encode('utf-8'), font._pointer if font else ffi.NULL, letter_space, line_space, max_width, flag.value if flag and isinstance(flag, Enum) else (flag or 0))
 def text_get_width(txt: 'str', length: 'int', font: 'font', letter_space: 'int') -> 'int':
     return _lvgl.lv_text_get_width(txt.encode('utf-8'), length, font._pointer if font else ffi.NULL, letter_space)
 def text_get_width_with_flags(txt: 'str', length: 'int', font: 'font', letter_space: 'int', flags: 'TEXT_FLAG') -> 'int':
-    return _lvgl.lv_text_get_width_with_flags(txt.encode('utf-8'), length, font._pointer if font else ffi.NULL, letter_space, flags.value if flags else 0)
+    return _lvgl.lv_text_get_width_with_flags(txt.encode('utf-8'), length, font._pointer if font else ffi.NULL, letter_space, flags.value if flags and isinstance(flags, Enum) else (flags or 0))
 def text_is_cmd(state: 'lv_text_cmd_state_t', c: 'int') -> 'bool':
     return _lvgl.lv_text_is_cmd(ffi.NULL if state is None else state, c)
 def layout_register(cb: 'lv_layout_update_cb_t', user_data: 'str') -> 'int':
@@ -6706,7 +6713,7 @@ def style_prop_lookup_flags(prop: 'lv_style_prop_t') -> 'int':
 def event_register_id() -> 'int':
     return _lvgl.lv_event_register_id()
 def event_code_get_name(code: 'EVENT_CODE') -> 'str':
-        result = _lvgl.lv_event_code_get_name(code.value if code else 0)
+        result = _lvgl.lv_event_code_get_name(code.value if code and isinstance(code, Enum) else (code or 0))
         result = ffi.cast('char*', result)
         result = ffi.string(result)
         return result.decode('utf-8')
@@ -6721,7 +6728,7 @@ def display_get_default() -> 'display':
 def screen_load(scr: 'obj') -> 'None':
     return _lvgl.lv_screen_load(scr._pointer if scr else ffi.NULL)
 def screen_load_anim(scr: 'obj', anim_type: 'SCREEN_LOAD_ANIM', time: 'int', delay: 'int', auto_del: 'bool') -> 'None':
-    return _lvgl.lv_screen_load_anim(scr._pointer if scr else ffi.NULL, anim_type.value if anim_type else 0, time, delay, auto_del)
+    return _lvgl.lv_screen_load_anim(scr._pointer if scr else ffi.NULL, anim_type.value if anim_type and isinstance(anim_type, Enum) else (anim_type or 0), time, delay, auto_del)
 def screen_active() -> 'obj':
     result = obj.__new__(obj)
     result._pointer = _lvgl.lv_screen_active()
@@ -6786,10 +6793,10 @@ def draw_get_dependent_count(t_check: 'draw_task') -> 'int':
     return _lvgl.lv_draw_get_dependent_count(t_check._pointer if t_check else ffi.NULL)
 def draw_layer_create(parent_layer: 'layer', color_format: 'COLOR_FORMAT', area: 'area') -> 'layer':
     result = layer.__new__(layer)
-    result._pointer = _lvgl.lv_draw_layer_create(parent_layer._pointer if parent_layer else ffi.NULL, color_format.value if color_format else 0, area._pointer if area else ffi.NULL)
+    result._pointer = _lvgl.lv_draw_layer_create(parent_layer._pointer if parent_layer else ffi.NULL, color_format.value if color_format and isinstance(color_format, Enum) else (color_format or 0), area._pointer if area else ffi.NULL)
     return result if result._pointer else None
 def draw_layer_init(layer: 'layer', parent_layer: 'layer', color_format: 'COLOR_FORMAT', area: 'area') -> 'None':
-    return _lvgl.lv_draw_layer_init(layer._pointer if layer else ffi.NULL, parent_layer._pointer if parent_layer else ffi.NULL, color_format.value if color_format else 0, area._pointer if area else ffi.NULL)
+    return _lvgl.lv_draw_layer_init(layer._pointer if layer else ffi.NULL, parent_layer._pointer if parent_layer else ffi.NULL, color_format.value if color_format and isinstance(color_format, Enum) else (color_format or 0), area._pointer if area else ffi.NULL)
 def draw_layer_go_to_xy(layer: 'layer', x: 'int', y: 'int') -> 'None':
     return _lvgl.lv_draw_layer_go_to_xy(layer._pointer if layer else ffi.NULL, x, y)
 def draw_fill(layer: 'layer', dsc: 'draw_fill_dsc', coords: 'area') -> 'None':
@@ -6924,7 +6931,7 @@ def tiny_ttf_create_file(path: 'str', font_size: 'int') -> 'font':
     return result if result._pointer else None
 def tiny_ttf_create_file_ex(path: 'str', font_size: 'int', kerning: 'FONT_KERNING', cache_size: 'size_t') -> 'font':
     result = font.__new__(font)
-    result._pointer = _lvgl.lv_tiny_ttf_create_file_ex(path.encode('utf-8'), font_size, kerning.value if kerning else 0, cache_size)
+    result._pointer = _lvgl.lv_tiny_ttf_create_file_ex(path.encode('utf-8'), font_size, kerning.value if kerning and isinstance(kerning, Enum) else (kerning or 0), cache_size)
     return result if result._pointer else None
 def tiny_ttf_create_data(data: 'None', data_size: 'size_t', font_size: 'int') -> 'font':
     result = font.__new__(font)
@@ -6932,7 +6939,7 @@ def tiny_ttf_create_data(data: 'None', data_size: 'size_t', font_size: 'int') ->
     return result if result._pointer else None
 def tiny_ttf_create_data_ex(data: 'None', data_size: 'size_t', font_size: 'int', kerning: 'FONT_KERNING', cache_size: 'size_t') -> 'font':
     result = font.__new__(font)
-    result._pointer = _lvgl.lv_tiny_ttf_create_data_ex(ffi.NULL if data is None else data, data_size, font_size, kerning.value if kerning else 0, cache_size)
+    result._pointer = _lvgl.lv_tiny_ttf_create_data_ex(ffi.NULL if data is None else data, data_size, font_size, kerning.value if kerning and isinstance(kerning, Enum) else (kerning or 0), cache_size)
     return result if result._pointer else None
 def tiny_ttf_set_size(font: 'font', font_size: 'int') -> 'None':
     return _lvgl.lv_tiny_ttf_set_size(font._pointer if font else ffi.NULL, font_size)
@@ -6947,7 +6954,7 @@ def draw_sw_i1_invert(buf: 'None', buf_size: 'int') -> 'None':
 def draw_sw_i1_convert_to_vtiled(buf: 'None', buf_size: 'int', width: 'int', height: 'int', out_buf: 'None', out_buf_size: 'int', bit_order_lsb: 'bool') -> 'None':
     return _lvgl.lv_draw_sw_i1_convert_to_vtiled(ffi.NULL if buf is None else buf, buf_size, width, height, ffi.NULL if out_buf is None else out_buf, out_buf_size, bit_order_lsb)
 def draw_sw_rotate(src: 'None', dest: 'None', src_width: 'int', src_height: 'int', src_stride: 'int', dest_stride: 'int', rotation: 'DISPLAY_ROTATION', color_format: 'COLOR_FORMAT') -> 'None':
-    return _lvgl.lv_draw_sw_rotate(ffi.NULL if src is None else src, ffi.NULL if dest is None else dest, src_width, src_height, src_stride, dest_stride, rotation.value if rotation else 0, color_format.value if color_format else 0)
+    return _lvgl.lv_draw_sw_rotate(ffi.NULL if src is None else src, ffi.NULL if dest is None else dest, src_width, src_height, src_stride, dest_stride, rotation.value if rotation and isinstance(rotation, Enum) else (rotation or 0), color_format.value if color_format and isinstance(color_format, Enum) else (color_format or 0))
 def theme_get_from_obj(obj: 'obj') -> 'theme':
     result = theme.__new__(theme)
     result._pointer = _lvgl.lv_theme_get_from_obj(obj._pointer if obj else ffi.NULL)
@@ -6994,7 +7001,7 @@ def linux_fbdev_set_force_refresh(disp: 'display', enabled: 'bool') -> 'None':
     return _lvgl.lv_linux_fbdev_set_force_refresh(disp._pointer if disp else ffi.NULL, enabled)
 def evdev_create(indev_type: 'INDEV_TYPE', dev_path: 'str') -> 'indev':
     result = indev.__new__(indev)
-    result._pointer = _lvgl.lv_evdev_create(indev_type.value if indev_type else 0, dev_path.encode('utf-8'))
+    result._pointer = _lvgl.lv_evdev_create(indev_type.value if indev_type and isinstance(indev_type, Enum) else (indev_type or 0), dev_path.encode('utf-8'))
     return result if result._pointer else None
 def evdev_discovery_start(cb: 'lv_evdev_discovery_cb_t', user_data: 'str') -> 'lv_result_t':
     def wrap_cb(original_cb):
@@ -7081,10 +7088,10 @@ def style_get_prop_group(prop: 'lv_style_prop_t') -> 'int':
     return _lvgl.lv_style_get_prop_group(prop)
 def style_prop_has_flag(prop: 'lv_style_prop_t', flag: 'int') -> 'bool':
     return _lvgl.lv_style_prop_has_flag(prop, flag)
-def obj_style_get_selector_state(selector: 'lv_style_selector_t') -> 'lv_state_t':
-    return _lvgl.lv_obj_style_get_selector_state(selector)
-def obj_style_get_selector_part(selector: 'lv_style_selector_t') -> 'lv_part_t':
-    return _lvgl.lv_obj_style_get_selector_part(selector)
+def obj_style_get_selector_state(selector: 'STATE') -> 'lv_state_t':
+    return _lvgl.lv_obj_style_get_selector_state(selector.value if selector and isinstance(selector, Enum) else (selector or 0))
+def obj_style_get_selector_part(selector: 'STATE') -> 'lv_part_t':
+    return _lvgl.lv_obj_style_get_selector_part(selector.value if selector and isinstance(selector, Enum) else (selector or 0))
 def task_handler() -> 'int':
     return _lvgl.lv_task_handler()
 def version_major() -> 'int':
