@@ -71,7 +71,7 @@ DEBUG = os.getenv('DEBUG')
 DEBUG = not not DEBUG
 #DEBUG = True
 
-SIMULATED_PRINTER = 'K3'
+SIMULATED_PRINTER = 'KS1'
 
 
 # Setup logging
@@ -124,6 +124,8 @@ if USING_SIMULATOR:
     def get_app_property(app, property): return 'https://github.com/jbatonnet/Rinkhals' if property == 'link_output' else ''
     def set_app_property(app, property, value): pass
     def set_temporary_app_property(app, property, value): pass
+    def remove_app_property(app, property): pass
+    def clear_app_properties(app): pass
 
     def are_apps_enabled(): return { a: is_app_enabled(a) for a in list_apps().split(' ') }
 else:
@@ -157,6 +159,8 @@ else:
     get_app_property = load_tool_function('get_app_property')
     set_app_property = load_tool_function('set_app_property')
     set_temporary_app_property = load_tool_function('set_temporary_app_property')
+    remove_app_property = load_tool_function('remove_app_property')
+    clear_app_properties = load_tool_function('clear_app_properties')
 
     def are_apps_enabled():
         result = shell('. /useremain/rinkhals/.current/tools.sh && for a in $(list_apps); do echo "$a $(is_app_enabled $a)"; done')
@@ -302,30 +306,35 @@ class Program:
 
     def layout(self):
         self.screen_container = lvr.screen()
-        self.screen_container.set_style_pad_all(0, lv.STATE_DEFAULT)
-        self.screen_container.set_style_bg_opa(lv.OPA_TRANSP, lv.STATE_DEFAULT)
+        self.screen_container.set_style_pad_all(0, lv.STATE.DEFAULT)
+        self.screen_container.set_style_bg_opa(lv.OPA.TRANSP, lv.STATE.DEFAULT)
 
         if SCREEN_WIDTH > SCREEN_HEIGHT:
             self.screen_composition = self.screen_container
             self.screen_container = lvr.panel(self.screen_composition)
             lv.screen_load(self.screen_composition)
+            dialog_parent = self.screen_composition
+        else:
+            dialog_parent = self.screen_container
 
         if KOBRA_MODEL_CODE == 'K2P' or KOBRA_MODEL_CODE == 'K3':
             layer_bottom = self.display.get_layer_bottom()
-            layer_bottom.set_style_bg_opa(lv.OPA_TRANSP, lv.STATE_DEFAULT)
+            layer_bottom.set_style_bg_opa(lv.OPA.TRANSP, lv.STATE.DEFAULT)
 
             self.screen_root = self.screen_container
             self.screen_container = lvr.panel(self.screen_root)
             self.screen_container.set_size(lv.pct(100), SCREEN_HEIGHT - 24)
             self.screen_container.set_align(lv.ALIGN.BOTTOM_MID)
-            self.screen_container.set_style_pad_all(0, lv.STATE_DEFAULT)
+            self.screen_container.set_style_pad_all(0, lv.STATE.DEFAULT)
+            dialog_parent = self.screen_container
+
             lv.screen_load(self.screen_root)
 
         self.screen_rinkhals = lvr.panel(self.screen_container)
         if self.screen_rinkhals:
             self.screen_rinkhals.set_flex_flow(lv.FLEX_FLOW.COLUMN)
             self.screen_rinkhals.set_flex_align(lv.FLEX_ALIGN.CENTER, lv.FLEX_ALIGN.CENTER, lv.FLEX_ALIGN.CENTER)
-            self.screen_rinkhals.set_style_pad_row(-lv.dpx(3), lv.STATE_DEFAULT)
+            self.screen_rinkhals.set_style_pad_row(-lv.dpx(3), lv.STATE.DEFAULT)
 
             rinkhals_icon = lvr.image(self.screen_rinkhals)
             rinkhals_icon.set_src(SCRIPT_PATH + '/icon.png')
@@ -333,8 +342,8 @@ class Program:
 
             label_rinkhals = lvr.title(self.screen_rinkhals)
             label_rinkhals.set_text('Rinkhals')
-            label_rinkhals.set_style_pad_top(lv.dpx(20), lv.STATE_DEFAULT)
-            label_rinkhals.set_style_pad_bottom(lv.dpx(10), lv.STATE_DEFAULT)
+            label_rinkhals.set_style_pad_top(lv.dpx(20), lv.STATE.DEFAULT)
+            label_rinkhals.set_style_pad_bottom(lv.dpx(10), lv.STATE.DEFAULT)
             
             self.screen_rinkhals.label_firmware = lvr.subtitle(self.screen_rinkhals)
             self.screen_rinkhals.label_firmware.set_text('Firmware:')
@@ -354,45 +363,37 @@ class Program:
             button_exit = lvr.button_icon(self.screen_rinkhals)
             button_exit.add_flag(lv.OBJ_FLAG.IGNORE_LAYOUT)
             button_exit.align(lv.ALIGN.TOP_LEFT, -lvr.GLOBAL_PADDING, -lvr.GLOBAL_PADDING)
+            button_exit.set_text('')
             button_exit.add_event_cb(lambda e: self.quit(), lv.EVENT_CODE.CLICKED, None)
-            button_exit_label = lvr.label(button_exit)
-            button_exit_label.center()
-            button_exit_label.set_text('')
 
         self.screen_main = lvr.panel(self.screen_container)
         if self.screen_main:
             self.screen_main.set_size(lv.pct(100), lv.pct(100))
             self.screen_main.set_flex_flow(lv.FLEX_FLOW.COLUMN)
             self.screen_main.set_flex_align(lv.FLEX_ALIGN.START, lv.FLEX_ALIGN.CENTER, lv.FLEX_ALIGN.CENTER)
-            self.screen_main.set_style_pad_row(lvr.GLOBAL_PADDING, lv.STATE_DEFAULT)
+            self.screen_main.set_style_pad_row(lvr.GLOBAL_PADDING, lv.STATE.DEFAULT)
 
             button_apps = lvr.button(self.screen_main)
             button_apps.set_width(lv.pct(100))
+            button_apps.set_text('Manage apps')
             button_apps.add_event_cb(lambda e: self.show_screen(self.screen_apps), lv.EVENT_CODE.CLICKED, None)
-            button_apps_label = lv.label(button_apps)
-            button_apps_label.set_text('Manage apps')
-            button_apps_label.center()
             
             button_ota = lvr.button(self.screen_main)
             button_ota.set_width(lv.pct(100))
+            button_ota.set_text('Check for updates')
             button_ota.add_event_cb(lambda e: self.layout_ota(), lv.EVENT_CODE.CLICKED, None)
-            button_ota_label = lv.label(button_ota)
-            button_ota_label.set_text('Check for updates')
-            button_ota_label.center()
 
             button_settings = lvr.button(self.screen_main)
             button_settings.set_width(lv.pct(100))
+            button_settings.set_text('Advanced settings')
+            button_settings.set_style_text_color(lvr.COLOR_DANGER, lv.STATE.DEFAULT)
             button_settings.add_event_cb(lambda e: self.show_screen(self.screen_advanced), lv.EVENT_CODE.CLICKED, None)
-            button_settings_label = lv.label(button_settings)
-            button_settings_label.set_style_text_color(lvr.COLOR_DANGER, lv.STATE_DEFAULT)
-            button_settings_label.set_text('Advanced settings')
-            button_settings_label.center()
 
         self.screen_apps = lvr.panel(self.screen_container)
         if self.screen_apps:
             self.screen_apps.set_size(lv.pct(100), lv.pct(100))
-            self.screen_apps.set_style_pad_all(0, lv.STATE_DEFAULT)
-            self.screen_apps.set_style_pad_top(lvr.TITLE_BAR_HEIGHT, lv.STATE_DEFAULT)
+            self.screen_apps.set_style_pad_all(0, lv.STATE.DEFAULT)
+            self.screen_apps.set_style_pad_top(lvr.TITLE_BAR_HEIGHT, lv.STATE.DEFAULT)
 
             title_bar = lvr.title_bar(self.screen_apps)
             title_bar.set_y(-lvr.TITLE_BAR_HEIGHT)
@@ -420,24 +421,20 @@ class Program:
         self.screen_app = lvr.panel(self.screen_container)
         if self.screen_app:
             self.screen_app.set_size(lv.pct(100), lv.pct(100))
-            self.screen_app.set_style_pad_all(0, lv.STATE_DEFAULT)
-            self.screen_app.set_style_pad_top(lvr.TITLE_BAR_HEIGHT, lv.STATE_DEFAULT)
+            self.screen_app.set_style_pad_all(0, lv.STATE.DEFAULT)
+            self.screen_app.set_style_pad_top(lvr.TITLE_BAR_HEIGHT, lv.STATE.DEFAULT)
 
             title_bar = lvr.title_bar(self.screen_app)
             title_bar.set_y(-lvr.TITLE_BAR_HEIGHT)
             
             icon_back = lvr.button_icon(title_bar)
             icon_back.set_align(lv.ALIGN.LEFT_MID)
+            icon_back.set_text('')
             icon_back.add_event_cb(lambda e: self.show_screen(self.screen_apps), lv.EVENT_CODE.CLICKED, None)
-            icon_back_label = lvr.label(icon_back)
-            icon_back_label.center()
-            icon_back_label.set_text('')
 
             self.screen_app.button_refresh = lvr.button_icon(title_bar)
+            self.screen_app.button_refresh.set_text('')
             self.screen_app.button_refresh.set_align(lv.ALIGN.RIGHT_MID)
-            button_refresh_label = lvr.label(self.screen_app.button_refresh)
-            button_refresh_label.center()
-            button_refresh_label.set_text('')
             
             self.screen_app.label_title = lvr.title(title_bar)
             self.screen_app.label_title.center()
@@ -447,29 +444,29 @@ class Program:
 
             self.screen_app.label_version = lvr.subtitle(panel_app)
             self.screen_app.label_version.set_text('Version:')
-            self.screen_app.label_version.set_style_margin_ver(-lvr.GLOBAL_PADDING - lv.dpx(2), lv.STATE_DEFAULT)
+            self.screen_app.label_version.set_style_margin_ver(-lvr.GLOBAL_PADDING - lv.dpx(2), lv.STATE.DEFAULT)
             
             self.screen_app.label_path = lvr.subtitle(panel_app)
-            self.screen_app.label_path.set_style_max_width(lv.pct(100), lv.STATE_DEFAULT)
+            self.screen_app.label_path.set_style_max_width(lv.pct(100), lv.STATE.DEFAULT)
             
             self.screen_app.label_description = lvr.subtitle(panel_app)
-            self.screen_app.label_description.set_style_text_color(lvr.COLOR_TEXT, lv.STATE_DEFAULT)
+            self.screen_app.label_description.set_style_text_color(lvr.COLOR_TEXT, lv.STATE.DEFAULT)
             self.screen_app.label_description.set_width(lv.pct(100))
             self.screen_app.label_description.set_long_mode(lv.LABEL_LONG_MODE.WRAP)
-            self.screen_app.label_description.set_style_text_align(lv.TEXT_ALIGN.CENTER, lv.STATE_DEFAULT)
+            self.screen_app.label_description.set_style_text_align(lv.TEXT_ALIGN.CENTER, lv.STATE.DEFAULT)
 
             panel_stats = lvr.panel(panel_app)
             panel_stats.set_width(lv.pct(100))
             panel_stats.set_flex_flow(lv.FLEX_FLOW.ROW)
             panel_stats.set_flex_align(lv.FLEX_ALIGN.CENTER, lv.FLEX_ALIGN.CENTER, lv.FLEX_ALIGN.CENTER)
-            panel_stats.set_style_pad_column(0, lv.STATE_DEFAULT)
-            panel_stats.set_style_pad_hor(0, lv.STATE_DEFAULT)
-            panel_stats.set_style_pad_ver(lv.dpx(15), lv.STATE_DEFAULT)
+            panel_stats.set_style_pad_column(0, lv.STATE.DEFAULT)
+            panel_stats.set_style_pad_hor(0, lv.STATE.DEFAULT)
+            panel_stats.set_style_pad_ver(lv.dpx(15), lv.STATE.DEFAULT)
 
             panel_disk = lvr.flex_container(panel_stats, align=lv.FLEX_ALIGN.CENTER)
-            panel_disk.set_style_pad_row(-lv.dpx(2), lv.STATE_DEFAULT)
+            panel_disk.set_style_pad_row(-lv.dpx(2), lv.STATE.DEFAULT)
             panel_disk.set_width(lv.pct(30))
-            panel_disk.set_style_pad_all(0, lv.STATE_DEFAULT)
+            panel_disk.set_style_pad_all(0, lv.STATE.DEFAULT)
 
             label_disk_subtitle = lvr.subtitle(panel_disk)
             label_disk_subtitle.set_text('Disk')
@@ -478,9 +475,9 @@ class Program:
             self.screen_app.label_disk.set_text('?')
             
             panel_memory = lvr.flex_container(panel_stats, align=lv.FLEX_ALIGN.CENTER)
-            panel_memory.set_style_pad_row(-lv.dpx(2), lv.STATE_DEFAULT)
+            panel_memory.set_style_pad_row(-lv.dpx(2), lv.STATE.DEFAULT)
             panel_memory.set_width(lv.pct(30))
-            panel_memory.set_style_pad_all(0, lv.STATE_DEFAULT)
+            panel_memory.set_style_pad_all(0, lv.STATE.DEFAULT)
 
             label_memory_subtitle = lvr.subtitle(panel_memory)
             label_memory_subtitle.set_text('Memory')
@@ -489,9 +486,9 @@ class Program:
             self.screen_app.label_memory.set_text('?')
             
             panel_cpu = lvr.flex_container(panel_stats, align=lv.FLEX_ALIGN.CENTER)
-            panel_cpu.set_style_pad_row(-lv.dpx(2), lv.STATE_DEFAULT)
+            panel_cpu.set_style_pad_row(-lv.dpx(2), lv.STATE.DEFAULT)
             panel_cpu.set_width(lv.pct(30))
-            panel_cpu.set_style_pad_all(0, lv.STATE_DEFAULT)
+            panel_cpu.set_style_pad_all(0, lv.STATE.DEFAULT)
 
             label_cpu_subtitle = lvr.subtitle(panel_cpu)
             label_cpu_subtitle.set_text('CPU')
@@ -504,37 +501,55 @@ class Program:
             panel_actions.set_width(lv.pct(100))
             panel_actions.set_flex_flow(lv.FLEX_FLOW.ROW_REVERSE)
             panel_actions.set_flex_align(lv.FLEX_ALIGN.START, lv.FLEX_ALIGN.CENTER, lv.FLEX_ALIGN.CENTER)
-            panel_actions.set_style_pad_column(lvr.GLOBAL_PADDING, lv.STATE_DEFAULT)
-            panel_actions.set_style_pad_all(0, lv.STATE_DEFAULT)
+            panel_actions.set_style_pad_column(lvr.GLOBAL_PADDING, lv.STATE.DEFAULT)
+            panel_actions.set_style_pad_all(0, lv.STATE.DEFAULT)
             
             self.screen_app.button_qrcode = lvr.button_icon(panel_actions)
-            self.screen_app.button_qrcode.add_style(lvr.style_button, lv.STATE_DEFAULT)
-            self.screen_app.button_qrcode_label = lv.label(self.screen_app.button_qrcode)
-            self.screen_app.button_qrcode_label.set_text('')
-            self.screen_app.button_qrcode_label.center()
+            self.screen_app.button_qrcode.set_text('')
+            self.screen_app.button_qrcode.add_style(lvr.style_button, lv.STATE.DEFAULT)
             
             self.screen_app.button_settings = lvr.button_icon(panel_actions)
-            self.screen_app.button_settings.add_style(lvr.style_button, lv.STATE_DEFAULT)
-            self.screen_app.button_settings_label = lv.label(self.screen_app.button_settings)
-            self.screen_app.button_settings_label.set_text('')
-            self.screen_app.button_settings_label.center()
+            self.screen_app.button_settings.set_text('')
+            self.screen_app.button_settings.add_style(lvr.style_button, lv.STATE.DEFAULT)
 
             self.screen_app.button_toggle_enabled = lvr.button(panel_actions)
+            self.screen_app.button_toggle_enabled.set_text('Enable/Disable app')
             self.screen_app.button_toggle_enabled.set_flex_grow(1)
-            self.screen_app.button_toggle_enabled_label = lv.label(self.screen_app.button_toggle_enabled)
-            self.screen_app.button_toggle_enabled_label.set_text('Enable/Disable app')
-            self.screen_app.button_toggle_enabled_label.center()
             
             self.screen_app.button_toggle_started = lvr.button(panel_app)
+            self.screen_app.button_toggle_started.set_text('Start/Stop app')
             self.screen_app.button_toggle_started.set_width(lv.pct(100))
-            self.screen_app.button_toggle_started_label = lv.label(self.screen_app.button_toggle_started)
-            self.screen_app.button_toggle_started_label.set_text('Start/Stop app')
-            self.screen_app.button_toggle_started_label.center()
+
+        self.screen_app_settings = lvr.panel(self.screen_container)
+        if self.screen_app_settings:
+            self.screen_app_settings.set_size(lv.pct(100), lv.pct(100))
+            self.screen_app_settings.set_style_pad_all(0, lv.STATE.DEFAULT)
+            self.screen_app_settings.set_style_pad_top(lvr.TITLE_BAR_HEIGHT, lv.STATE.DEFAULT)
+
+            title_bar = lvr.title_bar(self.screen_app_settings)
+            title_bar.set_y(-lvr.TITLE_BAR_HEIGHT)
+            
+            self.screen_app_settings.label_title = lvr.title(title_bar)
+            self.screen_app_settings.label_title.center()
+
+            self.screen_app_settings.button_back = lvr.button_icon(title_bar)
+            self.screen_app_settings.button_back.set_align(lv.ALIGN.LEFT_MID)
+            button_back_label = lvr.label(self.screen_app_settings.button_back)
+            button_back_label.center()
+            button_back_label.set_text('')
+
+            self.screen_app_settings.button_refresh = lvr.button_icon(title_bar)
+            self.screen_app_settings.button_refresh.set_align(lv.ALIGN.RIGHT_MID)
+            button_refresh_label = lvr.label(self.screen_app_settings.button_refresh)
+            button_refresh_label.center()
+            button_refresh_label.set_text('')
+
+            self.screen_app_settings.panel_properties = None
 
         self.screen_advanced = lvr.panel(self.screen_container)
         if self.screen_advanced:
             self.screen_advanced.set_size(lv.pct(100), lv.pct(100))
-            self.screen_advanced.set_style_pad_top(lvr.TITLE_BAR_HEIGHT + lvr.GLOBAL_PADDING, lv.STATE_DEFAULT)
+            self.screen_advanced.set_style_pad_top(lvr.TITLE_BAR_HEIGHT + lvr.GLOBAL_PADDING, lv.STATE.DEFAULT)
             self.screen_advanced.set_flex_flow(lv.FLEX_FLOW.COLUMN)
             self.screen_advanced.set_flex_align(lv.FLEX_ALIGN.START, lv.FLEX_ALIGN.CENTER, lv.FLEX_ALIGN.CENTER)
             
@@ -576,140 +591,148 @@ class Program:
 
             button_disable = lvr.button(self.screen_advanced)
             button_disable.set_width(lv.pct(100))
-            button_disable.set_style_text_color(lvr.COLOR_DANGER, lv.STATE_DEFAULT)
+            button_disable.set_style_text_color(lvr.COLOR_DANGER, lv.STATE.DEFAULT)
             button_disable.add_event_cb(lambda e: self.show_text_dialog('Are you sure you want\nto disable Rinkhals?\n\nYou will need to reinstall\nRinkhals to start it again', action='Yes', action_color=lvr.COLOR_DANGER, callback=lambda: self.disable_rinkhals()), lv.EVENT_CODE.CLICKED, None)
             button_disable_label = lv.label(button_disable)
             button_disable_label.set_text('Disable Rinkhals')
             button_disable_label.center()
 
-        self.layer_ota = lvr.panel(self.screen_container)
-        if self.layer_ota:
-            self.layer_ota.set_size(lv.pct(100), lv.pct(100))
-            self.layer_ota.set_style_bg_color(lv.color_black(), lv.STATE_DEFAULT)
-            self.layer_ota.set_style_bg_opa(160, lv.STATE_DEFAULT)
-            self.layer_ota.add_flag(lv.OBJ_FLAG.HIDDEN)
+        self.layer_modal = lvr.panel(dialog_parent)
+        if self.layer_modal:
+            self.layer_modal.set_size(lv.pct(100), lv.pct(100))
+            self.layer_modal.set_style_bg_color(lv.color_black(), lv.STATE.DEFAULT)
+            self.layer_modal.set_style_bg_opa(160, lv.STATE.DEFAULT)
+            self.layer_modal.add_flag(lv.OBJ_FLAG.HIDDEN)
 
-            layer_ota = lvr.panel(self.layer_ota)
-            layer_ota.set_width(lv.dpx(300))
-            layer_ota.set_style_radius(8, lv.STATE_DEFAULT)
-            layer_ota.set_style_pad_all(lv.dpx(20), lv.STATE_DEFAULT)
-            layer_ota.set_flex_flow(lv.FLEX_FLOW.COLUMN)
-            layer_ota.set_flex_align(lv.FLEX_ALIGN.START, lv.FLEX_ALIGN.CENTER, lv.FLEX_ALIGN.CENTER)
-            layer_ota.center()
+            self.layer_modal.panel_modal = lvr.panel(self.layer_modal)
+            self.layer_modal.panel_modal.set_width(lv.dpx(300))
+            self.layer_modal.panel_modal.set_style_radius(8, lv.STATE.DEFAULT)
+            self.layer_modal.panel_modal.set_style_pad_all(lv.dpx(20), lv.STATE.DEFAULT)
+            self.layer_modal.panel_modal.center()
 
-            label_title = lvr.title(layer_ota)
+        self.modal_dialog = lvr.panel(self.layer_modal)
+        if self.modal_dialog:
+            self.modal_dialog.add_flag(lv.OBJ_FLAG.HIDDEN)
+            self.modal_dialog.set_width(lv.dpx(300))
+            self.modal_dialog.set_style_radius(8, lv.STATE.DEFAULT)
+            self.modal_dialog.set_style_pad_all(lv.dpx(20), lv.STATE.DEFAULT)
+            self.modal_dialog.set_flex_flow(lv.FLEX_FLOW.COLUMN)
+            self.modal_dialog.set_flex_align(lv.FLEX_ALIGN.START, lv.FLEX_ALIGN.CENTER, lv.FLEX_ALIGN.CENTER)
+            self.modal_dialog.center()
+            
+            self.modal_dialog.message = lvr.label(self.modal_dialog)
+            self.modal_dialog.message.set_style_pad_bottom(lv.dpx(15), lv.STATE.DEFAULT)
+            self.modal_dialog.message.set_style_text_align(lv.TEXT_ALIGN.CENTER, lv.STATE.DEFAULT)
+            self.modal_dialog.message.set_text('Hello World!')
+
+            self.modal_dialog.panel_qrcode = lvr.panel(self.modal_dialog)
+            self.modal_dialog.panel_qrcode.set_size(lv.SIZE_CONTENT, lv.SIZE_CONTENT)
+            self.modal_dialog.panel_qrcode.set_style_pad_all(lv.dpx(10), lv.STATE.DEFAULT)
+            self.modal_dialog.panel_qrcode.set_style_bg_color(lv.color_white(), lv.STATE.DEFAULT)
+
+            self.modal_dialog.qrcode = lv.qrcode(self.modal_dialog.panel_qrcode)
+            self.modal_dialog.qrcode.set_size(lv.dpx(224))
+            self.modal_dialog.qrcode.update('https://github.com/jbatonnet/Rinkhals')
+
+            self.modal_dialog.button_action = lvr.button(self.modal_dialog)
+            self.modal_dialog.button_action.set_style_min_width(lv.dpx(160), lv.STATE.DEFAULT)
+
+        self.modal_ota = lvr.panel(self.layer_modal)
+        if self.modal_ota:
+            self.modal_ota.add_flag(lv.OBJ_FLAG.HIDDEN)
+            self.modal_ota.set_width(lv.dpx(300))
+            self.modal_ota.set_style_radius(8, lv.STATE.DEFAULT)
+            self.modal_ota.set_style_pad_all(lv.dpx(20), lv.STATE.DEFAULT)
+            self.modal_ota.set_flex_flow(lv.FLEX_FLOW.COLUMN)
+            self.modal_ota.set_flex_align(lv.FLEX_ALIGN.START, lv.FLEX_ALIGN.CENTER, lv.FLEX_ALIGN.CENTER)
+            self.modal_ota.center()
+
+            label_title = lvr.title(self.modal_ota)
             label_title.set_text('Check for updates')
-            label_title.set_style_pad_bottom(lv.dpx(10), lv.STATE_DEFAULT)
+            label_title.set_style_pad_bottom(lv.dpx(10), lv.STATE.DEFAULT)
 
-            label_rinkhals = lvr.label(layer_ota)
-            label_rinkhals.set_style_text_color(lvr.COLOR_TEXT, lv.STATE_DEFAULT)
+            label_rinkhals = lvr.label(self.modal_ota)
+            label_rinkhals.set_style_text_color(lvr.COLOR_TEXT, lv.STATE.DEFAULT)
             label_rinkhals.set_text('Rinkhals')
-            label_rinkhals.set_style_margin_bottom(-lv.dpx(20), lv.STATE_DEFAULT)
+            label_rinkhals.set_style_margin_bottom(-lv.dpx(20), lv.STATE.DEFAULT)
 
-            panel_rinkhals = lvr.panel(layer_ota)
+            panel_rinkhals = lvr.panel(self.modal_ota)
             panel_rinkhals.set_width(lv.pct(100))
             panel_rinkhals.set_flex_flow(lv.FLEX_FLOW.ROW)
             panel_rinkhals.set_flex_align(lv.FLEX_ALIGN.CENTER, lv.FLEX_ALIGN.CENTER, lv.FLEX_ALIGN.CENTER)
-            panel_rinkhals.set_style_pad_column(0, lv.STATE_DEFAULT)
-            panel_rinkhals.set_style_bg_opa(lv.OPA_TRANSP, lv.STATE_DEFAULT)
+            panel_rinkhals.set_style_pad_column(0, lv.STATE.DEFAULT)
+            panel_rinkhals.set_style_bg_opa(lv.OPA.TRANSP, lv.STATE.DEFAULT)
 
             panel_rinkhals_current = lvr.flex_container(panel_rinkhals, align=lv.FLEX_ALIGN.CENTER)
-            panel_rinkhals_current.set_style_pad_row(-lv.dpx(2), lv.STATE_DEFAULT)
+            panel_rinkhals_current.set_style_pad_row(-lv.dpx(2), lv.STATE.DEFAULT)
             panel_rinkhals_current.set_width(lv.pct(50))
-            panel_rinkhals_current.set_style_pad_all(0, lv.STATE_DEFAULT)
+            panel_rinkhals_current.set_style_pad_all(0, lv.STATE.DEFAULT)
 
             label_rinkhals_current = lvr.subtitle(panel_rinkhals_current)
             label_rinkhals_current.set_text('Current')
             
-            self.layer_ota.label_rinkhals_current = lvr.label(panel_rinkhals_current)
-            self.layer_ota.label_rinkhals_current.set_text(RINKHALS_VERSION)
+            self.modal_ota.label_rinkhals_current = lvr.label(panel_rinkhals_current)
+            self.modal_ota.label_rinkhals_current.set_text(RINKHALS_VERSION)
 
             panel_rinkhals_latest = lvr.flex_container(panel_rinkhals, align=lv.FLEX_ALIGN.CENTER)
-            panel_rinkhals_latest.set_style_pad_row(-lv.dpx(2), lv.STATE_DEFAULT)
+            panel_rinkhals_latest.set_style_pad_row(-lv.dpx(2), lv.STATE.DEFAULT)
             panel_rinkhals_latest.set_width(lv.pct(50))
-            panel_rinkhals_latest.set_style_pad_all(0, lv.STATE_DEFAULT)
+            panel_rinkhals_latest.set_style_pad_all(0, lv.STATE.DEFAULT)
 
             label_rinkhals_latest = lvr.subtitle(panel_rinkhals_latest)
             label_rinkhals_latest.set_text('Latest')
             
-            self.layer_ota.label_rinkhals_latest = lvr.label(panel_rinkhals_latest)
-            self.layer_ota.label_rinkhals_latest.set_text('?')
+            self.modal_ota.label_rinkhals_latest = lvr.label(panel_rinkhals_latest)
+            self.modal_ota.label_rinkhals_latest.set_text('?')
 
-            self.layer_ota.panel_progress = lvr.flex_container(layer_ota, align=lv.FLEX_ALIGN.CENTER)
-            self.layer_ota.panel_progress.set_width(lv.pct(100))
-            self.layer_ota.panel_progress.set_style_pad_row(lv.dpx(2), lv.STATE_DEFAULT)
+            self.modal_ota.panel_progress = lvr.flex_container(self.modal_ota, align=lv.FLEX_ALIGN.CENTER)
+            self.modal_ota.panel_progress.set_width(lv.pct(100))
+            self.modal_ota.panel_progress.set_style_pad_row(lv.dpx(2), lv.STATE.DEFAULT)
 
-            panel_progress_background = lvr.panel(self.layer_ota.panel_progress)
+            panel_progress_background = lvr.panel(self.modal_ota.panel_progress)
             panel_progress_background.set_size(lv.pct(100), lv.dpx(10))
-            panel_progress_background.set_style_pad_all(0, lv.STATE_DEFAULT)
-            panel_progress_background.set_style_bg_color(lv.color_lighten(lvr.COLOR_BACKGROUND, 48), lv.STATE_DEFAULT)
+            panel_progress_background.set_style_pad_all(0, lv.STATE.DEFAULT)
+            panel_progress_background.set_style_bg_color(lv.color_lighten(lvr.COLOR_BACKGROUND, 48), lv.STATE.DEFAULT)
             panel_progress_background.remove_flag(lv.OBJ_FLAG.SCROLLABLE)
 
-            self.layer_ota.obj_progress_bar = lvr.panel(panel_progress_background)
-            self.layer_ota.obj_progress_bar.set_align(lv.ALIGN.LEFT_MID)
-            self.layer_ota.obj_progress_bar.set_style_bg_color(lvr.COLOR_PRIMARY, lv.STATE_DEFAULT)
-            self.layer_ota.obj_progress_bar.set_size(lv.pct(24), lv.pct(100))
+            self.modal_ota.obj_progress_bar = lvr.panel(panel_progress_background)
+            self.modal_ota.obj_progress_bar.set_align(lv.ALIGN.LEFT_MID)
+            self.modal_ota.obj_progress_bar.set_style_bg_color(lvr.COLOR_PRIMARY, lv.STATE.DEFAULT)
+            self.modal_ota.obj_progress_bar.set_size(lv.pct(24), lv.pct(100))
 
-            self.layer_ota.label_progress_text = lvr.label(self.layer_ota.panel_progress)
-            self.layer_ota.label_progress_text.set_text('Ready')
+            self.modal_ota.label_progress_text = lvr.label(self.modal_ota.panel_progress)
+            self.modal_ota.label_progress_text.set_text('Ready')
 
-            panel_actions = lvr.panel(layer_ota)
+            panel_actions = lvr.panel(self.modal_ota)
             panel_actions.set_width(lv.pct(100))
             panel_actions.set_flex_flow(lv.FLEX_FLOW.ROW)
             panel_actions.set_flex_align(lv.FLEX_ALIGN.CENTER, lv.FLEX_ALIGN.CENTER, lv.FLEX_ALIGN.CENTER)
-            panel_actions.set_style_pad_column(lv.dpx(15), lv.STATE_DEFAULT)
-            panel_actions.set_style_pad_all(0, lv.STATE_DEFAULT)
+            panel_actions.set_style_pad_column(lv.dpx(15), lv.STATE.DEFAULT)
+            panel_actions.set_style_pad_all(0, lv.STATE.DEFAULT)
 
-            self.layer_ota.button_cancel = lvr.button(panel_actions)
-            self.layer_ota.button_cancel.set_width(lv.pct(45))
-            self.layer_ota.button_cancel_label = lvr.label(self.layer_ota.button_cancel)
-            self.layer_ota.button_cancel_label.set_text('Cancel')
-            self.layer_ota.button_cancel_label.center()
+            self.modal_ota.button_cancel = lvr.button(panel_actions)
+            self.modal_ota.button_cancel.set_width(lv.pct(45))
+            self.modal_ota.button_cancel_label = lvr.label(self.modal_ota.button_cancel)
+            self.modal_ota.button_cancel_label.set_text('Cancel')
+            self.modal_ota.button_cancel_label.center()
             
-            self.layer_ota.button_action = lvr.button(panel_actions)
-            self.layer_ota.button_action.set_width(lv.pct(45))
-            self.layer_ota.button_action_label = lvr.label(self.layer_ota.button_action)
-            self.layer_ota.button_action_label.set_text('Download')
-            self.layer_ota.button_action_label.center()
+            self.modal_ota.button_action = lvr.button(panel_actions)
+            self.modal_ota.button_action.set_width(lv.pct(45))
+            self.modal_ota.button_action_label = lvr.label(self.modal_ota.button_action)
+            self.modal_ota.button_action_label.set_text('Download')
+            self.modal_ota.button_action_label.center()
 
-        self.layer_dialog = lvr.panel(self.screen_container)
-        if self.layer_dialog:
-            self.layer_dialog.set_size(lv.pct(100), lv.pct(100))
-            self.layer_dialog.set_style_bg_color(lv.color_black(), lv.STATE_DEFAULT)
-            self.layer_dialog.set_style_bg_opa(160, lv.STATE_DEFAULT)
-            self.layer_dialog.add_flag(lv.OBJ_FLAG.HIDDEN)
+        self.modal_selection = lvr.panel(self.layer_modal)
+        if self.modal_selection:
+            self.modal_selection.add_flag(lv.OBJ_FLAG.HIDDEN)
+            self.modal_selection.set_width(lv.dpx(300))
+            self.modal_selection.set_style_radius(8, lv.STATE.DEFAULT)
+            self.modal_selection.set_style_pad_all(lv.dpx(20), lv.STATE.DEFAULT)
+            self.modal_selection.set_flex_flow(lv.FLEX_FLOW.COLUMN)
+            self.modal_selection.set_flex_align(lv.FLEX_ALIGN.START, lv.FLEX_ALIGN.CENTER, lv.FLEX_ALIGN.CENTER)
+            self.modal_selection.center()
 
-            panel_dialog = lvr.panel(self.layer_dialog)
-            panel_dialog.set_width(lv.dpx(300))
-            panel_dialog.set_style_radius(8, lv.STATE_DEFAULT)
-            panel_dialog.set_style_pad_all(lv.dpx(20), lv.STATE_DEFAULT)
-            panel_dialog.set_flex_flow(lv.FLEX_FLOW.COLUMN)
-            panel_dialog.set_flex_align(lv.FLEX_ALIGN.START, lv.FLEX_ALIGN.CENTER, lv.FLEX_ALIGN.CENTER)
-            panel_dialog.center()
-            
-            self.layer_dialog.message = lvr.label(panel_dialog)
-            self.layer_dialog.message.set_style_pad_bottom(lv.dpx(15), lv.STATE_DEFAULT)
-            self.layer_dialog.message.set_style_text_align(lv.TEXT_ALIGN.CENTER, lv.STATE_DEFAULT)
-            self.layer_dialog.message.set_text('Hello World!')
-
-            self.layer_dialog.qrcode = lv.qrcode(panel_dialog)
-            self.layer_dialog.qrcode.set_size(lv.dpx(224))
-            self.layer_dialog.qrcode.update('https://github.com/jbatonnet/Rinkhals')
-
-            self.layer_dialog.button_action = lvr.button(panel_dialog)
-            self.layer_dialog.button_action.set_style_min_width(lv.dpx(160), lv.STATE_DEFAULT)
-            self.layer_dialog.button_action_label = lvr.label(self.layer_dialog.button_action)
-            self.layer_dialog.button_action_label.set_text('Action')
-            self.layer_dialog.button_action_label.center()
-
-            def action_callback(e):
-                self.layer_dialog.add_flag(lv.OBJ_FLAG.HIDDEN)
-
-                if self.layer_dialog.callback_action:
-                    self.layer_dialog.callback_action()
-
-            self.layer_dialog.button_action.add_event_cb(action_callback, lv.EVENT_CODE.CLICKED, None)
-            self.layer_dialog.add_event_cb(lambda e: self.layer_dialog.add_flag(lv.OBJ_FLAG.HIDDEN), lv.EVENT_CODE.CLICKED, None)
+            self.modal_selection.panel_selection = None
 
         if SCREEN_WIDTH > SCREEN_HEIGHT:
             self.screen_rinkhals.set_parent(self.screen_composition)
@@ -717,8 +740,8 @@ class Program:
             self.screen_rinkhals.set_width(lv.pct(50))
             self.screen_rinkhals.set_height(lv.pct(100))
 
-            self.screen_container.set_style_bg_color(lv.color_make(64, 0, 0), lv.STATE_DEFAULT)
-            self.screen_container.set_style_pad_all(0, lv.STATE_DEFAULT)
+            self.screen_container.set_style_bg_color(lv.color_make(64, 0, 0), lv.STATE.DEFAULT)
+            self.screen_container.set_style_pad_all(0, lv.STATE.DEFAULT)
             self.screen_container.set_align(lv.ALIGN.RIGHT_MID)
             self.screen_container.set_width(lv.pct(50))
             self.screen_container.set_height(lv.pct(100))
@@ -732,7 +755,7 @@ class Program:
             self.screen_main.set_height(lv.pct(45))
             
             screen_composition = lvr.panel(self.screen_container)
-            screen_composition.set_style_pad_all(0, lv.STATE_DEFAULT)
+            screen_composition.set_style_pad_all(0, lv.STATE.DEFAULT)
             screen_composition.set_size(lv.pct(100), lv.pct(100))
 
             self.screen_rinkhals.set_parent(screen_composition)
@@ -741,16 +764,6 @@ class Program:
             self.screen_main = screen_composition
 
         self.show_screen(self.screen_main)
-
-    def show_screen(self, screen):
-        screen.move_foreground()
-
-        if screen == self.screen_main: self.layout_main()
-        if screen == self.screen_apps: self.layout_apps()
-    def show_app(self, app):
-        self.show_screen(self.screen_app)
-        self.layout_app(app)
-
     def layout_main(self):
         self.screen_rinkhals.label_firmware.set_text(f'Firmware: {KOBRA_VERSION}')
         self.screen_rinkhals.label_version.set_text(f'Version: {RINKHALS_VERSION}')
@@ -799,8 +812,8 @@ class Program:
                 lv.lock()
                 button_app = lvr.button(self.screen_apps.panel_apps)
                 button_app.set_width(lv.pct(100))
-                button_app.set_style_pad_left(lv.dpx(15), lv.STATE_DEFAULT)
-                button_app.set_style_pad_right(lv.dpx(4), lv.STATE_DEFAULT)
+                button_app.set_style_pad_left(lv.dpx(15), lv.STATE.DEFAULT)
+                button_app.set_style_pad_right(lv.dpx(4), lv.STATE.DEFAULT)
                 button_app.add_event_cb(lambda e, app=app: self.show_app(app), lv.EVENT_CODE.CLICKED, None)
                 button_app_label = lvr.label(button_app)
                 button_app_label.set_align(lv.ALIGN.LEFT_MID)
@@ -850,15 +863,15 @@ class Program:
         self.screen_app.label_memory.set_text('-')
         self.screen_app.label_cpu.set_text('-')
         
-        self.screen_app.button_toggle_enabled_label.set_text('Disable app' if app_enabled else 'Enable app')
+        self.screen_app.button_toggle_enabled.set_text('Disable app' if app_enabled else 'Enable app')
         self.screen_app.button_toggle_enabled.clear_event_cb()
         if app_enabled:
             self.screen_app.button_toggle_enabled.add_event_cb(lambda e, app=app: self.disable_app(app), lv.EVENT_CODE.CLICKED, app)
         else:
             self.screen_app.button_toggle_enabled.add_event_cb(lambda e, app=app: self.enable_app(app), lv.EVENT_CODE.CLICKED, app)
         
-        self.screen_app.button_toggle_started_label.set_text('Stop app' if app_started else 'Start app')
-        self.screen_app.button_toggle_started_label.set_style_text_color(lvr.COLOR_DANGER if app_started else lvr.COLOR_TEXT, lv.STATE_DEFAULT)
+        self.screen_app.button_toggle_started.set_text('Stop app' if app_started else 'Start app')
+        self.screen_app.button_toggle_started.set_style_text_color(lvr.COLOR_DANGER if app_started else lvr.COLOR_TEXT, lv.STATE.DEFAULT)
         self.screen_app.button_toggle_started.clear_event_cb()
         if app_started:
             self.screen_app.button_toggle_started.add_event_cb(lambda e, app=app: self.stop_app(app), lv.EVENT_CODE.CLICKED, app)
@@ -868,8 +881,12 @@ class Program:
         self.screen_app.button_refresh.clear_event_cb()
         self.screen_app.button_refresh.add_event_cb(lambda e, app=app: self.show_app(app), lv.EVENT_CODE.CLICKED, None)
 
-        if True:
+        if len(app_properties) == 0:
             self.screen_app.button_settings.add_flag(lv.OBJ_FLAG.HIDDEN)
+        else:
+            self.screen_app.button_settings.remove_flag(lv.OBJ_FLAG.HIDDEN)
+            self.screen_app.button_settings.clear_event_cb()
+            self.screen_app.button_settings.add_event_cb(lambda e, app=app: self.show_app_settings(app), lv.EVENT_CODE.CLICKED, None)
 
         self.screen_app.button_qrcode.add_flag(lv.OBJ_FLAG.HIDDEN)
 
@@ -916,32 +933,163 @@ class Program:
             self.screen_app.label_cpu.set_text(f'{round(app_cpu, 1)}%')
             lv.unlock()
         run_async(update_memory)
+    def layout_app_settings(self, app):
+        app_root = get_app_root(app)
+
+        app_manifest = None
+        if os.path.exists(f'{app_root}/app.json'):
+            try:
+                with open(f'{app_root}/app.json', 'r') as f:
+                    app_manifest = json.loads(f.read(), cls = JSONWithCommentsDecoder)
+            except Exception as e:
+                pass
+
+        app_name = app_manifest.get('name') if app_manifest else app
+        self.screen_app_settings.label_title.set_text(ellipsis(app_name, 24))
+            
+        self.screen_app_settings.button_back.clear_event_cb()
+        self.screen_app_settings.button_back.add_event_cb(lambda e, app=app: self.show_app(app), lv.EVENT_CODE.CLICKED, None)
+
+        self.screen_app_settings.button_refresh.clear_event_cb()
+        self.screen_app_settings.button_refresh.add_event_cb(lambda e, app=app: self.show_app_settings(app), lv.EVENT_CODE.CLICKED, None)
+
+        if self.screen_app_settings.panel_properties:
+            self.screen_app_settings.panel_properties.delete()
+        self.screen_app_settings.panel_properties = lvr.flex_container(self.screen_app_settings)
+        self.screen_app_settings.panel_properties.set_size(lv.pct(100), lv.pct(100))
+        self.screen_app_settings.panel_properties.set_style_pad_row(0, lv.STATE.DEFAULT)
+        self.screen_app_settings.panel_properties.set_style_pad_all(0, lv.STATE.DEFAULT)
+
+        app_properties = app_manifest.get('properties', []) if app_manifest else []
+        for p in app_properties:
+            display_name = app_properties[p].get('display')
+            type = app_properties[p].get('type')
+            default = app_properties[p].get('default')
+            value = get_app_property(app, p) or default
+
+            panel_property = lvr.panel(self.screen_app_settings.panel_properties)
+            panel_property.set_width(lv.pct(100))
+            panel_property.set_style_min_height(lv.dpx(72), lv.STATE.DEFAULT)
+            panel_property.set_style_border_side(lv.BORDER_SIDE.BOTTOM, lv.STATE.DEFAULT)
+            panel_property.set_style_border_width(1, lv.STATE.DEFAULT)
+            panel_property.set_style_border_color(lv.color_lighten(lvr.COLOR_BACKGROUND, 32), lv.STATE.DEFAULT)
+            panel_property.set_flex_flow(lv.FLEX_FLOW.ROW_WRAP)
+            panel_property.set_flex_align(lv.FLEX_ALIGN.START, lv.FLEX_ALIGN.CENTER, lv.FLEX_ALIGN.CENTER)
+            panel_property.set_style_pad_row(lv.dpx(2), lv.STATE.DEFAULT)
+
+            label_property = lvr.label(panel_property)
+            label_property.set_text(display_name)
+            label_property.set_width(lv.pct(80))
+            label_property.set_long_mode(lv.LABEL_LONG_MODE.WRAP)
+
+            label_value = lvr.label(panel_property)
+            label_value.set_style_text_color(lvr.COLOR_SUBTITLE, lv.STATE.DEFAULT)
+            label_value.set_text(str(value) if value is not None else '-')
+            label_value.set_width(lv.pct(80))
+            label_value.set_long_mode(lv.LABEL_LONG_MODE.WRAP)
+
+            if type in [ 'text', 'number', 'enum' ]:
+                button_edit = lvr.button_icon(panel_property)
+                button_edit.set_align(lv.ALIGN.RIGHT_MID)
+                button_edit.add_style(lvr.style_button, lv.STATE.DEFAULT)
+                button_edit.set_text('')
+                button_edit.add_flag(lv.OBJ_FLAG.IGNORE_LAYOUT)
+                button_edit.set_size(lv.dpx(55), lv.dpx(55))
+                button_edit.set_style_min_width(0, lv.STATE.DEFAULT)
+
+                if type == 'text':
+                    button_edit.set_state(lv.STATE.DISABLED, True)
+                elif type == 'number':
+                    button_edit.set_state(lv.STATE.DISABLED, True)
+                elif type == 'enum':
+                    options = app_properties[p].get('options')
+                    if len(options) == 2 and sorted(options)[0].lower() == 'false' and sorted(options)[1].lower() == 'true':
+                        value_bool = value and value.lower() == 'true'
+                        
+                        label_value.add_flag(lv.OBJ_FLAG.HIDDEN)
+                        button_edit.delete()
+
+                        checkbox = lvr.checkbox(panel_property)
+                        checkbox.set_align(lv.ALIGN.RIGHT_MID)
+                        checkbox.add_flag(lv.OBJ_FLAG.IGNORE_LAYOUT)
+                        checkbox.set_checked(value_bool)
+                        
+                        def toggle_checkbox(e, app=app, property=p, checkbox=checkbox):
+                            default = app_properties[property].get('default')
+                            options = app_properties[property].get('options')
+                            value = get_app_property(app, property)
+
+                            value = (value or default or '').lower() == 'true'
+                            value = not value
+                            options_value = sorted(options)[0 if not value else 1]
+
+                            set_app_property(app, property, options_value)
+                            checkbox.set_checked(value)
+
+                        checkbox.add_event_cb(toggle_checkbox, lv.EVENT_CODE.CLICKED, None)
+                    else:
+                        def select_option(option, app=app, property=p, default=default, label_value=label_value):
+                            set_app_property(app, property, option)
+                            label_value.set_text(str(option or default))
+
+                        button_edit.add_event_cb(lambda e, options=options: self.show_selection_dialog(options, select_option), lv.EVENT_CODE.CLICKED, None)
+
+            if type == 'report':
+                if value:
+                    label_property.set_width(lv.pct(100))
+                    label_value.set_width(lv.pct(100))
+            elif type == 'qr':
+                if value:
+                    label_value.set_height(lvr.font_subtitle.get_line_height())
+                    label_value.set_long_mode(lv.LABEL_LONG_MODE.DOTS)
+
+                    button_show = lvr.button_icon(panel_property)
+                    button_show.align(lv.ALIGN.RIGHT_MID, -lv.dpx(5), 0)
+                    button_show.add_style(lvr.style_button, lv.STATE.DEFAULT)
+                    button_show.set_text('')
+                    button_show.add_flag(lv.OBJ_FLAG.IGNORE_LAYOUT)
+                    button_show.set_size(lv.dpx(55), lv.dpx(55))
+                    button_show.set_style_min_width(0, lv.STATE.DEFAULT)
+                    button_show.add_event_cb(lambda e, display_name=display_name, value=value: self.show_qr_dialog(value, display_name), lv.EVENT_CODE.CLICKED, None)
+
+        def reset_default(app=app):
+            clear_app_properties(app)
+            self.show_app_settings(app)
+
+        button_reset = lvr.button(self.screen_app_settings.panel_properties)
+        button_reset.set_style_margin_all(lvr.GLOBAL_PADDING, lv.STATE.DEFAULT)
+        button_reset.set_width(lv.pct(100))
+        button_reset.set_text('Reset to default')
+        button_reset.add_event_cb(lambda e: reset_default(), lv.EVENT_CODE.CLICKED, None)
+
     def layout_ota(self):
         def cancel_ota(e):
             if not USING_SIMULATOR:
                 if os.path.exists('/useremain/update.swu'):
                     os.remove('/useremain/update.swu')
 
-            self.layer_ota.add_flag(lv.OBJ_FLAG.HIDDEN)
+            self.modal_ota.add_flag(lv.OBJ_FLAG.HIDDEN)
+            self.layer_modal.add_flag(lv.OBJ_FLAG.HIDDEN)
 
-        self.layer_ota.label_rinkhals_latest.set_text('-')
-        self.layer_ota.panel_progress.add_flag(lv.OBJ_FLAG.HIDDEN)
-        self.layer_ota.button_action_label.set_text('Refresh')
-        self.layer_ota.button_action.set_state(lv.STATE_DISABLED, False)
-        self.layer_ota.button_cancel.set_state(lv.STATE_DISABLED, False)
-        self.layer_ota.button_action.clear_event_cb()
-        self.layer_ota.button_action.add_event_cb(lambda e: run_async(check_rinkhals_update), lv.EVENT_CODE.CLICKED, None)
-        self.layer_ota.button_cancel.clear_event_cb()
-        self.layer_ota.button_cancel.add_event_cb(cancel_ota, lv.EVENT_CODE.CLICKED, None)
+        self.modal_ota.label_rinkhals_latest.set_text('-')
+        self.modal_ota.panel_progress.add_flag(lv.OBJ_FLAG.HIDDEN)
+        self.modal_ota.button_action_label.set_text('Refresh')
+        self.modal_ota.button_action.set_state(lv.STATE.DISABLED, False)
+        self.modal_ota.button_cancel.set_state(lv.STATE.DISABLED, False)
+        self.modal_ota.button_action.clear_event_cb()
+        self.modal_ota.button_action.add_event_cb(lambda e: run_async(check_rinkhals_update), lv.EVENT_CODE.CLICKED, None)
+        self.modal_ota.button_cancel.clear_event_cb()
+        self.modal_ota.button_cancel.add_event_cb(cancel_ota, lv.EVENT_CODE.CLICKED, None)
 
-        self.layer_ota.remove_flag(lv.OBJ_FLAG.HIDDEN)
-        self.layer_ota.move_foreground()
+        self.modal_ota.remove_flag(lv.OBJ_FLAG.HIDDEN)
+        self.layer_modal.remove_flag(lv.OBJ_FLAG.HIDDEN)
+        self.layer_modal.move_foreground()
 
         def install_rinkhals_update():
             lv.lock()
-            self.layer_ota.button_action.set_state(lv.STATE_DISABLED, True)
-            self.layer_ota.button_cancel.set_state(lv.STATE_DISABLED, True)
-            self.layer_ota.label_progress_text.set_text('Extracting...')
+            self.modal_ota.button_action.set_state(lv.STATE.DISABLED, True)
+            self.modal_ota.button_cancel.set_state(lv.STATE.DISABLED, True)
+            self.modal_ota.label_progress_text.set_text('Extracting...')
             lv.unlock()
 
             if KOBRA_MODEL_CODE == 'K2P' or KOBRA_MODEL_CODE == 'K3':
@@ -967,7 +1115,7 @@ class Program:
                     time.sleep(1)
 
                 lv.lock()
-                self.layer_ota.label_progress_text.set_text('Installing...')
+                self.modal_ota.label_progress_text.set_text('Installing...')
                 lv.unlock()
 
                 # TODO: Replace reboot by something we control (like start.sh maybe?)
@@ -981,27 +1129,27 @@ class Program:
                 return
             
             lv.lock()
-            self.layer_ota.obj_progress_bar.set_style_bg_color(lvr.COLOR_DANGER, lv.STATE_DEFAULT)
-            self.layer_ota.label_progress_text.set_text('Extraction failed')
-            self.layer_ota.button_action.set_state(lv.STATE_DISABLED, False)
-            self.layer_ota.button_cancel.set_state(lv.STATE_DISABLED, False)
+            self.modal_ota.obj_progress_bar.set_style_bg_color(lvr.COLOR_DANGER, lv.STATE.DEFAULT)
+            self.modal_ota.label_progress_text.set_text('Extraction failed')
+            self.modal_ota.button_action.set_state(lv.STATE.DISABLED, False)
+            self.modal_ota.button_cancel.set_state(lv.STATE.DISABLED, False)
             lv.unlock()
 
         def download_rinkhals_update():
             lv.lock()
-            self.layer_ota.button_action.set_state(lv.STATE_DISABLED, True)
-            self.layer_ota.panel_progress.remove_flag(lv.OBJ_FLAG.HIDDEN)
-            self.layer_ota.obj_progress_bar.set_style_bg_color(lvr.COLOR_PRIMARY, lv.STATE_DEFAULT)
-            self.layer_ota.obj_progress_bar.set_width(lv.pct(0))
-            self.layer_ota.label_progress_text.set_text('Starting...')
+            self.modal_ota.button_action.set_state(lv.STATE.DISABLED, True)
+            self.modal_ota.panel_progress.remove_flag(lv.OBJ_FLAG.HIDDEN)
+            self.modal_ota.obj_progress_bar.set_style_bg_color(lvr.COLOR_PRIMARY, lv.STATE.DEFAULT)
+            self.modal_ota.obj_progress_bar.set_width(lv.pct(0))
+            self.modal_ota.label_progress_text.set_text('Starting...')
             lv.unlock()
 
             target_path = f'{RINKHALS_ROOT}/../../build/dist/update-download.swu' if USING_SIMULATOR else '/useremain/update.swu'
 
             try:
-                logging.info(f'Downloading Rinkhals {self.layer_ota.latest_version} from {self.layer_ota.latest_release_url}...')
+                logging.info(f'Downloading Rinkhals {self.modal_ota.latest_version} from {self.modal_ota.latest_release_url}...')
 
-                with requests.get(self.layer_ota.latest_release_url, stream=True) as r:
+                with requests.get(self.modal_ota.latest_release_url, stream=True) as r:
                     r.raise_for_status()
                     with open(target_path, 'wb') as f:
                         total_length = int(r.headers.get('content-length', 0))
@@ -1010,7 +1158,7 @@ class Program:
 
                         for chunk in r.iter_content(chunk_size=8192):
                             if chunk:
-                                if self.layer_ota.has_flag(lv.OBJ_FLAG.HIDDEN):
+                                if self.modal_ota.has_flag(lv.OBJ_FLAG.HIDDEN):
                                     logging.info('Download canceled.')
                                     return
                                 
@@ -1026,120 +1174,188 @@ class Program:
                                     total_mb = total_length / (1024 * 1024)
 
                                     lv.lock()
-                                    self.layer_ota.obj_progress_bar.set_width(lv.pct(progress))
-                                    self.layer_ota.label_progress_text.set_text(f'{progress}% ({downloaded_mb:.1f}M / {total_mb:.1f}M)')
+                                    self.modal_ota.obj_progress_bar.set_width(lv.pct(progress))
+                                    self.modal_ota.label_progress_text.set_text(f'{progress}% ({downloaded_mb:.1f}M / {total_mb:.1f}M)')
                                     lv.unlock()
 
                 logging.info('Download completed.')
 
                 lv.lock()
-                self.layer_ota.obj_progress_bar.set_width(lv.pct(100))
-                self.layer_ota.label_progress_text.set_text('Ready to install')
-                self.layer_ota.button_action_label.set_text('Install')
-                self.layer_ota.button_action.clear_event_cb()
-                self.layer_ota.button_action.add_event_cb(lambda e: run_async(install_rinkhals_update), lv.EVENT_CODE.CLICKED, None)
+                self.modal_ota.obj_progress_bar.set_width(lv.pct(100))
+                self.modal_ota.label_progress_text.set_text('Ready to install')
+                self.modal_ota.button_action_label.set_text('Install')
+                self.modal_ota.button_action.clear_event_cb()
+                self.modal_ota.button_action.add_event_cb(lambda e: run_async(install_rinkhals_update), lv.EVENT_CODE.CLICKED, None)
                 lv.unlock()
             except Exception as e:
                 logging.info(f'Download failed. {e}')
 
                 lv.lock()
-                self.layer_ota.obj_progress_bar.set_style_bg_color(lvr.COLOR_DANGER, lv.STATE_DEFAULT)
-                self.layer_ota.label_progress_text.set_text('Failed')
+                self.modal_ota.obj_progress_bar.set_style_bg_color(lvr.COLOR_DANGER, lv.STATE.DEFAULT)
+                self.modal_ota.label_progress_text.set_text('Failed')
                 lv.unlock()
                 
             lv.lock()
-            self.layer_ota.button_action.set_state(lv.STATE_DISABLED, False)
+            self.modal_ota.button_action.set_state(lv.STATE.DISABLED, False)
             lv.unlock()
 
         def check_rinkhals_update():
-            self.layer_ota.latest_release = None
-            self.layer_ota.latest_version = None
-            self.layer_ota.latest_release_url = None
+            self.modal_ota.latest_release = None
+            self.modal_ota.latest_version = None
+            self.modal_ota.latest_release_url = None
             
             try:
                 logging.info('Checking latest Rinkhals update...')
                 response = requests.get('https://api.github.com/repos/jbatonnet/Rinkhals/releases/latest')
 
                 if response.status_code == 200:
-                    self.layer_ota.latest_release = response.json()
-                    self.layer_ota.latest_version = self.layer_ota.latest_release.get('tag_name')
+                    self.modal_ota.latest_release = response.json()
+                    self.modal_ota.latest_version = self.modal_ota.latest_release.get('tag_name')
 
-                    assets = self.layer_ota.latest_release.get('assets', [])
+                    assets = self.modal_ota.latest_release.get('assets', [])
                     for asset in assets:
                         if (KOBRA_MODEL_CODE == 'K2P' or KOBRA_MODEL_CODE == 'K3') and asset['name'] == 'update-k2p-k3.swu':
-                            self.layer_ota.latest_release_url = asset['browser_download_url']
+                            self.modal_ota.latest_release_url = asset['browser_download_url']
                         elif KOBRA_MODEL_CODE == 'KS1' and asset['name'] == 'update-ks1.swu':
-                            self.layer_ota.latest_release_url = asset['browser_download_url']
+                            self.modal_ota.latest_release_url = asset['browser_download_url']
 
-                    logging.info(f'Found update {self.layer_ota.latest_version} from {self.layer_ota.latest_release_url}')
+                    logging.info(f'Found update {self.modal_ota.latest_version} from {self.modal_ota.latest_release_url}')
                 else:
                     logging.error(f'Failed to fetch latest release: {response.status_code}')
             except Exception as e:
                 logging.error(f'Error checking Rinkhals update: {e}')
 
             lv.lock()
-            if self.layer_ota.latest_version and self.layer_ota.latest_release_url:
-                self.layer_ota.label_rinkhals_latest.set_text(ellipsis(self.layer_ota.latest_version, 16))
-                self.layer_ota.button_action_label.set_text('Download' if self.layer_ota.latest_version != RINKHALS_VERSION else 'Refresh')
+            if self.modal_ota.latest_version and self.modal_ota.latest_release_url:
+                self.modal_ota.label_rinkhals_latest.set_text(ellipsis(self.modal_ota.latest_version, 16))
+                self.modal_ota.button_action_label.set_text('Download' if self.modal_ota.latest_version != RINKHALS_VERSION else 'Refresh')
                 
-                lvr.obj_clear_event_cb(self.layer_ota.button_action)
-                self.layer_ota.button_action.add_event_cb(lambda e: run_async(download_rinkhals_update) if self.layer_ota.latest_version != RINKHALS_VERSION else lambda e: run_async(check_rinkhals_update), lv.EVENT_CODE.CLICKED, None)
+                lvr.obj_clear_event_cb(self.modal_ota.button_action)
+                self.modal_ota.button_action.add_event_cb(lambda e: run_async(download_rinkhals_update) if self.modal_ota.latest_version != RINKHALS_VERSION else lambda e: run_async(check_rinkhals_update), lv.EVENT_CODE.CLICKED, None)
             else:
-                self.layer_ota.label_rinkhals_latest.set_text('-')
-                self.layer_ota.button_action_label.set_text('Refresh')
+                self.modal_ota.label_rinkhals_latest.set_text('-')
+                self.modal_ota.button_action_label.set_text('Refresh')
                 
-                lvr.obj_clear_event_cb(self.layer_ota.button_action)
-                self.layer_ota.button_action.add_event_cb(lambda: run_async(check_rinkhals_update), lv.EVENT_CODE.CLICKED, None)
+                lvr.obj_clear_event_cb(self.modal_ota.button_action)
+                self.modal_ota.button_action.add_event_cb(lambda: run_async(check_rinkhals_update), lv.EVENT_CODE.CLICKED, None)
             lv.unlock()
 
         run_async(check_rinkhals_update)
 
+    def show_screen(self, screen):
+        screen.move_foreground()
+        if screen == self.screen_main: self.layout_main()
+        if screen == self.screen_apps: self.layout_apps()
+    def show_app(self, app):
+        self.show_screen(self.screen_app)
+        self.layout_app(app)
+    def show_app_settings(self, app):
+        self.show_screen(self.screen_app_settings)
+        self.layout_app_settings(app)
     def show_text_dialog(self, text, action='OK', action_color=None, callback=None):
-        self.layer_dialog.callback_action = callback
+        def action_callback(callback=callback):
+            if callback:
+                callback()
+            hide_dialog()
+        def hide_dialog():
+            self.modal_dialog.add_flag(lv.OBJ_FLAG.HIDDEN)
+            self.layer_modal.add_flag(lv.OBJ_FLAG.HIDDEN)
 
-        self.layer_dialog.message.set_text(text)
-        self.layer_dialog.message.remove_flag(lv.OBJ_FLAG.HIDDEN)
-        self.layer_dialog.qrcode.add_flag(lv.OBJ_FLAG.HIDDEN)
-        self.layer_dialog.button_action_label.set_text(action)
-        self.layer_dialog.button_action_label.set_style_text_color(action_color if action_color else lvr.COLOR_TEXT, lv.STATE_DEFAULT)
+        self.modal_dialog.message.set_text(text)
+        self.modal_dialog.message.remove_flag(lv.OBJ_FLAG.HIDDEN)
+        self.modal_dialog.panel_qrcode.add_flag(lv.OBJ_FLAG.HIDDEN)
+        self.modal_dialog.button_action.set_text(action)
+        self.modal_dialog.button_action.set_style_text_color(action_color if action_color else lvr.COLOR_TEXT, lv.STATE.DEFAULT)
 
-        self.layer_dialog.remove_flag(lv.OBJ_FLAG.HIDDEN)
-        self.layer_dialog.move_foreground()
+        self.modal_dialog.button_action.clear_event_cb()
+        self.modal_dialog.button_action.add_event_cb(lambda e: action_callback(), lv.EVENT_CODE.CLICKED, None)
+        self.layer_modal.clear_event_cb()
+        self.layer_modal.add_event_cb(lambda e: hide_dialog(), lv.EVENT_CODE.CLICKED, None)
+
+        self.modal_dialog.remove_flag(lv.OBJ_FLAG.HIDDEN)
+        self.layer_modal.remove_flag(lv.OBJ_FLAG.HIDDEN)
+        self.layer_modal.move_foreground()
     def show_qr_dialog(self, content, text=None):
-        if text:
-            self.layer_dialog.message.set_text(text)
-            self.layer_dialog.message.remove_flag(lv.OBJ_FLAG.HIDDEN)
-        else:
-            self.layer_dialog.message.add_flag(lv.OBJ_FLAG.HIDDEN)
-        self.layer_dialog.qrcode.remove_flag(lv.OBJ_FLAG.HIDDEN)
-        self.layer_dialog.qrcode.update(content)
-        self.layer_dialog.button_action_label.set_text('OK')
-        self.layer_dialog.button_action_label.set_style_text_color(lvr.COLOR_TEXT, lv.STATE_DEFAULT)
+        def hide_dialog():
+            self.modal_dialog.add_flag(lv.OBJ_FLAG.HIDDEN)
+            self.layer_modal.add_flag(lv.OBJ_FLAG.HIDDEN)
 
-        self.layer_dialog.remove_flag(lv.OBJ_FLAG.HIDDEN)
-        self.layer_dialog.move_foreground()
+        if text:
+            self.modal_dialog.message.set_text(text)
+            self.modal_dialog.message.remove_flag(lv.OBJ_FLAG.HIDDEN)
+        else:
+            self.modal_dialog.message.add_flag(lv.OBJ_FLAG.HIDDEN)
+
+        self.modal_dialog.panel_qrcode.remove_flag(lv.OBJ_FLAG.HIDDEN)
+        self.modal_dialog.qrcode.update(content)
+        self.modal_dialog.button_action.set_text('OK')
+        self.modal_dialog.button_action.set_style_text_color(lvr.COLOR_TEXT, lv.STATE.DEFAULT)
+
+        self.modal_dialog.button_action.clear_event_cb()
+        self.modal_dialog.button_action.add_event_cb(lambda e: hide_dialog(), lv.EVENT_CODE.CLICKED, None)
+        self.layer_modal.clear_event_cb()
+        self.layer_modal.add_event_cb(lambda e: hide_dialog(), lv.EVENT_CODE.CLICKED, None)
+
+        self.modal_dialog.remove_flag(lv.OBJ_FLAG.HIDDEN)
+        self.layer_modal.remove_flag(lv.OBJ_FLAG.HIDDEN)
+        self.layer_modal.move_foreground()
+    def show_selection_dialog(self, options, select_callback=None):
+        def hide_dialog():
+            self.modal_selection.add_flag(lv.OBJ_FLAG.HIDDEN)
+            self.layer_modal.add_flag(lv.OBJ_FLAG.HIDDEN)
+
+        if self.modal_selection.panel_selection:
+            self.modal_selection.panel_selection.delete()
+
+        self.modal_selection.panel_selection = lvr.panel(self.modal_selection)
+        self.modal_selection.panel_selection.set_style_pad_all(0, lv.STATE.DEFAULT)
+        self.modal_selection.panel_selection.set_size(lv.pct(100), lv.SIZE_CONTENT)
+        self.modal_selection.panel_selection.set_flex_flow(lv.FLEX_FLOW.ROW_WRAP)
+        self.modal_selection.panel_selection.set_flex_align(lv.FLEX_ALIGN.CENTER, lv.FLEX_ALIGN.CENTER, lv.FLEX_ALIGN.CENTER)
+
+        label_title = lvr.title(self.modal_selection.panel_selection)
+        label_title.set_text('Select an option')
+        label_title.set_align(lv.ALIGN.TOP_MID)
+        label_title.set_style_margin_bottom(lvr.GLOBAL_PADDING, lv.STATE.DEFAULT)
+
+        panel_options = lvr.panel(self.modal_selection.panel_selection)
+        panel_options.set_style_pad_all(0, lv.STATE.DEFAULT)
+        panel_options.set_size(lv.pct(100), lv.SIZE_CONTENT)
+        panel_options.set_style_max_height(lv.dpx(300), lv.STATE.DEFAULT)
+        panel_options.set_flex_flow(lv.FLEX_FLOW.ROW_WRAP)
+        panel_options.set_flex_align(lv.FLEX_ALIGN.START, lv.FLEX_ALIGN.CENTER, lv.FLEX_ALIGN.CENTER)
+
+        for option in options:
+            def select_option_cb(e, option=option):
+                hide_dialog()
+                if select_callback:
+                    select_callback(option)
+
+            button_option = lvr.button(panel_options)
+            button_option.set_width(lv.SIZE_CONTENT)
+            button_option.set_text(option)
+            button_option.add_event_cb(select_option_cb, lv.EVENT_CODE.CLICKED, None)
+
+        self.layer_modal.clear_event_cb()
+        self.layer_modal.add_event_cb(lambda e: hide_dialog(), lv.EVENT_CODE.CLICKED, None)
+
+        self.modal_selection.remove_flag(lv.OBJ_FLAG.HIDDEN)
+        self.layer_modal.remove_flag(lv.OBJ_FLAG.HIDDEN)
+        self.layer_modal.move_foreground()
 
     def enable_app(self, app):
-        if isinstance(app, lv.event):
-            app = app.get_user_data()
         logging.info(f'Enabling {app}...')
         enable_app(app)
         self.layout_app(app)
     def disable_app(self, app):
-        if isinstance(app, lv.event):
-            app = app.get_user_data()
         logging.info(f'Disabling {app}...')
         disable_app(app)
         self.layout_app(app)
     def start_app(self, app):
-        if isinstance(app, lv.event):
-            app = app.get_user_data()
         logging.info(f'Starting {app}...')
         start_app(app, 5)
         self.layout_app(app)
     def stop_app(self, app):
-        if isinstance(app, lv.event):
-            app = app.get_user_data()
         logging.info(f'Stopping {app}...')
         stop_app(app)
         self.layout_app(app)

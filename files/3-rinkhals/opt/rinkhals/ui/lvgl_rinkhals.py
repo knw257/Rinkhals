@@ -78,6 +78,7 @@ if style_button:
     style_button.set_height(lv.dpx(65))
     style_button.set_min_width(lv.dpx(65))
     style_button.set_text_align(lv.TEXT_ALIGN.CENTER)
+    style_button.set_width(lv.SIZE_CONTENT)
 
 style_button_icon = lv.style()
 if style_button_icon:
@@ -117,46 +118,59 @@ if style_checkbox:
 # Styled objects
 def screen():
     result = lv.obj(None)
-    result.add_style(style_screen, lv.STATE_DEFAULT)
-    result.add_style(style_debug, lv.STATE_DEFAULT)
+    result.add_style(style_screen, lv.STATE.DEFAULT)
+    result.add_style(style_debug, lv.STATE.DEFAULT)
     return result
 
 def panel(parent):
     result = lv.obj(parent)
-    result.add_style(style_panel, lv.STATE_DEFAULT)
-    result.add_style(style_debug, lv.STATE_DEFAULT)
-    return result
-
-def button(parent):
-    result = lv.button(parent)
-    result.add_style(style_button, lv.STATE_DEFAULT)
-    result.add_style(style_button_pressed, lv.STATE_PRESSED)
-    result.add_style(style_button_disabled, lv.STATE_DISABLED)
-    result.add_style(style_debug, lv.STATE_DEFAULT)
-
+    result.add_style(style_panel, lv.STATE.DEFAULT)
+    result.add_style(style_debug, lv.STATE.DEFAULT)
+    
     def clear_event_cb():
         obj_clear_event_cb(result)
     result.clear_event_cb = clear_event_cb
 
     return result
 
+def button(parent):
+    result = lv.button(parent)
+    result.add_style(style_button, lv.STATE.DEFAULT)
+    result.add_style(style_button_pressed, lv.STATE.PRESSED)
+    result.add_style(style_button_disabled, lv.STATE.DISABLED)
+    result.add_style(style_debug, lv.STATE.DEFAULT)
+    
+    result_label = lv.label(result)
+    result_label.set_text('')
+    result_label.center()
+
+    def clear_event_cb():
+        obj_clear_event_cb(result)
+    result.clear_event_cb = clear_event_cb
+
+    def set_text(text):
+        result_label.set_text(text)
+    result.set_text = set_text
+
+    return result
+
 def button_icon(parent):
     result = button(parent)
-    result.add_style(style_button_icon, lv.STATE_DEFAULT)
-    result.add_style(style_debug, lv.STATE_DEFAULT)
+    result.add_style(style_button_icon, lv.STATE.DEFAULT)
+    result.add_style(style_debug, lv.STATE.DEFAULT)
     return result
 
 def checkbox(parent):
     result = button(parent)
-    result.add_style(style_checkbox, lv.STATE_DEFAULT)
-    result.add_style(style_debug, lv.STATE_DEFAULT)
+    result.add_style(style_checkbox, lv.STATE.DEFAULT)
+    result.add_style(style_debug, lv.STATE.DEFAULT)
 
     result_label = lv.label(result)
     result_label.center()
     result_label.set_text('')
 
     def set_checked(enabled):
-        result.set_style_text_opa(lv.OPA_COVER if enabled else lv.OPA_TRANSP, lv.STATE_DEFAULT)
+        result.set_style_text_opa(lv.OPA.COVER if enabled else lv.OPA.TRANSP, lv.STATE.DEFAULT)
     result.set_checked = set_checked
 
     def set_text(text):
@@ -167,33 +181,33 @@ def checkbox(parent):
 
 def image(parent):
     result = lv.image(parent)
-    result.add_style(style_debug, lv.STATE_DEFAULT)
+    result.add_style(style_debug, lv.STATE.DEFAULT)
     return result
 
 def label(parent):
     result = lv.label(parent)
-    result.add_style(style_label_text, lv.STATE_DEFAULT)
-    result.add_style(style_debug, lv.STATE_DEFAULT)
+    result.add_style(style_label_text, lv.STATE.DEFAULT)
+    result.add_style(style_debug, lv.STATE.DEFAULT)
     result.set_long_mode(lv.LABEL_LONG_MODE.CLIP)
     return result
 
 def title(parent):
     result = lv.label(parent)
-    result.add_style(style_label_title, lv.STATE_DEFAULT)
-    result.add_style(style_debug, lv.STATE_DEFAULT)
+    result.add_style(style_label_title, lv.STATE.DEFAULT)
+    result.add_style(style_debug, lv.STATE.DEFAULT)
     return result
 
 def subtitle(parent):
     result = lv.label(parent)
-    result.add_style(style_label_subtitle, lv.STATE_DEFAULT)
-    result.add_style(style_debug, lv.STATE_DEFAULT)
+    result.add_style(style_label_subtitle, lv.STATE.DEFAULT)
+    result.add_style(style_debug, lv.STATE.DEFAULT)
     result.set_long_mode(lv.LABEL_LONG_MODE.CLIP)
     return result
 
 def title_bar(parent):
     result = panel(parent)
-    result.add_style(style_title_bar, lv.STATE_DEFAULT)
-    result.add_style(style_debug, lv.STATE_DEFAULT)
+    result.add_style(style_title_bar, lv.STATE.DEFAULT)
+    result.add_style(style_debug, lv.STATE.DEFAULT)
     return result
 
 def flex_container(parent, flow = lv.FLEX_FLOW.COLUMN, align = lv.FLEX_ALIGN.START):
@@ -202,13 +216,13 @@ def flex_container(parent, flow = lv.FLEX_FLOW.COLUMN, align = lv.FLEX_ALIGN.STA
     result.set_flex_align(lv.FLEX_ALIGN.START, align, align)
 
     if flow == lv.FLEX_FLOW.COLUMN:
-        result.set_style_pad_left(GLOBAL_PADDING, lv.STATE_DEFAULT)
-        result.set_style_pad_right(GLOBAL_PADDING, lv.STATE_DEFAULT)
-        result.set_style_pad_row(GLOBAL_PADDING, lv.STATE_DEFAULT)
+        result.set_style_pad_left(GLOBAL_PADDING, lv.STATE.DEFAULT)
+        result.set_style_pad_right(GLOBAL_PADDING, lv.STATE.DEFAULT)
+        result.set_style_pad_row(GLOBAL_PADDING, lv.STATE.DEFAULT)
     elif flow == lv.FLEX_FLOW.ROW:
-        result.set_style_pad_top(GLOBAL_PADDING, lv.STATE_DEFAULT)
-        result.set_style_pad_bottom(GLOBAL_PADDING, lv.STATE_DEFAULT)
-        result.set_style_pad_column(GLOBAL_PADDING, lv.STATE_DEFAULT)
+        result.set_style_pad_top(GLOBAL_PADDING, lv.STATE.DEFAULT)
+        result.set_style_pad_bottom(GLOBAL_PADDING, lv.STATE.DEFAULT)
+        result.set_style_pad_column(GLOBAL_PADDING, lv.STATE.DEFAULT)
 
     return result
 
