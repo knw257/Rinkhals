@@ -168,12 +168,12 @@ class Program:
 
         self.screen_welcome = lvr.screen()
         if self.screen_welcome:
-            self.screen_welcome.set_style_bg_grad(gradient, lv.STATE_DEFAULT)
-            self.screen_welcome.set_style_bg_opa(lv.OPA_COVER, lv.STATE_DEFAULT)
+            self.screen_welcome.set_style_bg_grad(gradient, lv.STATE.DEFAULT)
+            self.screen_welcome.set_style_bg_opa(lv.OPA.COVER, lv.STATE.DEFAULT)
 
             self.screen_welcome.set_flex_flow(lv.FLEX_FLOW.COLUMN)
             self.screen_welcome.set_flex_align(lv.FLEX_ALIGN.CENTER, lv.FLEX_ALIGN.CENTER, lv.FLEX_ALIGN.CENTER)
-            self.screen_welcome.set_style_pad_row(lv.dpx(25), lv.STATE_DEFAULT)
+            self.screen_welcome.set_style_pad_row(lv.dpx(25), lv.STATE.DEFAULT)
 
             image_rinkhals = lvr.image(self.screen_welcome)
             image_rinkhals.set_src(SCRIPT_PATH + '/icon.png')
@@ -184,19 +184,19 @@ class Program:
 
             button_start = lvr.button(self.screen_welcome)
             button_start.set_width(lv.dpx(200))
-            button_start.set_style_margin_top(lv.dpx(20), lv.STATE_DEFAULT)
+            button_start.set_style_margin_top(lv.dpx(20), lv.STATE.DEFAULT)
             button_start.add_event_cb(lambda e: self.show_screen(self.screen_main), lv.EVENT_CODE.CLICKED, None)
             button_start_label = lvr.label(button_start)
             button_start_label.set_text('Continue')
             button_start_label.center()
 
             def anim_1_cb(o, value, image_rinkhals=image_rinkhals, label_title=label_title):
-                image_rinkhals.set_style_opa(value * 255 // 100, lv.STATE_DEFAULT)
-                image_rinkhals.set_style_margin_top(-lv.dpx(int((100 - value) * 1.6)), lv.STATE_DEFAULT)
-                label_title.set_style_opa(value * 255 // 100, lv.STATE_DEFAULT)
+                image_rinkhals.set_style_opa(value * 255 // 100, lv.STATE.DEFAULT)
+                image_rinkhals.set_style_margin_top(-lv.dpx(int((100 - value) * 1.6)), lv.STATE.DEFAULT)
+                label_title.set_style_opa(value * 255 // 100, lv.STATE.DEFAULT)
 
             def anim_2_cb(o, value, button_start=button_start):
-                button_start.set_style_opa(value * 255 // 100, lv.STATE_DEFAULT)
+                button_start.set_style_opa(value * 255 // 100, lv.STATE.DEFAULT)
 
             anim_1 = lv.anim()
             anim_1.set_exec_cb(anim_1_cb)
@@ -214,8 +214,8 @@ class Program:
 
         self.screen_main = lvr.screen()
         if self.screen_main:
-            self.screen_main.set_style_bg_grad(gradient, lv.STATE_DEFAULT)
-            self.screen_main.set_style_bg_opa(lv.OPA_COVER, lv.STATE_DEFAULT)
+            self.screen_main.set_style_bg_grad(gradient, lv.STATE.DEFAULT)
+            self.screen_main.set_style_bg_opa(lv.OPA.COVER, lv.STATE.DEFAULT)
             self.screen_main.set_flex_flow(lv.FLEX_FLOW.COLUMN)
             self.screen_main.set_flex_align(lv.FLEX_ALIGN.START, lv.FLEX_ALIGN.CENTER, lv.FLEX_ALIGN.CENTER)
 
@@ -234,8 +234,8 @@ class Program:
             panel_tags = lvr.panel(self.screen_main)
             panel_tags.set_width(lv.pct(100))
             panel_tags.set_align(lv.ALIGN.BOTTOM_MID)
-            panel_tags.set_style_bg_opa(lv.OPA_TRANSP, lv.STATE_DEFAULT)
-            panel_tags.set_style_pad_all(0, lv.STATE_DEFAULT)
+            panel_tags.set_style_bg_opa(lv.OPA.TRANSP, lv.STATE.DEFAULT)
+            panel_tags.set_style_pad_all(0, lv.STATE.DEFAULT)
             panel_tags.set_flex_flow(lv.FLEX_FLOW.COLUMN)
             panel_tags.set_flex_align(lv.FLEX_ALIGN.START, lv.FLEX_ALIGN.CENTER, lv.FLEX_ALIGN.CENTER)
 
